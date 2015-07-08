@@ -37,49 +37,34 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="忘記密碼?"
         android:id="@+id/textView3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="29dp"
         android:textColor="#ff0000ff"
-        android:onClick="forgetpassword" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="MySOP"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textColor="#ffff3f2f"
-        android:textSize="48dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Make life easier"
-        android:id="@+id/textView2"
-        android:layout_marginTop="120dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
-        android:textIsSelectable="true"
-        android:textColor="#ffff3f2f" />
+        android:onClick="forgetpassword"
+        android:layout_above="@+id/button"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="登入"
         android:id="@+id/button"
         android:textColor="#ffffffff"
         android:background="#ffff3f2f"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="46dp"
 
+        android:onClick="errortest"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false"
-        android:onClick="errortest" />
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/Logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/editText" />
 
 </RelativeLayout>

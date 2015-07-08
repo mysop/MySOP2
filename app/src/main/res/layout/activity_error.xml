@@ -12,7 +12,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="噢天啊...無法登入耶"
         android:id="@+id/textView"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textColor="#ff6c6c6c"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
@@ -26,24 +26,24 @@
         android:textSize="18dp"
         android:textIsSelectable="true"
         android:textColor="#ff8e8e8e"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
         android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="110dp"
-        android:gravity="center"/>
+        android:layout_alignStart="@+id/button"
+        android:layout_alignEnd="@+id/button" />
 
     <Button
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="再試一次"
         android:id="@+id/button"
         android:textColor="#ffffffff"
         android:background="#ffff3f2f"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="54dp"
 
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false" />
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="88dp"
         android:src="@drawable/errorpic" />
 
 </RelativeLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MySOP</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_emailverify">emailverify</string>
+    <string name="title_activity_error">Error</string>
+    <string name="title_activity_forget">Forget</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>

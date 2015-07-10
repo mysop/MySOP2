@@ -4,14 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".login"
-    android:id="@+id/">
+    android:id="@+id/Login">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView4"
         android:layout_alignParentTop="true"
-        android:src="@drawable/Label_1"
+        android:src="@drawable/lb1"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 

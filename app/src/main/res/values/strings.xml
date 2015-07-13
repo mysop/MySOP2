@@ -7,4 +7,17 @@
     <string name="title_activity_error">Error</string>
     <string name="title_activity_forget">Forget</string>
     <string name="title_activity_main">MainActivity</string>
+
+
+
+    <string name="Login_email">電子信箱</string>
+    <string name="Login_passward">密碼</string>
+
+
+    <string name="Register_InputEmail">輸入信箱</string>
+    <string name="Register_InputPassword">輸入密碼</string>
+    <string name="Register_ConfirmPassword">確認密碼</string>
+    <string name="Register_Name">名稱</string>
+
+
 </resources>

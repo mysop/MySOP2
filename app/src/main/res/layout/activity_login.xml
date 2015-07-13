@@ -16,8 +16,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:hint="電子信箱"
-        android:gravity="center"/>
+        android:hint="@string/Login_email"
+        android:gravity="center" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="160dp"
         android:layout_alignEnd="@+id/editText"
-        android:hint="密碼"
+        android:hint="@string/Login_passward"
         android:gravity="center"/>
 
     <TextView

@@ -32,6 +32,10 @@
             android:name=".Login"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity
+            android:name=".ChangePasswordError"
+            android:label="@string/title_activity_change_password_error" >
+        </activity>
     </application>
 
 </manifest>

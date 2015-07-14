@@ -33,8 +33,13 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".Changepassword"
             android:label="@string/title_activity_changepassword" >
+=======
+            android:name=".ChangePasswordError"
+            android:label="@string/title_activity_change_password_error" >
+>>>>>>> origin/master
         </activity>
     </application>
 

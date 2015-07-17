@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Emailverify"
             android:label="@string/title_activity_emailverify" >
@@ -34,16 +33,17 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-
             android:name=".Changepassword"
             android:label="@string/title_activity_changepassword" >
         </activity>
-
         <activity
             android:name=".ChangePasswordError"
             android:label="@string/title_activity_change_password_error" >
         </activity>
-
+        <activity
+            android:name=".EmailVertifyError"
+            android:label="@string/title_activity_email_vertify_error" >
+        </activity>
     </application>
 
 </manifest>

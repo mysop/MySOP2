@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class ChangePasswordError extends Activity {
+public class EmailVertifyError extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password_error);
+        setContentView(R.layout.activity_email_vertify_error);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_change_password_error, menu);
+        getMenuInflater().inflate(R.menu.menu_email_vertify_error, menu);
         return true;
     }
 
@@ -38,9 +38,9 @@ public class ChangePasswordError extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void backTochangepassword (View v){
-        Intent it = new Intent(this,Changepassword.class);
+
+    public void backToEmailVerify(View v){
+        Intent it = new Intent(this,Emailverify.class);
         startActivity(it);
     }
-
 }

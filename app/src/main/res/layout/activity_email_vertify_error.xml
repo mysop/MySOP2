@@ -4,13 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.kelly.mysop.ChangePasswordError">
+    tools:context="com.example.kelly.mysop.EmailVertifyError">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="噢天啊...原密碼錯誤"
+        android:text="噢天啊...驗證碼錯誤"
         android:id="@+id/textView"
         android:textSize="25dp"
         android:textColor="#ff6c6c6c"
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="您的原密碼輸入錯誤\n請再試一次"
+        android:text="您的驗證碼錯誤\n請再試一次"
         android:id="@+id/textView2"
         android:textSize="18dp"
         android:textIsSelectable="true"
@@ -44,7 +45,7 @@
         android:textSize="25dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="backTochangepassword" />
+        android:onClick="backToEmailVerify" />
 
     <ImageView
         android:layout_width="wrap_content"

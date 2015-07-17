@@ -25,6 +25,7 @@
     <string name="Changepassward_Confirmnewpassward">再輸入一次新密碼</string>
 
     <string name="title_activity_change_password_error">ChangePasswordError</string>
+    <string name="title_activity_email_vertify_error">EmailVertifyError</string>
 
 
 

@@ -7,7 +7,7 @@
     tools:context="com.example.mysop.myapplication.emailverify"
     android:orientation="vertical">
 
-    <TextView android:text="驗證" android:layout_width="wrap_content"
+    <TextView android:text="驗證碼" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
         android:id="@+id/verify_title"
@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MySOP將發一封驗證信給您，請到您的信箱，收到驗證信後，並點開驗證信中的連結，如果您沒有收到我們的信件，請按「重寄」，我們會寄一封新的給您，或是按確認以回到登入頁。"
+        android:text="MySOP將發一封驗證信給您，請到您的信箱，收到驗證信後，輸入信中的驗證碼，如果您沒有收到我們的信件，請按「重寄」，我們會寄一封新的給您，或是按確認以回到登入頁。"
         android:id="@+id/textView3"
         android:textSize="18dp"
         android:layout_marginTop="46dp"
@@ -47,8 +47,23 @@
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/textView3"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="59dp" />
+        android:layout_marginBottom="61dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:textSize="18dp"
+        android:hint="輸入驗證碼"
+        android:singleLine="false"
+        android:gravity="center"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="39dp"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 public class Login extends Activity {
 
-
+    JSONParser jParser = new JSONParser();
+    private static String url_login = "http://140.115.80.237/mysop/LoginServlet";
     private EditText et1;
     private EditText et2;
     String strHint1;

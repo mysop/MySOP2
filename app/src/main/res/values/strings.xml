@@ -26,6 +26,7 @@
 
     <string name="title_activity_change_password_error">ChangePasswordError</string>
     <string name="title_activity_email_vertify_error">EmailVertifyError</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 
 

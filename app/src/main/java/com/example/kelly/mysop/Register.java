@@ -145,7 +145,11 @@ public class Register extends Activity {
                 finish();
             } else {
                 // failed to create product
+                Intent i = new Intent(getApplicationContext(),RegisterError.class);
+                startActivity(i);
 
+                // closing this screen
+                finish();
 
 
             }

@@ -81,9 +81,9 @@
         android:background="#ffff3f2f"
         android:textColor="#ffffff"
         android:textSize="25dp"
-        android:onClick="check"
         android:layout_marginTop="38dp"
         android:layout_below="@+id/Name"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="register_check" />
 
 </RelativeLayout>

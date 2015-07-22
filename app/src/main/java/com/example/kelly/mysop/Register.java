@@ -1,6 +1,7 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,14 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Register extends Activity {
@@ -23,6 +32,10 @@ public class Register extends Activity {
     String strHint2;
     String strHint3;
     String strHint4;
+
+    JSONParser jsonParser = new JSONParser();
+    private static String url_create_product = "http://localhost/android_connect/create_product.php";
+    private static final String TAG_SUCCESS = "success";
 
 
     @Override
@@ -97,5 +110,48 @@ public class Register extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void register_check(View view) {
+
+
+        String Email = et1.getText().toString();
+        String Password = et2.getText().toString();
+        String ConfirmPassword = et3.getText().toString();
+        String Name = et4.getText().toString();
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Email", Email));
+        params.add(new BasicNameValuePair("Password", Password));
+        params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
+        params.add(new BasicNameValuePair("Name", Name));
+
+        // getting JSON Object
+        // Note that create product url accepts POST method
+        JSONObject json = jsonParser.makeHttpRequest(url_create_product,"POST",params);
+
+
+        try {
+            int success = json.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // successfully created product
+                Intent i = new Intent(getApplicationContext(),Emailverify.class);
+                startActivity(i);
+
+                // closing this screen
+                finish();
+            } else {
+                // failed to create product
+
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

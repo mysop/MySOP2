@@ -3,6 +3,7 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.text.Editable;
@@ -131,6 +132,10 @@ public class Register extends Activity {
         // getting JSON Object
         // Note that create product url accepts POST method
         JSONObject json = jsonParser.makeHttpRequest(url_create_product,"POST",params);
+
+
+        // check log cat fro response
+        Log.d("Create Response", json.toString());
 
 
         try {

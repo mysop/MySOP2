@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.kelly.mysop.RegisterError">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="噢天啊...無法註冊耶"
+        android:id="@+id/textView"
+        android:textSize="25dp"
+        android:textColor="#ff6c6c6c"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="帳密不合規定\n請再試一次"
+        android:id="@+id/textView2"
+        android:textSize="18dp"
+        android:textIsSelectable="true"
+        android:textColor="#ff8e8e8e"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:layout_above="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignEnd="@+id/button" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:text="再試一次"
+        android:id="@+id/button"
+        android:textColor="#ffffffff"
+        android:background="#ffff3f2f"
+        android:layout_marginBottom="54dp"
+
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="backToRegister" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
+        android:src="@drawable/errorpic" />
+
+</RelativeLayout>

@@ -34,7 +34,7 @@ public class Register extends Activity {
     String strHint4;
 
     JSONParser jsonParser = new JSONParser();
-    private static String url_create_product = "http://localhost/android_connect/create_product.php";
+    private static String url_create_product = "http://localhost:8080/kelly/mysop-register.jsp";
     private static final String TAG_SUCCESS = "success";
 
 

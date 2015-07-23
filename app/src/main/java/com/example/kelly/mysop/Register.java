@@ -1,7 +1,9 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,7 +26,7 @@ import java.util.List;
 
 public class Register extends Activity {
 
-
+    private ProgressDialog pDialog;
     private EditText et1;
     private EditText et2;
     private EditText et3;
@@ -113,54 +115,54 @@ public class Register extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void register_check(View view){
+            (Register.this.new CreateAccount()).execute(new String[0]);
+        }
 
-    public void register_check(View view) {
+class CreateAccount extends AsyncTask<String, String, String> {
+    CreateAccount() {
+    }
 
+    protected void onPreExecute() {
+        super.onPreExecute();
+        Register.this.pDialog = new ProgressDialog(Register.this);
+        Register.this.pDialog.setMessage("Creating Account..");
+        Register.this.pDialog.setIndeterminate(false);
+        Register.this.pDialog.setCancelable(true);
+        Register.this.pDialog.show();
+    }
 
-        String Email = et1.getText().toString();
-        String Password = et2.getText().toString();
-        String ConfirmPassword = et3.getText().toString();
-        String Name = et4.getText().toString();
-
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
+    protected String doInBackground(String... args) {
+        String Email = Register.this.et1.getText().toString();
+        String Password = Register.this.et2.getText().toString();
+        String ConfirmPassword = Register.this.et3.getText().toString();
+        String Name = Register.this.et4.getText().toString();
+        ArrayList params = new ArrayList();
         params.add(new BasicNameValuePair("Email", Email));
         params.add(new BasicNameValuePair("Password", Password));
         params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
         params.add(new BasicNameValuePair("Name", Name));
-
-        // getting JSON Object
-        // Note that create product url accepts POST method
-        JSONObject json = jsonParser.makeHttpRequest(url_create_product,"POST",params);
-
-
-        // check log cat fro response
+        JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
         Log.d("Create Response", json.toString());
 
-
         try {
-            int success = json.getInt(TAG_SUCCESS);
-
-            if (success == 1) {
-                // successfully created product
-                Intent i = new Intent(getApplicationContext(),Emailverify.class);
-                startActivity(i);
-
-                // closing this screen
-                finish();
-            } else {
-                // failed to create product
-                Intent i = new Intent(getApplicationContext(),RegisterError.class);
-                startActivity(i);
-
-                // closing this screen
-                finish();
-
-
+            int e = json.getInt("success");
+            if(e == 1) {
+                Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
+                Register.this.startActivity(i);
+                Register.this.finish();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException var9) {
+            var9.printStackTrace();
         }
 
+        return null;
     }
+
+    protected void onPostExecute(String file_url) {
+        Register.this.pDialog.dismiss();
+    }
+   }
 }
+
+

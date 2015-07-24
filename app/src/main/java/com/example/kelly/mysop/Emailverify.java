@@ -26,7 +26,7 @@ public class Emailverify extends Activity {
 
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-    private static String url = "http://140.115.80.237/front/mysop-captcha.jsp";
+    private static String url = "http://140.115.80.237/front/mysop_captcha.jsp";
     private static final String TAG_SUCCESS = "success";
     private EditText InputEmailVerify;
 
@@ -35,6 +35,7 @@ public class Emailverify extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailverify);
+        InputEmailVerify = (EditText) findViewById(R.id.editText3);
 
     }
 

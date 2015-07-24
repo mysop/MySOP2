@@ -119,50 +119,51 @@ public class Register extends Activity {
             (Register.this.new CreateAccount()).execute(new String[0]);
         }
 
-class CreateAccount extends AsyncTask<String, String, String> {
-    CreateAccount() {
-    }
+    class CreateAccount extends AsyncTask<String, String, String> {
+        CreateAccount() {}
 
-    protected void onPreExecute() {
-        super.onPreExecute();
-        Register.this.pDialog = new ProgressDialog(Register.this);
-        Register.this.pDialog.setMessage("Creating Account..");
-        Register.this.pDialog.setIndeterminate(false);
-        Register.this.pDialog.setCancelable(true);
-        Register.this.pDialog.show();
-    }
-
-    protected String doInBackground(String... args) {
-        String Email = Register.this.et1.getText().toString();
-        String Password = Register.this.et2.getText().toString();
-        String ConfirmPassword = Register.this.et3.getText().toString();
-        String Name = Register.this.et4.getText().toString();
-        ArrayList params = new ArrayList();
-        params.add(new BasicNameValuePair("Email", Email));
-        params.add(new BasicNameValuePair("Password", Password));
-        params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
-        params.add(new BasicNameValuePair("Name", Name));
-        JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
-        Log.d("Create Response", json.toString());
-
-        try {
-            int e = json.getInt("success");
-            if(e == 1) {
-                Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
-                Register.this.startActivity(i);
-                Register.this.finish();
-            }
-        } catch (JSONException var9) {
-            var9.printStackTrace();
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Register.this.pDialog = new ProgressDialog(Register.this);
+            Register.this.pDialog.setMessage("Creating Account...");
+            Register.this.pDialog.setIndeterminate(false);
+            Register.this.pDialog.setCancelable(true);
+            Register.this.pDialog.show();
         }
 
-        return null;
-    }
+        protected String doInBackground(String... args) {
+            String Email = Register.this.et1.getText().toString();
+            String Password = Register.this.et2.getText().toString();
+            String ConfirmPassword = Register.this.et3.getText().toString();
+            String Name = Register.this.et4.getText().toString();
+            ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("Email", Email));
+            params.add(new BasicNameValuePair("Password", Password));
+            params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
+            params.add(new BasicNameValuePair("Name", Name));
+            JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
+            Log.d("Create Response", json.toString());
 
-    protected void onPostExecute(String file_url) {
+            try {
+                int e = json.getInt("success");
+                if(e == 1) {
+                    Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
+                    Register.this.startActivity(i);
+                    Register.this.finish();
+                }else if(e == 2){
+
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
         Register.this.pDialog.dismiss();
     }
-   }
+    }
 }
 
 

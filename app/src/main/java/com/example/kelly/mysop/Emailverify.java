@@ -1,7 +1,9 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,9 +23,9 @@ import java.util.List;
 
 public class Emailverify extends Activity {
 
-
-    JSONParser jParser = new JSONParser();
-    private static String url_all_products = "http://localhost:8080/kelly/test-getall.jsp";
+    private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    private static String url = "http://localhost:8080/kelly/test-getall.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_EMAILVERIFY = "emailverify";
     private EditText InputEmailVerify;
@@ -60,47 +63,58 @@ public class Emailverify extends Activity {
 
     public void emailverify_check(View view) {
 
-        // Building Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        // getting JSON string from URL
-        JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
+        (Emailverify.this.new CreateAccount()).execute(new String[0]);
+    }
 
-        // Check your log cat for JSON reponse
-        Log.d("All Products: ", json.toString());
-
-        InputEmailVerify = (EditText) findViewById(R.id.editText3);
-        String EmailVerify = InputEmailVerify.getText().toString();
-
-        try {
-            // Checking for SUCCESS TAG
-            int success = json.getInt(TAG_SUCCESS);
-
-            if (success == 1) {
-                String Emailverify = json.getString(TAG_EMAILVERIFY);
-
-                if(Emailverify == EmailVerify){
-
-                    //成功
-
-
-
-                }else{
-                    Intent i = new Intent(getApplicationContext(),EmailVertifyError.class);
-                    // Closing all previous activities
-                    startActivity(i);
-                }
-
-                finish();
-            }else {
-
-                //也失敗
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    class CreateAccount extends AsyncTask<String, String, String> {
+        CreateAccount() {
         }
 
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Emailverify.this.pDialog = new ProgressDialog(Emailverify.this);
+            Emailverify.this.pDialog.setMessage("verifying...");
+            Emailverify.this.pDialog.setIndeterminate(false);
+            Emailverify.this.pDialog.setCancelable(true);
+            Emailverify.this.pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+            String InputEmailVerify =  Emailverify.this.InputEmailVerify.getText().toString();
+
+            ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("EmailVerify", InputEmailVerify));
+
+            JSONObject json = Emailverify.this.jsonParser.makeHttpRequest(Emailverify.url, "POST", params);
+            Log.d("Create Response", json.toString());
+
+            try {
+                int e = json.getInt("success");
+                if(e == 1) {
+/*                    Intent i = new Intent(Emailverify.this.getApplicationContext(), Emailverify.class);
+                    Emailverify.this.startActivity(i);
+                    Emailverify.this.finish(); */
+                    Emailverify.this.pDialog.setMessage("CORRECT!");
+                    Emailverify.this.pDialog.setIndeterminate(false);
+                    Emailverify.this.pDialog.setCancelable(true);
+                    Emailverify.this.pDialog.show();
 
 
+                }else if(e == 2){
+                    Intent i = new Intent(Emailverify.this.getApplicationContext(), EmailVertifyError.class);
+                    Emailverify.this.startActivity(i);
+                    Emailverify.this.finish();
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            Emailverify.this.pDialog.dismiss();
+        }
     }
 }
+

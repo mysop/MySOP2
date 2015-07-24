@@ -1,6 +1,7 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -37,8 +38,9 @@ public class Register extends Activity {
     String strHint4;
 
     JSONParser jsonParser = new JSONParser();
-    private static String url_create_product = "http://140.115.80.237/front/test1.jsp";
+    private static String url_create_product = "http://140.115.80.237/front/mysop-register.jsp";
     private static final String TAG_SUCCESS = "success";
+    static String TAG_ACCOUNT = "";
 
 
     @Override
@@ -116,8 +118,17 @@ public class Register extends Activity {
     }
 
     public void register_check(View view){
+        String Password = Register.this.et2.getText().toString();
+        String ConfirmPassword = Register.this.et3.getText().toString();
+        if(ConfirmPassword.equals(Password)){
             (Register.this.new CreateAccount()).execute(new String[0]);
+        }else{
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+            dialog.setTitle("咦！");
+            dialog.setMessage("請確認密碼一致");
+            dialog.show();
         }
+    }
 
     class CreateAccount extends AsyncTask<String, String, String> {
         CreateAccount() {}
@@ -132,26 +143,33 @@ public class Register extends Activity {
         }
 
         protected String doInBackground(String... args) {
-            String Email = Register.this.et1.getText().toString();
+            String Account = Register.this.et1.getText().toString();
             String Password = Register.this.et2.getText().toString();
-            String ConfirmPassword = Register.this.et3.getText().toString();
+            //String ConfirmPassword = Register.this.et3.getText().toString();
             String Name = Register.this.et4.getText().toString();
+
+
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("Email", Email));
+            params.add(new BasicNameValuePair("Account", Account));
             params.add(new BasicNameValuePair("Password", Password));
-            params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
+            //params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
             params.add(new BasicNameValuePair("Name", Name));
             JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
             Log.d("Create Response", json.toString());
 
             try {
-                int e = json.getInt("success");
+                int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
+                    Register.this.TAG_ACCOUNT = Register.this.et1.getText().toString();
                     Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
                     Register.this.startActivity(i);
                     Register.this.finish();
                 }else if(e == 2){
 
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+                    dialog.setTitle("喔！");
+                    dialog.setMessage("該信箱已被使用");
+                    dialog.show();
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();

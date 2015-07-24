@@ -1,6 +1,7 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,9 +26,8 @@ public class Emailverify extends Activity {
 
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-    private static String url = "http://localhost:8080/kelly/test-getall.jsp";
+    private static String url = "http://140.115.80.237/front/mysop-captcha.jsp";
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_EMAILVERIFY = "emailverify";
     private EditText InputEmailVerify;
 
 
@@ -83,24 +83,25 @@ public class Emailverify extends Activity {
             String InputEmailVerify =  Emailverify.this.InputEmailVerify.getText().toString();
 
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("EmailVerify", InputEmailVerify));
+            params.add(new BasicNameValuePair("Emailverify", InputEmailVerify));
+            params.add(new BasicNameValuePair("Account", Register.TAG_ACCOUNT));
 
             JSONObject json = Emailverify.this.jsonParser.makeHttpRequest(Emailverify.url, "POST", params);
             Log.d("Create Response", json.toString());
 
             try {
-                int e = json.getInt("success");
+                int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
 /*                    Intent i = new Intent(Emailverify.this.getApplicationContext(), Emailverify.class);
                     Emailverify.this.startActivity(i);
                     Emailverify.this.finish(); */
-                    Emailverify.this.pDialog.setMessage("CORRECT!");
-                    Emailverify.this.pDialog.setIndeterminate(false);
-                    Emailverify.this.pDialog.setCancelable(true);
-                    Emailverify.this.pDialog.show();
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Emailverify.this);
+                    dialog.setTitle("");
+                    dialog.setMessage("成功！");
+                    dialog.show();
 
 
-                }else if(e == 2){
+                }else if(e == 6){
                     Intent i = new Intent(Emailverify.this.getApplicationContext(), EmailVertifyError.class);
                     Emailverify.this.startActivity(i);
                     Emailverify.this.finish();

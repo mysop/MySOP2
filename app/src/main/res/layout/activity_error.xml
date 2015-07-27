@@ -43,7 +43,8 @@
 
         android:textSize="25dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="error_check" />
 
     <ImageView
         android:layout_width="wrap_content"

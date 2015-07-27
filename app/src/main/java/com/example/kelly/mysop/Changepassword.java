@@ -138,6 +138,7 @@ public class Changepassword extends Activity {
 
 
             ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("Account", Login.TAG_ACCOUNT));
             params.add(new BasicNameValuePair("Originalpassword", Originalpassword));
             params.add(new BasicNameValuePair("NewPassword", NewPassword));
 

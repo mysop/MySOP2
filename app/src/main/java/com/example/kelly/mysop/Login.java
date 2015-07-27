@@ -136,10 +136,15 @@ public class Login extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
+                    Login.this.TAG_ACCOUNT = Login.this.et1.getText().toString();
 
-
-                }else if(e == 2){
-
+                }else if(e == 6){
+                    //密碼錯了
+                    Intent i = new Intent(Login.this.getApplicationContext(), Error.class);
+                    Login.this.startActivity(i);
+                    Login.this.finish();
+                }else if(e == 7){
+                    //帳號錯了
                     Intent i = new Intent(Login.this.getApplicationContext(), Error.class);
                     Login.this.startActivity(i);
                     Login.this.finish();

@@ -114,7 +114,7 @@ public class Login extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Login.this.pDialog = new ProgressDialog(Login.this);
-            Login.this.pDialog.setMessage("Creating Account...");
+            Login.this.pDialog.setMessage("Login...");
             Login.this.pDialog.setIndeterminate(false);
             Login.this.pDialog.setCancelable(true);
             Login.this.pDialog.show();

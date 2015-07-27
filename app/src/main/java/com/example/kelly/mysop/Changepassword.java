@@ -1,12 +1,23 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class Changepassword extends Activity {
@@ -90,4 +101,73 @@ public class Changepassword extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void changepassword_check(View view){
+        String Password = Changepassword.this.et2.getText().toString();
+        String ConfirmPassword = Changepassword.this.et3.getText().toString();
+        if(ConfirmPassword.equals(Password)){
+            (Changepassword.this.new CreateAccount()).execute(new String[0]);
+        }else{
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Changepassword.this);
+            dialog.setTitle("咦！");
+            dialog.setMessage("請確認密碼一致");
+            dialog.show();
+        }
+    }
+
+    class CreateAccount extends AsyncTask<String, String, String> {
+        CreateAccount() {}
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Changepassword.this.pDialog = new ProgressDialog(Changepassword.this);
+            Changepassword.this.pDialog.setMessage("Creating Account...");
+            Changepassword.this.pDialog.setIndeterminate(false);
+            Changepassword.this.pDialog.setCancelable(true);
+            Changepassword.this.pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+            String Account = Register.this.et1.getText().toString();
+            String Password = Register.this.et2.getText().toString();
+            //String ConfirmPassword = Register.this.et3.getText().toString();
+            String Name = Register.this.et4.getText().toString();
+
+
+            ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("Account", Account));
+            params.add(new BasicNameValuePair("Password", Password));
+            //params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
+            params.add(new BasicNameValuePair("Name", Name));
+            JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
+            Log.d("Create Response", json.toString());
+
+            try {
+                int e = json.getInt(TAG_SUCCESS);
+                if(e == 1) {
+                    Register.this.TAG_ACCOUNT = Register.this.et1.getText().toString();
+                    Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
+                    Register.this.startActivity(i);
+                    Register.this.finish();
+                }else if(e == 2){
+
+/*                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+                    dialog.setTitle("喔！");
+                    dialog.setMessage("該信箱已被使用");
+                    dialog.show(); */
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            Register.this.pDialog.dismiss();
+        }
+    }
+
+
+
 }

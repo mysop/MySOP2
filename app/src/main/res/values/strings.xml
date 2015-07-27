@@ -28,6 +28,7 @@
     <string name="title_activity_email_vertify_error">EmailVertifyError</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_register_error">RegisterError</string>
+    <string name="title_activity_mysop">Mysop</string>
 
 
 

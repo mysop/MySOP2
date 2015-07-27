@@ -23,13 +23,18 @@ import java.util.ArrayList;
 public class Changepassword extends Activity {
 
 
-
+    private ProgressDialog pDialog;
     private EditText et1;
     private EditText et2;
     private EditText et3;
     String strHint1;
     String strHint2;
     String strHint3;
+
+    JSONParser jsonParser = new JSONParser();
+    private static String url_changepassword = "http://140.115.80.237/front/mysop_register.jsp";
+    private static final String TAG_SUCCESS = "success";
+    static String TAG_ACCOUNT = "";
 
 
     @Override
@@ -103,9 +108,9 @@ public class Changepassword extends Activity {
     }
 
     public void changepassword_check(View view){
-        String Password = Changepassword.this.et2.getText().toString();
-        String ConfirmPassword = Changepassword.this.et3.getText().toString();
-        if(ConfirmPassword.equals(Password)){
+        String NewPassword = Changepassword.this.et2.getText().toString();
+        String ConfirmNewPassword = Changepassword.this.et3.getText().toString();
+        if(ConfirmNewPassword.equals(NewPassword)){
             (Changepassword.this.new CreateAccount()).execute(new String[0]);
         }else{
             AlertDialog.Builder dialog = new AlertDialog.Builder(Changepassword.this);
@@ -121,40 +126,36 @@ public class Changepassword extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Changepassword.this.pDialog = new ProgressDialog(Changepassword.this);
-            Changepassword.this.pDialog.setMessage("Creating Account...");
+            Changepassword.this.pDialog.setMessage("Changing...");
             Changepassword.this.pDialog.setIndeterminate(false);
             Changepassword.this.pDialog.setCancelable(true);
             Changepassword.this.pDialog.show();
         }
 
         protected String doInBackground(String... args) {
-            String Account = Register.this.et1.getText().toString();
-            String Password = Register.this.et2.getText().toString();
-            //String ConfirmPassword = Register.this.et3.getText().toString();
-            String Name = Register.this.et4.getText().toString();
+            String Originalpassword = Changepassword.this.et1.getText().toString();
+            String NewPassword = Changepassword.this.et2.getText().toString();
 
 
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("Account", Account));
-            params.add(new BasicNameValuePair("Password", Password));
-            //params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
-            params.add(new BasicNameValuePair("Name", Name));
-            JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
+            params.add(new BasicNameValuePair("Originalpassword", Originalpassword));
+            params.add(new BasicNameValuePair("NewPassword", NewPassword));
+
+            JSONObject json = Changepassword.this.jsonParser.makeHttpRequest(Changepassword.url_changepassword, "POST", params);
             Log.d("Create Response", json.toString());
 
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    Register.this.TAG_ACCOUNT = Register.this.et1.getText().toString();
-                    Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
-                    Register.this.startActivity(i);
-                    Register.this.finish();
+
+                    Intent i = new Intent(Changepassword.this.getApplicationContext(), Emailverify.class);
+                    Changepassword.this.startActivity(i);
+                    Changepassword.this.finish();
                 }else if(e == 2){
 
-/*                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
-                    dialog.setTitle("喔！");
-                    dialog.setMessage("該信箱已被使用");
-                    dialog.show(); */
+                    Intent i = new Intent(Changepassword.this.getApplicationContext(), ChangePasswordError.class);
+                    Changepassword.this.startActivity(i);
+                    Changepassword.this.finish();
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();
@@ -164,7 +165,7 @@ public class Changepassword extends Activity {
         }
 
         protected void onPostExecute(String file_url) {
-            Register.this.pDialog.dismiss();
+            Changepassword.this.pDialog.dismiss();
         }
     }
 

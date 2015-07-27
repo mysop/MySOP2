@@ -166,10 +166,10 @@ public class Register extends Activity {
                     Register.this.finish();
                 }else if(e == 2){
 
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+/*                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
                     dialog.setTitle("喔！");
                     dialog.setMessage("該信箱已被使用");
-                    dialog.show();
+                    dialog.show(); */
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();

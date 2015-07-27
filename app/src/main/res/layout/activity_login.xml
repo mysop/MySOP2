@@ -53,7 +53,7 @@
         android:background="#ffff3f2f"
         android:layout_marginBottom="46dp"
 
-        android:onClick="errortest"
+        android:onClick="login_check"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textSize="25dp"

@@ -1,7 +1,11 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -13,14 +17,27 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class Login extends Activity {
 
-    JSONParser jParser = new JSONParser();
-    private static String url_login = "http://140.115.80.237/mysop/LoginServlet";
+    private ProgressDialog pDialog;
+
+    private static String url_login = "http://140.115.80.237/front/mysop_login.jsp";
     private EditText et1;
     private EditText et2;
     String strHint1;
     String strHint2;
+
+    JSONParser jsonParser = new JSONParser();
+        private static final String TAG_SUCCESS = "success";
+    static String TAG_ACCOUNT = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +105,55 @@ public class Login extends Activity {
         startActivity(it);
     }
 
-    public void errortest (View v){
-        Intent it = new Intent(this,Error.class);
-        startActivity(it);
+    public void login_check(View view) {
+         (Login.this.new CreateAccount()).execute(new String[0]);
     }
+    class CreateAccount extends AsyncTask<String, String, String> {
+        CreateAccount() {}
 
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Login.this.pDialog = new ProgressDialog(Login.this);
+            Login.this.pDialog.setMessage("Creating Account...");
+            Login.this.pDialog.setIndeterminate(false);
+            Login.this.pDialog.setCancelable(true);
+            Login.this.pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+            String Account = Login.this.et1.getText().toString();
+            String Password = Login.this.et2.getText().toString();
+
+
+
+            ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("Account", Account));
+            params.add(new BasicNameValuePair("Password", Password));
+
+            JSONObject json = Login.this.jsonParser.makeHttpRequest(Login.url_login, "POST", params);
+            Log.d("Create Response", json.toString());
+
+            try {
+                int e = json.getInt(TAG_SUCCESS);
+                if(e == 1) {
+
+
+                }else if(e == 2){
+
+                    Intent i = new Intent(Login.this.getApplicationContext(), Error.class);
+                    Login.this.startActivity(i);
+                    Login.this.finish();
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            Login.this.pDialog.dismiss();
+        }
+    }
 
 }

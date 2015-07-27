@@ -29,6 +29,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_register_error">RegisterError</string>
     <string name="title_activity_mysop">Mysop</string>
+    <string name="title_activity_content">Content</string>
 
 
 

@@ -39,6 +39,7 @@ public class Register extends Activity {
 
     JSONParser jsonParser = new JSONParser();
     private static String url_create_product = "http://140.115.80.237/front/mysop_register.jsp";
+    //private static String url_create_product = "http://localhost:8080/kelly/mysop_register.jsp";
     private static final String TAG_SUCCESS = "success";
     static String TAG_ACCOUNT = "";
 
@@ -152,7 +153,6 @@ public class Register extends Activity {
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Account", Account));
             params.add(new BasicNameValuePair("Password", Password));
-            //params.add(new BasicNameValuePair("ConfirmPassword", ConfirmPassword));
             params.add(new BasicNameValuePair("Name", Name));
             JSONObject json = Register.this.jsonParser.makeHttpRequest(Register.url_create_product, "POST", params);
             Log.d("Create Response", json.toString());

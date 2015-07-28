@@ -134,8 +134,8 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Download"
-                    android:id="@+id/textView8"
+                    android:text="下載次數"
+                    android:id="@+id/doenloadtext"
                     android:layout_marginLeft="20dp"
                     android:textColor="#7B7B7B" />
 
@@ -155,8 +155,8 @@
                     android:layout_width="122dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Category"
-                    android:id="@+id/textView9"
+                    android:text="種類"
+                    android:id="@+id/categorytext"
                     android:textColor="#7B7B7B"
                     android:layout_marginLeft="40dp" />
             </LinearLayout>
@@ -213,6 +213,35 @@
                     android:id="@+id/content_text"
                     android:textSize="20dp"
                     android:background="@drawable/context_linear"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/commentlayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Username"
+                        android:id="@+id/Username"
+                        android:layout_marginTop="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, consect elity.J'aime la chien et la chat.I li y le garcon.Qui!"
+                        android:id="@+id/textView12" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

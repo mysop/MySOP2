@@ -99,10 +99,10 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    android:layout_width="115dp"
+                    android:layout_width="122dp"
                     android:layout_height="105dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="4.8"
+                    android:text="3.8"
                     android:id="@+id/star"
                     android:background="@drawable/redball"
                     android:gravity="center_vertical"
@@ -111,7 +111,7 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="122dp"
                     android:layout_height="104dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Health"
@@ -126,10 +126,12 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/getrating">
 
                 <TextView
-                    android:layout_width="122dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Download"
@@ -138,9 +140,16 @@
                     android:textColor="#7B7B7B" />
 
                 <RatingBar
-                    android:layout_width="122dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ratingBar" />
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:layout_marginLeft="10dp"
+                    android:rating="3.8"
+                    android:progressDrawable="@drawable/starbar" />
 
                 <TextView
                     android:layout_width="122dp"
@@ -148,7 +157,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Category"
                     android:id="@+id/textView9"
-                    android:textColor="#7B7B7B" />
+                    android:textColor="#7B7B7B"
+                    android:layout_marginLeft="40dp" />
             </LinearLayout>
 
             <HorizontalScrollView

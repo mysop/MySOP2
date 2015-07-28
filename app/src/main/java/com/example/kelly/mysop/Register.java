@@ -40,7 +40,7 @@ public class Register extends Activity {
     JSONParser jsonParser = new JSONParser();
     private static String url_create_product = "http://140.115.80.237/front/mysop_register.jsp";
     private static final String TAG_SUCCESS = "success";
-    static String TAG_ACCOUNT = "";
+    String TAG_ACCOUNT = "";
 
 
     @Override
@@ -162,6 +162,12 @@ public class Register extends Activity {
                 if(e == 1) {
                     Register.this.TAG_ACCOUNT = Register.this.et1.getText().toString();
                     Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
+
+                    //設定傳送參數
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+                    i.putExtras(bundle);	//將參數放入intent
+
                     Register.this.startActivity(i);
                     Register.this.finish();
                 }else if(e == 2){

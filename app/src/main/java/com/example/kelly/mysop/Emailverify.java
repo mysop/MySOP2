@@ -29,13 +29,18 @@ public class Emailverify extends Activity {
     private static String url = "http://140.115.80.237/front/mysop_captcha.jsp";
     private static final String TAG_SUCCESS = "success";
     private EditText InputEmailVerify;
-
+    String TAG_ACCOUNT = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailverify);
         InputEmailVerify = (EditText) findViewById(R.id.editText3);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+
 
     }
 
@@ -85,7 +90,7 @@ public class Emailverify extends Activity {
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Emailverify", InputEmailVerify));
-            params.add(new BasicNameValuePair("Account", Register.TAG_ACCOUNT));
+            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
 
             JSONObject json = Emailverify.this.jsonParser.makeHttpRequest(Emailverify.url, "POST", params);
             Log.d("Create Response", json.toString());
@@ -95,11 +100,11 @@ public class Emailverify extends Activity {
                 if(e == 1) {
 /*                    Intent i = new Intent(Emailverify.this.getApplicationContext(), Emailverify.class);
                     Emailverify.this.startActivity(i);
-                    Emailverify.this.finish(); */
+                    Emailverify.this.finish();
                     AlertDialog.Builder dialog = new AlertDialog.Builder(Emailverify.this);
                     dialog.setTitle("");
                     dialog.setMessage("成功！");
-                    dialog.show();
+                    dialog.show(); */
 
 
                 }else if(e == 6){
@@ -116,6 +121,8 @@ public class Emailverify extends Activity {
 
         protected void onPostExecute(String file_url) {
             Emailverify.this.pDialog.dismiss();
+
+
         }
     }
 }

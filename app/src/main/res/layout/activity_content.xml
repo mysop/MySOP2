@@ -79,13 +79,13 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="102dp"
                 android:layout_marginLeft="0dp"
                 android:weightSum="1">
 
                 <TextView
                     android:layout_width="122dp"
-                    android:layout_height="102dp"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="160"
                     android:id="@+id/download"
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:layout_width="122dp"
-                    android:layout_height="105dp"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="3.8"
                     android:id="@+id/star"
@@ -112,7 +112,7 @@
 
                 <TextView
                     android:layout_width="122dp"
-                    android:layout_height="104dp"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Health"
                     android:id="@+id/category"

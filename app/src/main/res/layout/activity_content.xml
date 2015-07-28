@@ -9,10 +9,6 @@
     android:orientation="vertical"
 
     tools:context="com.example.kelly.mysop.Content"
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     android:weightSum="1">
 
     <ScrollView android:layout_width="fill_parent"

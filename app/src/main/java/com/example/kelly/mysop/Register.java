@@ -120,12 +120,24 @@ public class Register extends Activity {
     public void register_check(View view){
         String Password = Register.this.et2.getText().toString();
         String ConfirmPassword = Register.this.et3.getText().toString();
-        if(ConfirmPassword.equals(Password)){
+        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        String Email = Register.this.et1.getText().toString();
+        if(ConfirmPassword.equals(Password)&&Email.matches(str)){
             (Register.this.new CreateAccount()).execute(new String[0]);
-        }else{
+        }else if(!ConfirmPassword.equals(Password)&&Email.matches(str)){
             AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
             dialog.setTitle("咦！");
             dialog.setMessage("請確認密碼一致");
+            dialog.show();
+        }else if(ConfirmPassword.equals(Password)&&!Email.matches(str)){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+            dialog.setTitle("咦！");
+            dialog.setMessage("帳號不符合格式");
+            dialog.show();
+        }else{
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
+            dialog.setTitle("咦！");
+            dialog.setMessage("帳號不符合格式，且密碼須一致");
             dialog.show();
         }
     }
@@ -176,6 +188,10 @@ public class Register extends Activity {
                     dialog.setTitle("喔！");
                     dialog.setMessage("該信箱已被使用");
                     dialog.show(); */
+                    Intent ii = new Intent(Register.this.getApplicationContext(),RegisterError.class);
+                    Register.this.startActivity(ii);
+                    Register.this.finish();
+
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();

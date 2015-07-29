@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
-
 public class Content extends Activity {
 
     private EditText inputText;
@@ -73,6 +72,7 @@ public class Content extends Activity {
         }
     }
 
+    //新增評論
     public void writeCommon (View v){
         if(!inputText.getText().toString().equals("")){
             items.add(inputText.getText().toString());

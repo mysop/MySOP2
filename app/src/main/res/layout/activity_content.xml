@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="下載次數"
-                    android:id="@+id/doenloadtext"
+                    android:id="@+id/downloadtext"
                     android:layout_marginLeft="20dp"
                     android:textColor="#7B7B7B" />
 
@@ -219,13 +219,14 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:id="@+id/commentlayout">
 
-                <LinearLayout
+ <!--               <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:id="@+id/commentlayout">
+                    android:id="@+id/commentlayout1">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -241,7 +242,27 @@
                         android:text="Lorem ipsum dolor sit amet, consect elity.J'aime la chien et la chat.I li y le garcon.Qui!"
                         android:id="@+id/textView12" />
 
-                </LinearLayout>
+              </LinearLayout>
+ -->                 <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inputText"
+                    android:singleLine="true"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="送出"
+                    android:id="@+id/button5"
+                    android:onClick="writeCommon" />
+
+                <ListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="350dp"
+                    android:id="@+id/listInputText"
+                    >
+                </ListView>
             </LinearLayout>
 
         </LinearLayout>

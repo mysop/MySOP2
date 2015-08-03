@@ -29,8 +29,8 @@ public class Mysop extends Activity {
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
-    private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
-
+    //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_PID = "pid";

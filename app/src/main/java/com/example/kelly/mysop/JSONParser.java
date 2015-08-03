@@ -66,6 +66,7 @@ public class JSONParser {
             String line2;
             while((line2 = e1.readLine()) != null) {
                 sb2.append(line2 + "\n");
+                //sb2.append(line2);
             }
 
             is.close();

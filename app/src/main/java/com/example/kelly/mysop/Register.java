@@ -183,11 +183,7 @@ public class Register extends Activity {
                     Register.this.startActivity(i);
                     Register.this.finish();
                 }else if(e == 2){
-
-/*                    AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
-                    dialog.setTitle("喔！");
-                    dialog.setMessage("該信箱已被使用");
-                    dialog.show(); */
+                    //帳號有人使用了
                     Intent ii = new Intent(Register.this.getApplicationContext(),RegisterError.class);
                     Register.this.startActivity(ii);
                     Register.this.finish();

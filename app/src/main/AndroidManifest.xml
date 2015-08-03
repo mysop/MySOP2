@@ -71,6 +71,10 @@
             android:name=".Content"
             android:label="@string/title_activity_content" >
         </activity>
+        <activity
+            android:name=".searching"
+            android:label="@string/title_activity_searching" >
+        </activity>
     </application>
 
 </manifest>

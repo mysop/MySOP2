@@ -59,7 +59,8 @@ public class JSONParser {
         }
 
         try {
-            BufferedReader e1 = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            //BufferedReader e1 = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            BufferedReader e1 = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
             StringBuilder sb2 = new StringBuilder();
             line = null;
 

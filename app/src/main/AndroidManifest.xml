@@ -92,7 +92,18 @@
         <activity
             android:name=".Start"
             android:label="@string/title_activity_start"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >>
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+>
+        </activity>
+        <activity
+            android:name=".Stepdescription"
+            android:label="@string/title_activity_stepdescription"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".Steprecording"
+            android:label="@string/title_activity_steprecording"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 

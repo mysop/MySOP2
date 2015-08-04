@@ -54,6 +54,8 @@
 
     <string name="action_example">Dynamic action</string>
     <string name="title_activity_start">Start</string>
+    <string name="title_activity_stepdescription">Stepdescription</string>
+    <string name="title_activity_steprecording">Steprecording</string>
 
 
 

@@ -53,6 +53,7 @@
     <string name="title_activity_drawer">DrawerActivity</string>
 
     <string name="action_example">Dynamic action</string>
+    <string name="title_activity_start">Start</string>
 
 
 

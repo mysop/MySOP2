@@ -1,14 +1,14 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.*;
 import android.graphics.Color;
 import android.widget.GridLayout.LayoutParams;
@@ -22,14 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Mysop extends Activity {
 
-
+public class Start extends Activity {
 
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
-    //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
+
     private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
@@ -40,11 +39,10 @@ public class Mysop extends Activity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mysop);
+        setContentView(R.layout.activity_start);
 
 
         // Hashmap for ListView
@@ -52,22 +50,13 @@ public class Mysop extends Activity {
         // Loading products in Background Thread
         new LoadAllProducts().execute();
 
-
-
-
-
-
-
-        // 從 LinearLayout 中移除 Button 1
-        //ll.removeView( b1 );
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_mysop, menu);
+        getMenuInflater().inflate(R.menu.menu_start, menu);
         return true;
     }
 
@@ -84,7 +73,9 @@ public class Mysop extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+
     }
+
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
@@ -96,7 +87,7 @@ public class Mysop extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Mysop.this);
+            pDialog = new ProgressDialog(Start.this);
             pDialog.setMessage("Loading products. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -122,11 +113,11 @@ public class Mysop extends Activity {
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                                            products = json.getJSONArray(TAG_PRODUCTS);
+                    products = json.getJSONArray(TAG_PRODUCTS);
 
-                        // looping through All Products
-                        for (int i = 0; i < products.length(); i++) {
-                            JSONObject c = products.getJSONObject(i);
+                    // looping through All Products
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject c = products.getJSONObject(i);
 
                         // Storing each json item in variable
                         String id = c.getString(TAG_PID);
@@ -167,65 +158,10 @@ public class Mysop extends Activity {
                 }
             }); */
 
+            TextView start_right = (TextView)findViewById(R.id.start_right);
+            start_right.setText(productsList.get(0).get(TAG_PID));
 
-
-            RelativeLayout w = (RelativeLayout)findViewById(R.id.relative);
-            w.setBackgroundColor(Color.parseColor("#EEFFBB"));
-            // 取得 LinearLayout 物件
-            LinearLayout l = new LinearLayout(Mysop.this);
-            l.setBackgroundResource(R.drawable.linearlayout);
-            //l.setId(0);
-
-
-            LinearLayout l2 = new LinearLayout(Mysop.this);
-            l2.setBackgroundColor(Color.parseColor("#FF8888"));
-            l2.setOrientation(LinearLayout.VERTICAL);
-            //l2.setOnClickListener();
-            TextView tv = new TextView(Mysop.this);
-            tv.setText(productsList.get(0).get(TAG_PID));
-            //tv.setText(productsList.get(0).get(TAG_PID));
-            l2.addView(tv);
-            TextView tv1 = new TextView(Mysop.this);
-            tv1.setText(productsList.get(0).get(TAG_NAME));
-            l2.addView( tv1 );
-
-            l.addView( l2 );
-
-            LinearLayout l3 = new LinearLayout(Mysop.this);
-            l3.setBackgroundColor(Color.parseColor("#99BBFF"));
-            l3.setOrientation(LinearLayout.VERTICAL);
-
-            TextView tv3 = new TextView(Mysop.this);
-            tv3.setText(productsList.get(0).get(TAG_PID));
-            l3.addView( tv3 );
-            l.addView( l3 );
-
-            //從這裡哈哈哈哈哈哈哈
-            w.addView(l);
-/*
-            LinearLayout l4 = new LinearLayout(Mysop.this);
-            l4.setBackgroundResource(R.drawable.linearlayout);
-            //l4.setLayoutParams(new RelativeLayout.LayoutParams(150, 150));
-            RelativeLayout.LayoutParams r = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-            //r.addRule(RelativeLayout.BELOW, R.id.  );
-            r.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-
-
-            LinearLayout nl2 = new LinearLayout(Mysop.this);
-            nl2.setBackgroundColor(Color.parseColor("#FF8888"));
-            nl2.setOrientation(LinearLayout.VERTICAL);
-            //l2.setOnClickListener();
-            TextView ntv = new TextView(Mysop.this);
-            ntv.setText(productsList.get(1).get(TAG_PID));
-            nl2.addView(ntv);
-            l4.addView(nl2);
-
-            w.addView(l4,r);
-
-*/
-
-
-            AlertDialog.Builder dialog = new AlertDialog.Builder(Mysop.this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Start.this);
             dialog.setTitle("");
             dialog.setMessage(productsList.get(0).get(TAG_PID));
             dialog.show();
@@ -234,4 +170,5 @@ public class Mysop extends Activity {
         }
 
     }
+
 }

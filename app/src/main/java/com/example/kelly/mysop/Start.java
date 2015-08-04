@@ -27,15 +27,14 @@ public class Start extends Activity {
 
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
-    ArrayList<HashMap<String, String>> productsList;
 
-    private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
+
+    private static String url_all_products = "http://140.115.80.237/front/mysop_start.jsp";
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "products";
-    private static final String TAG_PID = "pid";
-    private static final String TAG_NAME = "name";
-
-    JSONArray products = null;
+    private static final String TAG_SOPNAME = "sop_name";
+    private static String SOPNAME = "";
+    private static final String TAG_SOPDETAIL = "sop_detail";
+    private static String SOPDETAIL = "";
 
 
 
@@ -45,8 +44,6 @@ public class Start extends Activity {
         setContentView(R.layout.activity_start);
 
 
-        // Hashmap for ListView
-        productsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
         new LoadAllProducts().execute();
 
@@ -111,28 +108,10 @@ public class Start extends Activity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // products found
-                    // Getting Array of Products
-                    products = json.getJSONArray(TAG_PRODUCTS);
 
-                    // looping through All Products
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
+                    SOPNAME = json.getString(TAG_SOPNAME);
+                    SOPDETAIL = json.getString(TAG_SOPDETAIL);
 
-                        // Storing each json item in variable
-                        String id = c.getString(TAG_PID);
-                        String name = c.getString(TAG_NAME);
-
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_PID, id);
-                        map.put(TAG_NAME, name);
-
-                        // adding HashList to ArrayList
-                        productsList.add(map);
-                    }
                 } else {
 
 
@@ -158,12 +137,18 @@ public class Start extends Activity {
                 }
             }); */
 
+            TextView start_title = (TextView)findViewById(R.id.start_title);
+            start_title.setText(SOPNAME);
+
+            TextView start_detail = (TextView)findViewById(R.id.start_detail);
+            start_detail.setText(SOPDETAIL);
+
             TextView start_right = (TextView)findViewById(R.id.start_right);
-            start_right.setText(productsList.get(0).get(TAG_PID));
+            start_right.setText("9");
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(Start.this);
             dialog.setTitle("");
-            dialog.setMessage(productsList.get(0).get(TAG_PID));
+            dialog.setMessage(SOPNAME);
             dialog.show();
 
 

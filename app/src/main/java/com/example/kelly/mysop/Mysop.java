@@ -122,7 +122,7 @@ public class Mysop extends Activity {
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                                            products = json.getJSONArray(TAG_PRODUCTS);
+                        products = json.getJSONArray(TAG_PRODUCTS);
 
                         // looping through All Products
                         for (int i = 0; i < products.length(); i++) {

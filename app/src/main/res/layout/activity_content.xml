@@ -45,7 +45,16 @@
                         android:textSize = "34dp"
                         android:id="@+id/content_title"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="35dp" />
+                        android:layout_marginTop="35dp"
+                        android:textColor="#f80d0410" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="20150803_1"
+                        android:id="@+id/content_sopnumber"
+                        android:layout_marginLeft="20dp" />
 
                     <TextView
                         android:layout_width="204dp"
@@ -115,11 +124,11 @@
                     android:layout_width="122dp"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Health"
+                    android:text="人工啟動"
                     android:id="@+id/category"
                     android:background="@drawable/redball"
                     android:gravity="center_vertical"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:paddingLeft="25dp"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
@@ -156,10 +165,10 @@
                     android:layout_width="122dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="種類"
+                    android:text="啟動規則"
                     android:id="@+id/categorytext"
                     android:textColor="#7B7B7B"
-                    android:layout_marginLeft="40dp" />
+                    android:layout_marginLeft="30dp" />
             </LinearLayout>
 
             <HorizontalScrollView

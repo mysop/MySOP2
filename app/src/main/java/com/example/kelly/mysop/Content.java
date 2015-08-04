@@ -1,6 +1,8 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,10 +18,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+//鍵盤手請看237
 
 public class Content extends Activity {
 
@@ -36,11 +42,38 @@ public class Content extends Activity {
     private TextView cagetory;
     private TextView subtitle;
     private TextView Ctext;
+    private TextView sopnumber;
 
     JSONParser jsonParser = new JSONParser();
-    private static String url_create_product = "http://140.115.80.237/front/mysop_register.jsp";
+    //讀取 sop內容
+    private static String url_create_product = "http://140.115.80.237/front/mysop_content.jsp";
+    //讀取 評論
+    private static String url_create_product1 = "http://140.115.80.237/front/mysop_content1.jsp";
+    //寫入評論
+    private static String url_create_product2 = "http://140.115.80.237/front/mysop_content3.jsp";
+
+
+    String TAG_ACCOUNT = "q@gmail.com";
+    ArrayList<HashMap<String, String>> productsList;
+    ArrayList<HashMap<String, String>> productsList1;
+    private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
-    String TAG_ACCOUNT = "";
+    private static final String TAG_PRODUCTS = "sop";
+    private static final String TAG_PID = "account";
+    private static final String TAG_NAME = "sop_comment";
+    private static final String TAG_NUMBER = "sopnumber";
+    private static final String TAG_DETAIL = "detail";
+    private static final String TAG_SOPNAME = "sopname";
+    private static final String TAG_INTRO = "intro";
+    private static final String TAG_USERNAME="username";
+    private static String NUMBER ="";
+    private  static String DETAIL="";
+    private static String SOPNAME="";
+    private static String INTRO="";
+    private static String USERNAME="";
+
+    JSONArray products = null;
+
 
 
     @Override
@@ -62,10 +95,18 @@ public class Content extends Activity {
         cagetory=(TextView)findViewById(R.id.category);
         subtitle=(TextView)findViewById(R.id.content_subtitle);
          Ctext=(TextView)findViewById(R.id.content_text);
+        sopnumber=(TextView)findViewById(R.id.content_sopnumber);
+
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+       // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+
+
+        // Hashmap for ListView
+        productsList = new ArrayList<HashMap<String, String>>();
+        // Loading products in Background Thread
+         new SOPContent().execute();
 
     }
 
@@ -97,67 +138,89 @@ public class Content extends Activity {
     //新增評論
     public void writeCommon (View v){
         if(!inputText.getText().toString().equals("")){
-            items.add(inputText.getText().toString());
-            listInput.setAdapter(adapter);
-            inputText.setText("");
+            new SOPContent1().execute();
 
 
         }
     }
 
 
-    class CreateAccount extends AsyncTask<String, String, String> {
-        CreateAccount() {}
+    class SOPContent extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Content.this);
+            pDialog.setMessage("Loading Content. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            Register.this.pDialog = new ProgressDialog(Register.this);
-//            Register.this.pDialog.setMessage("Creating Account...");
-//            Register.this.pDialog.setIndeterminate(false);
-//            Register.this.pDialog.setCancelable(true);
-//            Register.this.pDialog.show();
-//        }
 
         protected String doInBackground(String... args) {
-//            String Account = Register.this.et1.getText().toString();
-//            String Password = Register.this.et2.getText().toString();
-//            //String ConfirmPassword = Register.this.et3.getText().toString();
-//            String Name = Register.this.et4.getText().toString();
 
-            Drawable Picture = Content.this.picture.getDrawable();
-            String Title = Content.this.title.toString();
-            String Master = Content.this.master.toString();
-            String Download = Content.this.download.toString();
-            String Star = Content.this.star.toString();
-            String Cagetory = Content.this.cagetory.toString();
-            String Subtitle = Content.this.subtitle.toString();
-            String CText = Content.this.Ctext.toString();
-            String Inputtext = Content.this.inputText.toString();
+            String Sopnumber = Content.this.sopnumber.getText().toString();
 
 
             ArrayList params = new ArrayList();
-          //  params.add(new BasicNameValuePair("Picture", Picture));
-            params.add(new BasicNameValuePair("Title", Title));
-            params.add(new BasicNameValuePair("Master", Master));
-            params.add(new BasicNameValuePair("Download", Download));
-            params.add(new BasicNameValuePair("Star", Star));
-            params.add(new BasicNameValuePair("Cagetory", Cagetory));
-            params.add(new BasicNameValuePair("Subtitle", Subtitle));
-            params.add(new BasicNameValuePair("CText", CText));
-            params.add(new BasicNameValuePair("Inputtext", Inputtext) );
-            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            ArrayList params1 = new ArrayList();
 
-            JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "POST", params);
-            Log.d("Create Response", json.toString());
+            params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+
+
+            // json抓sop內容  json1抓評論 json2存評論
+            JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
+            JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
+
+//            // Check your log cat for JSON reponse
+//            Log.d("All Products: ", json1.toString());
 
             try {
-                int e = json.getInt(TAG_SUCCESS);
+
+                //讀取評論
+                int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
 
-                }else if(e == 2){
+                    products = json1.getJSONArray(TAG_PRODUCTS);
 
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject c = products.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String id = c.getString(TAG_PID);
+                        String name = c.getString(TAG_NAME);
+
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_PID, id);
+                        map.put(TAG_NAME, name);
+
+                        // adding HashList to ArrayList
+                        productsList.add(map);
+
+                    }
+                }else if(e == 2) {
 
                 }
+
+                //讀取sop內容
+
+
+                int e2 = json.getInt(TAG_SUCCESS);
+
+                if(e2==1){
+                    SOPNAME = json.getString(TAG_SOPNAME);
+                    NUMBER  = json.getString(TAG_NUMBER);
+                    DETAIL = json.getString(TAG_DETAIL);
+                    INTRO  = json.getString(TAG_INTRO);
+                }else{
+                   // System.out.println("HAHA NO"+json.getString(TAG_SOPNAME));
+
+                }
+
+
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
@@ -165,8 +228,86 @@ public class Content extends Activity {
             return null;
         }
 
-//        protected void onPostExecute(String file_url) {
-//            Register.this.pDialog.dismiss();
-//        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+
+            //鍵盤手看這邊  別失敗啊！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+
+            for (int i = 0; i < products.length(); i++) {
+                items.add(productsList.get(i).get(TAG_PID)+"\n"+productsList.get(i).get(TAG_NAME));
+                listInput.setAdapter(adapter);
+                inputText.setText("");
+            }
+
+            title.setText(SOPNAME);
+            subtitle.setText(INTRO);
+            sopnumber.setText(NUMBER);
+            Ctext.setText(DETAIL);
+
+        }
+
+
+
     }
+
+    class SOPContent1 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Content.this);
+            pDialog.setMessage("Loading Content. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            String Inputtext = Content.this.inputText.getText().toString();
+            String Sopnumber = Content.this.sopnumber.getText().toString();
+
+            //for get
+            ArrayList params2 = new ArrayList();
+
+            params2.add(new BasicNameValuePair("Inputtext", Inputtext) );
+            params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+
+            JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product2,"POST",params2);
+
+
+            try {
+               //寫入評論
+                int e3 = json2.getInt(TAG_SUCCESS);
+                if(e3 == 1) {
+                    USERNAME = json2.getString(TAG_USERNAME);
+                }
+
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+            pDialog.dismiss();
+
+
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+
+            items.add(USERNAME+"\n"+inputText.getText().toString());
+            listInput.setAdapter(adapter);
+            inputText.setText("");
+
+
+        }
+
+    }
+
 }

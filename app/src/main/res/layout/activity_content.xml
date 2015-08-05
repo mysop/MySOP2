@@ -127,11 +127,9 @@
                     android:text="人工啟動"
                     android:id="@+id/category"
                     android:background="@drawable/redball"
-                    android:gravity="center_vertical"
-                    android:textSize="20dp"
-                    android:paddingLeft="25dp"
+                    android:textSize="40dp"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center" />
+                    android:gravity="center_vertical|center_horizontal" />
             </LinearLayout>
 
             <LinearLayout

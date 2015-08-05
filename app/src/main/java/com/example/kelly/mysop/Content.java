@@ -255,24 +255,31 @@ public class Content extends Activity {
             switch (STARTRULE){
                 case "1":
                     cagetory.setText("人工啟動");
+                    cagetory.setTextSize(20);
                     break;
                 case "2":
-                    cagetory.setText("前一步驟完工");
+                    cagetory.setText("前一步驟\n完工");
+                    cagetory.setTextSize(16);
                     break;
                 case "3":
                     cagetory.setText("Beacon");
+                    cagetory.setTextSize(20);
                     break;
                 case "4":
                     cagetory.setText("QR code");
+                    cagetory.setTextSize(20);
                     break;
                 case "5":
                     cagetory.setText("NFC");
+                    cagetory.setTextSize(25);
                     break;
                 case "6":
                     cagetory.setText("定位");
+                    cagetory.setTextSize(25);
                     break;
                 case "7":
                     cagetory.setText("時間到期");
+                    cagetory.setTextSize(16);
                     break;
 
             }

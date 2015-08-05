@@ -11,12 +11,10 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/list_sop"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:divider="#b5b5b5"
-            android:dividerHeight="1dp"
-            android:listSelector="@drawable/list_selector" >
-            </ListView>
+            android:layout_height="350dp"
+            android:id="@+id/list_sop"
+            >
+        </ListView>
     </LinearLayout>
 </ScrollView>

@@ -55,7 +55,10 @@ public class Mysop extends Activity {
         listInput = (ListView)findViewById(R.id.list_sop);
         items = new ArrayList<String>();
         adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
-        //listInput.setAdapter(adapter);
+        listInput.setAdapter(adapter);
+
+        //Intent intent = this.getIntent();
+        //Bundle bundle = intent.getExtras();
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();

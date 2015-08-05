@@ -72,16 +72,10 @@ public class Mysop extends Activity {
 
                 //這裏可以自由發揮，比如播放一首歌曲等等
             }
-<<<<<<< HEAD
 
 
-        });
-
-=======
 
         });
->>>>>>> origin/master
-
     }
 }
         

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +24,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,6 +59,8 @@ public class Content extends Activity {
     private static String url_create_product1 = "http://140.115.80.237/front/mysop_content1.jsp";
     //寫入評論
     private static String url_create_product2 = "http://140.115.80.237/front/mysop_content3.jsp";
+    //抓sop 圖片
+    private static String url_create_product3 = "http://140.115.80.237/front/mysop_content4.jsp";
 
 
     String TAG_ACCOUNT = "q@gmail.com";
@@ -69,6 +79,11 @@ public class Content extends Activity {
     private static final String TAG_USERNAME="username";
     private static final String TAG_STARTRULE="start_rule";
     private static final String TAG_LIKENUMBER="like_number";
+    private static final String TAG_SOPGRAPH="sopgraph";
+    private static final String TAG_GRAPH1="graph1";
+    private static final String TAG_GRAPH2="graph2";
+    private static final String TAG_GRAPH3="graph3";
+
 
     private static String NUMBER ="";
     private  static String DETAIL="";
@@ -77,7 +92,13 @@ public class Content extends Activity {
     private static String USERNAME="";
 
     private static String STARTRULE="";
+    private static String SOPGRAPH="";
+    private static String GRAPH1="";
+    private static String GRAPH2="";
+    private static String GRAPH3="";
+
     private int likecount=0;
+    private String imageFileURL = "http://140.115.80.237/front/picture/car.jpg";
 
 
     JSONArray products = null;
@@ -118,7 +139,14 @@ public class Content extends Activity {
         // Loading products in Background Thread
          new SOPContent().execute();
 
+        //picture
+        new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
+                .execute("http://140.115.80.237/front/picture/car.jpg");
+
+
+
     }
+
 
 
     @Override
@@ -160,6 +188,31 @@ public class Content extends Activity {
 
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 
     class SOPContent extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
@@ -179,14 +232,17 @@ public class Content extends Activity {
 
             ArrayList params = new ArrayList();
             ArrayList params1 = new ArrayList();
+            ArrayList params2 = new ArrayList();
 
             params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
 
 
-            // json抓sop內容  json1抓評論 json2存評論
+            // json抓sop內容  json1抓評論 json2抓sop圖片
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
             JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
+            JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product3, "GET", params2);
 
 //            // Check your log cat for JSON reponse
 //            Log.d("All Products: ", json1.toString());
@@ -251,6 +307,21 @@ public class Content extends Activity {
                 }
 
 
+
+                //抓sop圖片
+                int e3 = json2.getInt(TAG_SUCCESS);
+                if(e3==1){
+                    SOPGRAPH = json2.getString(TAG_SOPGRAPH);
+                    GRAPH1 = json2.getString(TAG_GRAPH1);
+                    GRAPH2 = json2.getString(TAG_GRAPH2);
+                    GRAPH3 = json2.getString(TAG_GRAPH3);
+                }else{
+                    // System.out.println("HAHA NO"+json.getString(TAG_SOPNAME));
+
+                }
+
+
+
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
@@ -267,7 +338,7 @@ public class Content extends Activity {
             pDialog.dismiss();
 
             //鍵盤手看這邊  別失敗啊！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-
+            //自動新增評論
             for (int i = 0; i < products.length(); i++) {
                 items.add(productsList.get(i).get(TAG_PID)+"\n"+productsList.get(i).get(TAG_NAME));
                 listInput.setAdapter(adapter);
@@ -282,14 +353,19 @@ public class Content extends Activity {
 
 
 
+            //放入sop內容
             title.setText(SOPNAME);
             subtitle.setText(INTRO);
             sopnumber.setText(NUMBER);
             Ctext.setText(DETAIL);
+            //放入sop圖片們
 
 
-            download.setText(String.valueOf(likecount));
 
+            //放入收藏數  （尚未成功）
+             download.setText(String.valueOf(likecount));
+
+            //放入啟動規則
             System.out.println("HELLO "+STARTRULE);
             switch (STARTRULE){
                 case "1":

@@ -105,6 +105,11 @@
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".StepcutcontrolArtificial"
+            android:label="@string/title_activity_stepcutcontrol_artificial"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

@@ -3,11 +3,15 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Steprecording extends Activity {
+public class Steprecording extends Activity implements GestureDetector.OnGestureListener {
 
 
     private ProgressDialog pDialog;
@@ -35,6 +39,9 @@ public class Steprecording extends Activity {
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_RECODE = "recode";
 
+    private GestureDetector detector;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +51,54 @@ public class Steprecording extends Activity {
         productsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
         new LoadInput().execute();
+        detector = new GestureDetector(this, this);
 
     }
+
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public void onShowPress(MotionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+                            float distanceY) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public void onLongPress(MotionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        return detector.onTouchEvent(event);//这里用的detector就是上面创建的对象
+    }
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+         // TODO Auto-generated method stub
+         if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
+             Intent intent = new Intent();
+             intent.setClass(this, StepcutcontrolArtificial.class);
+             startActivity(intent);
+             // 设置切换动画，从右边进入，左边退出
+             overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+             return true;
+         } else
+             return false;
+    }
+
 
 
     @Override

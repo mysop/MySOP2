@@ -74,7 +74,7 @@
                         android:textColor="#ffffffff"
                         android:background="#ffff3f2f"
                         android:layout_marginBottom="46dp"
-                        android:onClick="login_check"
+                        android:onClick="addtolist"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:textSize="25dp"
@@ -100,12 +100,11 @@
                     android:text="160"
                     android:id="@+id/download"
                     android:background="@drawable/redball"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|center_horizontal"
                     android:textSize="30dp"
                     android:password="false"
                     android:phoneNumber="false"
                     android:singleLine="false"
-                    android:paddingLeft="37dp"
                     android:textColor="#FFFFFF" />
 
                 <TextView
@@ -115,9 +114,8 @@
                     android:text="3.8"
                     android:id="@+id/star"
                     android:background="@drawable/redball"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|center_horizontal"
                     android:textSize="30dp"
-                    android:paddingLeft="37dp"
                     android:textColor="#FFFFFF" />
 
                 <TextView
@@ -127,10 +125,16 @@
                     android:text="人工啟動"
                     android:id="@+id/category"
                     android:background="@drawable/redball"
+
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:paddingLeft="25dp"
                     android:textColor="#FFFFFF" />
+
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center_vertical|center_horizontal" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -222,7 +226,8 @@
                     android:text="A one-of-a-kind destination where our rarest coffees are small-batch roasted, packaged and enjoyed. It may be a labor of love, but it’s mostly love.\nOur coffee masters have distilled their years of tasting knowledge down to three simple questions to help you find a coffee you’re sure to love."
                     android:id="@+id/content_text"
                     android:textSize="20dp"
-                    android:background="@drawable/context_linear"/>
+                    android:background="@drawable/context_linear"
+                    android:paddingLeft="2dp" />
 
             </LinearLayout>
 

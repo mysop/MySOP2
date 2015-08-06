@@ -55,10 +55,11 @@ public class Content extends Activity {
 
     String TAG_ACCOUNT = "q@gmail.com";
     ArrayList<HashMap<String, String>> productsList;
-    ArrayList<HashMap<String, String>> productsList1;
+    ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "sop";
+    private static final String TAG_LIKEPRODUCTS = "like";
     private static final String TAG_PID = "account";
     private static final String TAG_NAME = "sop_comment";
     private static final String TAG_NUMBER = "sopnumber";
@@ -66,13 +67,21 @@ public class Content extends Activity {
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_INTRO = "intro";
     private static final String TAG_USERNAME="username";
+    private static final String TAG_STARTRULE="start_rule";
+    private static final String TAG_LIKENUMBER="like_number";
+
     private static String NUMBER ="";
     private  static String DETAIL="";
     private static String SOPNAME="";
     private static String INTRO="";
     private static String USERNAME="";
 
+    private static String STARTRULE="";
+    private int likecount=0;
+
+
     JSONArray products = null;
+    JSONArray likeproducts = null;
 
 
 
@@ -105,6 +114,7 @@ public class Content extends Activity {
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
+        likeproductsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
          new SOPContent().execute();
 
@@ -142,6 +152,12 @@ public class Content extends Activity {
 
 
         }
+
+    }
+
+    //加入清單
+    public void addtolist (View v){
+
     }
 
 
@@ -190,6 +206,7 @@ public class Content extends Activity {
                         String id = c.getString(TAG_PID);
                         String name = c.getString(TAG_NAME);
 
+
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
@@ -197,10 +214,23 @@ public class Content extends Activity {
                         map.put(TAG_PID, id);
                         map.put(TAG_NAME, name);
 
+
                         // adding HashList to ArrayList
                         productsList.add(map);
 
+
                     }
+
+//                    likeproducts = json1.getJSONArray(TAG_LIKEPRODUCTS);
+//                    for(int i=0;i< likeproducts.length();i++){
+//                        JSONObject c = likeproducts.getJSONObject(i);
+//
+//                        String like=c.getString(TAG_LIKENUMBER);
+//                        HashMap<String, String> likemap = new HashMap<String, String>();
+//                        likemap.put(TAG_LIKENUMBER, like);
+//                        likeproductsList.add(likemap);
+//
+//                    }
                 }else if(e == 2) {
 
                 }
@@ -243,11 +273,55 @@ public class Content extends Activity {
                 listInput.setAdapter(adapter);
                 inputText.setText("");
             }
+//            for (int i = 0; i < likeproducts.length(); i++) {
+//                if(likeproductsList.get(i).get(TAG_LIKENUMBER)!=""){
+//                    likecount++;
+//                }
+//            }
+
+
+
 
             title.setText(SOPNAME);
             subtitle.setText(INTRO);
             sopnumber.setText(NUMBER);
             Ctext.setText(DETAIL);
+
+
+            download.setText(String.valueOf(likecount));
+
+            System.out.println("HELLO "+STARTRULE);
+            switch (STARTRULE){
+                case "1":
+                    cagetory.setText("人工啟動");
+                    cagetory.setTextSize(20);
+                    break;
+                case "2":
+                    cagetory.setText("前一步驟\n完工");
+                    cagetory.setTextSize(16);
+                    break;
+                case "3":
+                    cagetory.setText("Beacon");
+                    cagetory.setTextSize(20);
+                    break;
+                case "4":
+                    cagetory.setText("QR code");
+                    cagetory.setTextSize(20);
+                    break;
+                case "5":
+                    cagetory.setText("NFC");
+                    cagetory.setTextSize(25);
+                    break;
+                case "6":
+                    cagetory.setText("定位");
+                    cagetory.setTextSize(25);
+                    break;
+                case "7":
+                    cagetory.setText("時間到期");
+                    cagetory.setTextSize(16);
+                    break;
+
+            }
 
         }
 

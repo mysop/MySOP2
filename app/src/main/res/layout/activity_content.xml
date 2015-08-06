@@ -187,22 +187,28 @@
                     >
 
                     <ImageView
-                        android:layout_width="200dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/imageView8"
-                        android:src="@drawable/test1" />
+                        android:id="@+id/graph1"
+                        android:src="@drawable/test1"
+                        android:scaleType="fitXY"
+                        android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="200dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/imageView10"
-                        android:src="@drawable/test2" />
+                        android:id="@+id/graph2"
+                        android:src="@drawable/test2"
+                        android:scaleType="fitXY"
+                        android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="200dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/imageView11"
-                        android:src="@drawable/test3" />
+                        android:id="@+id/graph3"
+                        android:src="@drawable/test3"
+                        android:scaleType="fitXY"
+                        android:layout_margin="2dp" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -237,28 +243,7 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/commentlayout">
 
- <!--               <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/commentlayout1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Username"
-                        android:id="@+id/Username"
-                        android:layout_marginTop="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lorem ipsum dolor sit amet, consect elity.J'aime la chien et la chat.I li y le garcon.Qui!"
-                        android:id="@+id/textView12" />
-
-              </LinearLayout>
- -->                 <TextView
+                <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:textAppearance="?android:attr/textAppearanceLarge"

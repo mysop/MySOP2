@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 //鍵盤手請看237
+//134行 帳號暫時註解
 
 public class Content extends Activity {
 
@@ -42,7 +43,7 @@ public class Content extends Activity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items;
 
-    private ImageView picture;
+
     private TextView title;
     private TextView master;
     private TextView download;
@@ -61,6 +62,8 @@ public class Content extends Activity {
     private static String url_create_product2 = "http://140.115.80.237/front/mysop_content3.jsp";
     //抓sop 圖片
     private static String url_create_product3 = "http://140.115.80.237/front/mysop_content4.jsp";
+    //數like數
+    private static String url_create_product4 = "http://140.115.80.237/front/mysop_content5.jsp";
 
 
     String TAG_ACCOUNT = "q@gmail.com";
@@ -69,7 +72,7 @@ public class Content extends Activity {
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "sop";
-    private static final String TAG_LIKEPRODUCTS = "like";
+    private static final String TAG_LIKEPRODUCTS = "likenumber";
     private static final String TAG_PID = "account";
     private static final String TAG_NAME = "sop_comment";
     private static final String TAG_NUMBER = "sopnumber";
@@ -77,8 +80,6 @@ public class Content extends Activity {
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_INTRO = "intro";
     private static final String TAG_USERNAME="username";
-    private static final String TAG_STARTRULE="start_rule";
-    private static final String TAG_LIKENUMBER="like_number";
     private static final String TAG_SOPGRAPH="sopgraph";
     private static final String TAG_GRAPH1="graph1";
     private static final String TAG_GRAPH2="graph2";
@@ -98,7 +99,6 @@ public class Content extends Activity {
     private static String GRAPH3="";
 
     private int likecount=0;
-    private String imageFileURL = "http://140.115.80.237/front/picture/car.jpg";
 
 
     JSONArray products = null;
@@ -117,7 +117,6 @@ public class Content extends Activity {
         adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
         listInput.setAdapter(adapter);
 
-        picture=(ImageView)findViewById(R.id.content_picture);
         title=(TextView)findViewById(R.id.content_title);
         master=(TextView)findViewById(R.id.content_master);
         download=(TextView)findViewById(R.id.download);
@@ -139,9 +138,9 @@ public class Content extends Activity {
         // Loading products in Background Thread
          new SOPContent().execute();
 
-        //picture
+        //抓 picture（預設圖片）
         new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
-                .execute("http://140.115.80.237/front/picture/car.jpg");
+                .execute("http://www.niusnews.com/upload/imgs/default/15MayW/CATWATCH/0.jpg");
 
 
 
@@ -233,19 +232,19 @@ public class Content extends Activity {
             ArrayList params = new ArrayList();
             ArrayList params1 = new ArrayList();
             ArrayList params2 = new ArrayList();
+            ArrayList params3 = new ArrayList();
 
             params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params3.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
 
-
-            // json抓sop內容  json1抓評論 json2抓sop圖片
+            // json抓sop內容  json1抓評論 json2抓sop圖片 json3抓like數
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
             JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product3, "GET", params2);
+            JSONObject json3 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product4, "GET", params3);
 
-//            // Check your log cat for JSON reponse
-//            Log.d("All Products: ", json1.toString());
 
             try {
 
@@ -262,7 +261,6 @@ public class Content extends Activity {
                         String id = c.getString(TAG_PID);
                         String name = c.getString(TAG_NAME);
 
-
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
@@ -270,30 +268,24 @@ public class Content extends Activity {
                         map.put(TAG_PID, id);
                         map.put(TAG_NAME, name);
 
-
                         // adding HashList to ArrayList
                         productsList.add(map);
-
-
                     }
-
-//                    likeproducts = json1.getJSONArray(TAG_LIKEPRODUCTS);
-//                    for(int i=0;i< likeproducts.length();i++){
-//                        JSONObject c = likeproducts.getJSONObject(i);
-//
-//                        String like=c.getString(TAG_LIKENUMBER);
-//                        HashMap<String, String> likemap = new HashMap<String, String>();
-//                        likemap.put(TAG_LIKENUMBER, like);
-//                        likeproductsList.add(likemap);
-//
-//                    }
                 }else if(e == 2) {
+                }
+                //算like
+                int e1 = json3.getInt(TAG_SUCCESS);
+
+                if(e1 == 1) {
+                    likeproducts = json3.getJSONArray(TAG_LIKEPRODUCTS);
+                    for(int i=0;i<likeproducts.length();i++){
+                        likecount++;
+                    }
+                }else{
 
                 }
 
                 //讀取sop內容
-
-
                 int e2 = json.getInt(TAG_SUCCESS);
 
                 if(e2==1){
@@ -302,11 +294,7 @@ public class Content extends Activity {
                     DETAIL = json.getString(TAG_DETAIL);
                     INTRO  = json.getString(TAG_INTRO);
                 }else{
-                   // System.out.println("HAHA NO"+json.getString(TAG_SOPNAME));
-
                 }
-
-
 
                 //抓sop圖片
                 int e3 = json2.getInt(TAG_SUCCESS);
@@ -316,12 +304,8 @@ public class Content extends Activity {
                     GRAPH2 = json2.getString(TAG_GRAPH2);
                     GRAPH3 = json2.getString(TAG_GRAPH3);
                 }else{
-                    // System.out.println("HAHA NO"+json.getString(TAG_SOPNAME));
 
                 }
-
-
-
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
@@ -344,25 +328,23 @@ public class Content extends Activity {
                 listInput.setAdapter(adapter);
                 inputText.setText("");
             }
-//            for (int i = 0; i < likeproducts.length(); i++) {
-//                if(likeproductsList.get(i).get(TAG_LIKENUMBER)!=""){
-//                    likecount++;
-//                }
-//            }
-
-
-
-
             //放入sop內容
             title.setText(SOPNAME);
             subtitle.setText(INTRO);
             sopnumber.setText(NUMBER);
             Ctext.setText(DETAIL);
+
             //放入sop圖片們
+            new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
+                    .execute(SOPGRAPH);
+            new DownloadImageTask((ImageView)findViewById(R.id.graph1))
+                    .execute(GRAPH1);
+            new DownloadImageTask((ImageView)findViewById(R.id.graph2))
+                    .execute(GRAPH2);
+            new DownloadImageTask((ImageView)findViewById(R.id.graph3))
+                    .execute(GRAPH3);
 
-
-
-            //放入收藏數  （尚未成功）
+            //放入收藏數
              download.setText(String.valueOf(likecount));
 
             //放入啟動規則
@@ -396,13 +378,8 @@ public class Content extends Activity {
                     cagetory.setText("時間到期");
                     cagetory.setTextSize(16);
                     break;
-
             }
-
         }
-
-
-
     }
 
     class SOPContent1 extends AsyncTask<String, String, String> {
@@ -454,7 +431,6 @@ public class Content extends Activity {
             items.add(USERNAME+"\n"+inputText.getText().toString());
             listInput.setAdapter(adapter);
             inputText.setText("");
-
 
         }
 

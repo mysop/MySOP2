@@ -22,4 +22,18 @@
         android:name="com.example.kelly.mysop.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/commentlayout">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="350dp"
+            android:id="@+id/list_dynamic"
+            >
+        </ListView>
+    </LinearLayout>
+
 </android.support.v4.widget.DrawerLayout>

@@ -84,6 +84,7 @@ public class Content extends Activity {
     private static final String TAG_GRAPH1="graph1";
     private static final String TAG_GRAPH2="graph2";
     private static final String TAG_GRAPH3="graph3";
+    private static final String TAG_STARTRULE="start_rule";
 
 
     private static String NUMBER ="";
@@ -91,6 +92,7 @@ public class Content extends Activity {
     private static String SOPNAME="";
     private static String INTRO="";
     private static String USERNAME="";
+    private  static String ACCOUNT="";
 
     private static String STARTRULE="";
     private static String SOPGRAPH="";
@@ -138,12 +140,6 @@ public class Content extends Activity {
         // Loading products in Background Thread
          new SOPContent().execute();
 
-        //抓 picture（預設圖片）
-        new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
-                .execute("http://www.niusnews.com/upload/imgs/default/15MayW/CATWATCH/0.jpg");
-
-
-
     }
 
 
@@ -157,27 +153,19 @@ public class Content extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-
-
     }
 
     //新增評論
     public void writeCommon (View v){
         if(!inputText.getText().toString().equals("")){
             new SOPContent1().execute();
-
-
         }
 
     }
@@ -285,16 +273,6 @@ public class Content extends Activity {
 
                 }
 
-                //讀取sop內容
-                int e2 = json.getInt(TAG_SUCCESS);
-
-                if(e2==1){
-                    SOPNAME = json.getString(TAG_SOPNAME);
-                    NUMBER  = json.getString(TAG_NUMBER);
-                    DETAIL = json.getString(TAG_DETAIL);
-                    INTRO  = json.getString(TAG_INTRO);
-                }else{
-                }
 
                 //抓sop圖片
                 int e3 = json2.getInt(TAG_SUCCESS);
@@ -306,6 +284,20 @@ public class Content extends Activity {
                 }else{
 
                 }
+
+                //讀取sop內容
+                int e2 = json.getInt(TAG_SUCCESS);
+
+                if(e2==1){
+                    SOPNAME = json.getString(TAG_SOPNAME);
+                    NUMBER  = json.getString(TAG_NUMBER);
+                    DETAIL = json.getString(TAG_DETAIL);
+                    INTRO  = json.getString(TAG_INTRO);
+                    ACCOUNT= json.getString(TAG_PID);
+                    STARTRULE=json.getString(TAG_STARTRULE);
+                }else{
+                }
+
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
@@ -333,6 +325,7 @@ public class Content extends Activity {
             subtitle.setText(INTRO);
             sopnumber.setText(NUMBER);
             Ctext.setText(DETAIL);
+            master.setText(ACCOUNT);
 
             //放入sop圖片們
             new DownloadImageTask((ImageView)findViewById(R.id.content_picture))

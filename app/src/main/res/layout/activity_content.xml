@@ -126,9 +126,8 @@
                     android:id="@+id/category"
                     android:background="@drawable/redball"
 
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|center_horizontal"
                     android:textSize="20dp"
-                    android:paddingLeft="25dp"
                     android:textColor="#FFFFFF" />
 
                     android:textSize="20dp"

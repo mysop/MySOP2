@@ -55,14 +55,12 @@ public class Content extends Activity {
 
 
     JSONParser jsonParser = new JSONParser();
-    //讀取 sop內容
+    //讀取 sop內容 圖片
     private static String url_create_product = "http://140.115.80.237/front/mysop_content.jsp";
     //讀取 評論
     private static String url_create_product1 = "http://140.115.80.237/front/mysop_content1.jsp";
     //寫入評論
     private static String url_create_product2 = "http://140.115.80.237/front/mysop_content3.jsp";
-    //抓sop 圖片
-    private static String url_create_product3 = "http://140.115.80.237/front/mysop_content4.jsp";
     //數like數
     private static String url_create_product4 = "http://140.115.80.237/front/mysop_content5.jsp";
     //加入清單
@@ -146,8 +144,6 @@ public class Content extends Activity {
 
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -225,18 +221,15 @@ public class Content extends Activity {
 
             ArrayList params = new ArrayList();
             ArrayList params1 = new ArrayList();
-            ArrayList params2 = new ArrayList();
             ArrayList params3 = new ArrayList();
 
             params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
-            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params3.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
 
             // json抓sop內容  json1抓評論 json2抓sop圖片 json3抓like數
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
             JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
-            JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product3, "GET", params2);
             JSONObject json3 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product4, "GET", params3);
 
 
@@ -279,22 +272,14 @@ public class Content extends Activity {
 
                 }
 
-
-                //抓sop圖片
-                int e3 = json2.getInt(TAG_SUCCESS);
-                if(e3==1){
-                    SOPGRAPH = json2.getString(TAG_SOPGRAPH);
-                    GRAPH1 = json2.getString(TAG_GRAPH1);
-                    GRAPH2 = json2.getString(TAG_GRAPH2);
-                    GRAPH3 = json2.getString(TAG_GRAPH3);
-                }else{
-
-                }
-
-                //讀取sop內容
+                //讀取sop內容 sop圖片
                 int e2 = json.getInt(TAG_SUCCESS);
 
                 if(e2==1){
+                    SOPGRAPH = json.getString(TAG_SOPGRAPH);
+                    GRAPH1 = json.getString(TAG_GRAPH1);
+                    GRAPH2 = json.getString(TAG_GRAPH2);
+                    GRAPH3 = json.getString(TAG_GRAPH3);
                     SOPNAME = json.getString(TAG_SOPNAME);
                     NUMBER  = json.getString(TAG_NUMBER);
                     DETAIL = json.getString(TAG_DETAIL);
@@ -472,9 +457,6 @@ public class Content extends Activity {
                 var9.printStackTrace();
             }
             pDialog.dismiss();
-
-
-
             return null;
         }
 

@@ -35,6 +35,7 @@ import java.util.HashMap;
 
 //鍵盤手請看237
 //134行 帳號暫時註解
+//帳號暫時寫死  sopnumber也是
 
 public class Content extends Activity {
 
@@ -51,7 +52,7 @@ public class Content extends Activity {
     private TextView cagetory;
     private TextView subtitle;
     private TextView Ctext;
-    private TextView sopnumber;
+
 
     JSONParser jsonParser = new JSONParser();
     //讀取 sop內容
@@ -64,8 +65,11 @@ public class Content extends Activity {
     private static String url_create_product3 = "http://140.115.80.237/front/mysop_content4.jsp";
     //數like數
     private static String url_create_product4 = "http://140.115.80.237/front/mysop_content5.jsp";
+    //加入清單
+    private static String url_create_product5 = "http://140.115.80.237/front/mysop_content6.jsp";
 
 
+    TextView sopnumber;
     String TAG_ACCOUNT = "q@gmail.com";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
@@ -170,9 +174,11 @@ public class Content extends Activity {
 
     }
 
-    //加入清單
+    //加入清單 和到Mysop頁面
     public void addtolist (View v){
-
+        new SOPContent2().execute();
+        Intent it = new Intent(this,Mysop.class);
+        startActivity(it);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -375,6 +381,7 @@ public class Content extends Activity {
         }
     }
 
+    //寫入評論
     class SOPContent1 extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
             super.onPreExecute();
@@ -405,6 +412,60 @@ public class Content extends Activity {
                 int e3 = json2.getInt(TAG_SUCCESS);
                 if(e3 == 1) {
                     USERNAME = json2.getString(TAG_USERNAME);
+                }
+
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+            pDialog.dismiss();
+
+
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+
+            items.add(USERNAME+"\n"+inputText.getText().toString());
+            listInput.setAdapter(adapter);
+            inputText.setText("");
+
+        }
+
+    }
+
+    //加入清單
+    class SOPContent2 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Content.this);
+            pDialog.setMessage("Adding to List. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+
+            String Sopnumber = Content.this.sopnumber.getText().toString();
+
+            //for get
+            ArrayList params2 = new ArrayList();
+
+            params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+
+            JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);
+
+
+            try {
+                //加入清單
+                int e3 = json2.getInt(TAG_SUCCESS);
+                if(e3 == 1) {
+
                 }
 
             } catch (JSONException var9) {

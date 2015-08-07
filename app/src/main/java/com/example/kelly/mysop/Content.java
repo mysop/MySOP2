@@ -44,7 +44,6 @@ public class Content extends Activity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items;
 
-
     private TextView title;
     private TextView master;
     private TextView download;
@@ -52,7 +51,6 @@ public class Content extends Activity {
     private TextView cagetory;
     private TextView subtitle;
     private TextView Ctext;
-
 
     JSONParser jsonParser = new JSONParser();
     //讀取 sop內容 圖片
@@ -227,7 +225,7 @@ public class Content extends Activity {
             params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params3.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
 
-            // json抓sop內容  json1抓評論 json2抓sop圖片 json3抓like數
+            // json抓sop內容  json1抓評論  json3抓like數
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
             JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
             JSONObject json3 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product4, "GET", params3);
@@ -404,8 +402,6 @@ public class Content extends Activity {
             }
             pDialog.dismiss();
 
-
-
             return null;
         }
 
@@ -445,12 +441,10 @@ public class Content extends Activity {
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);
 
-
             try {
                 //加入清單
                 int e3 = json2.getInt(TAG_SUCCESS);
                 if(e3 == 1) {
-
                 }
 
             } catch (JSONException var9) {
@@ -458,16 +452,6 @@ public class Content extends Activity {
             }
             pDialog.dismiss();
             return null;
-        }
-
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
-            pDialog.dismiss();
-
-            items.add(USERNAME+"\n"+inputText.getText().toString());
-            listInput.setAdapter(adapter);
-            inputText.setText("");
-
         }
 
     }

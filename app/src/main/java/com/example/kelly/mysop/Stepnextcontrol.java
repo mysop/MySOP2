@@ -52,7 +52,7 @@ public class Stepnextcontrol extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stepnextcontrol);
 
-        list = new String[10];
+        //list = new String[2];
 
         listView = (ListView)findViewById(R.id.next_listView);
 /*        listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
@@ -181,6 +181,7 @@ public class Stepnextcontrol extends Activity {
                 }
             }); */
 
+            list = new String[products.length()];
 
             for(int i=0; i<products.length();i++) {
 

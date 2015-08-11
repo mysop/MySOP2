@@ -57,6 +57,7 @@
     <string name="title_activity_stepdescription">Stepdescription</string>
     <string name="title_activity_steprecording">Steprecording</string>
     <string name="title_activity_stepcutcontrol_artificial">StepcutcontrolArtificial</string>
+    <string name="title_activity_stepnextcontrol">Stepnextcontrol</string>
 
 
 

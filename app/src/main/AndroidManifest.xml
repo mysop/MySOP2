@@ -9,8 +9,6 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -87,7 +85,6 @@
             android:name=".DynamicAction"
             android:label="@string/title_activity_dynamic_action" >
         </activity>
-
         <activity
             android:name=".Start"
             android:label="@string/title_activity_start"
@@ -107,6 +104,11 @@
         <activity
             android:name=".StepcutcontrolArtificial"
             android:label="@string/title_activity_stepcutcontrol_artificial"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".Stepnextcontrol"
+            android:label="@string/title_activity_stepnextcontrol"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>

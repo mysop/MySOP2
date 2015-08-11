@@ -111,6 +111,11 @@
             android:label="@string/title_activity_stepnextcontrol"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".StepCaseEnding"
+            android:label="@string/title_activity_step_case_ending"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>

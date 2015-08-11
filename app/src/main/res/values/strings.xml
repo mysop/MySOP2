@@ -58,6 +58,7 @@
     <string name="title_activity_steprecording">Steprecording</string>
     <string name="title_activity_stepcutcontrol_artificial">StepcutcontrolArtificial</string>
     <string name="title_activity_stepnextcontrol">Stepnextcontrol</string>
+    <string name="title_activity_step_case_ending">StepCaseEnding</string>
 
 
 

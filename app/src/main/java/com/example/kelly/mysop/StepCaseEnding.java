@@ -8,6 +8,9 @@ import android.view.MenuItem;
 
 public class StepCaseEnding extends Activity {
 
+    //連線 case ending
+    private static String url_create_product = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

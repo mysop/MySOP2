@@ -302,7 +302,6 @@ public class Content extends Activity {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
 
-            //鍵盤手看這邊  別失敗啊！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
             //自動新增評論
             for (int i = 0; i < products.length(); i++) {
                 items.add(productsList.get(i).get(TAG_PID)+"\n"+productsList.get(i).get(TAG_NAME));

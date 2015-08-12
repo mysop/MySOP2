@@ -7,68 +7,91 @@
     tools:context="com.example.kelly.mysop.Start"
     android:background="#ffffffff">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="永康街一日遊"
-        android:id="@+id/start_title"
-        android:textColor="#ff000000"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="捷運東門站終於開通！附近好玩、好吃的商家都在哪裡呢？跟隨永康街一日遊，給自己一個深度遊永康街的周末吧！"
-        android:id="@+id/start_detail"
-        android:layout_marginTop="123dp"
-        android:layout_below="@+id/start_title"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff969696" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="永康街一日遊"
+            android:id="@+id/start_title"
+            android:textColor="#ff000000"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="介紹"
-        android:id="@+id/textView7"
-        android:layout_alignBottom="@+id/start_detail"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
-        android:textColor="#ff000000" />
+        android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1"
-        android:id="@+id/start_left"
-        android:textColor="#ff000000"
-        android:layout_alignTop="@+id/textView10"
-        android:layout_toStartOf="@+id/textView10" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="介紹"
+            android:id="@+id/textView7"
+            android:layout_alignBottom="@+id/start_detail"
+            android:layout_alignParentStart="true"
+            android:textColor="#ff000000"
+            android:layout_marginTop="90dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="/"
-        android:id="@+id/textView10"
-        android:textColor="#ff000000"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/start_detail"
-        android:layout_marginTop="29dp" />
+        <TextView
+            android:layout_width="278dp"
+            android:layout_height="200dp"
+            android:text="捷運東門站終於開通！附近好玩、好吃的商家都在哪裡呢？跟隨永康街一日遊，給自己一個深度遊永康街的周末吧！"
+            android:id="@+id/start_detail"
+            android:layout_marginTop="123dp"
+            android:layout_below="@+id/start_title"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ff969696"
+            android:layout_weight="0.51" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="8"
-        android:id="@+id/start_right"
-        android:textColor="#ff000000"
-        android:layout_alignTop="@+id/start_left"
-        android:layout_toEndOf="@+id/textView10" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:gravity="center|bottom"
+        android:id="@+id/try1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="1"
+            android:id="@+id/start_left"
+            android:textColor="#ff000000"
+            android:layout_alignTop="@+id/textView10"
+            android:layout_toStartOf="@+id/textView10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="/"
+            android:id="@+id/textView10"
+            android:textColor="#ff000000"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="8"
+            android:id="@+id/start_right"
+            android:textColor="#ff000000"
+            android:layout_alignTop="@+id/start_left"
+            android:layout_toEndOf="@+id/textView10" />
+    </LinearLayout>
 
     <Button
         android:layout_width="250dp"
@@ -84,4 +107,5 @@
         android:typeface="serif"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,8 +50,12 @@ public class Steprecording extends Activity {
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_RECODE = "recode";
 
+
+    private static String url_record = "http://140.115.80.237/front/mysop_login.jsp";
+
     private GestureDetector detector;
     EditText edit1;
+    EditText et1;
 
     private Intent recognizerIntent = null;
     private GridView gridView;
@@ -74,9 +79,9 @@ public class Steprecording extends Activity {
 
         context = this;
         recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-/*        if (!hasRecognizer()) {
+        /*if (!hasRecognizer()) {
             Toast.makeText(context, "無語音辨識服務", Toast.LENGTH_SHORT).show();
-            finish();
+            //finish();
             return;
         }*/
         messageList = new ArrayList<>();
@@ -239,9 +244,10 @@ public class Steprecording extends Activity {
                 TextView text1 = new TextView(Steprecording.this);
                 text1.setText(productsList.get(i).get(TAG_RECODE+r));
 
-                //EditText edit1 = new EditText(Steprecording.this);
-                edit1 = new EditText(Steprecording.this);
-                //edit1.setTag("text"+i);
+
+                edit1 = new EditText(Steprecording.this.getApplicationContext());
+                edit1.setId(400+i);
+
                 ly.addView(text1);
                 ly.addView(edit1);
             }
@@ -281,5 +287,52 @@ public class Steprecording extends Activity {
         }
 
     }
+
+    //回傳
+    class Recording extends AsyncTask<String, String, String> {
+        Recording() {}
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Steprecording.this.pDialog = new ProgressDialog(Steprecording.this);
+            Steprecording.this.pDialog.setMessage("Recording...");
+            Steprecording.this.pDialog.setIndeterminate(false);
+            Steprecording.this.pDialog.setCancelable(true);
+            Steprecording.this.pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            //EditText et1 = (EditText)edit1.findViewById(20);
+            String Account = Steprecording.this.et1.getText().toString();
+
+
+            ArrayList params = new ArrayList();
+         //   params.add(new BasicNameValuePair("Account", Account));
+
+            JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
+            Log.d("Create Response", json.toString());
+
+            try {
+                int e = json.getInt(TAG_SUCCESS);
+                if(e == 1) {
+
+                }else if(e == 2){
+
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            Steprecording.this.pDialog.dismiss();
+        }
+    }
+
+
+
 
 }

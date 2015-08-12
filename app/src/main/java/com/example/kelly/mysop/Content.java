@@ -174,7 +174,7 @@ public class Content extends Activity {
         Intent it = new Intent(this,Mysop.class);
         startActivity(it);
     }
-
+   //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 

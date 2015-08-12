@@ -41,7 +41,7 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/scrollView"
             android:layout_alignBottom="@+id/linearlayouttitle">
 
@@ -70,5 +70,11 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/speak"
+        android:text="使用語音辨識"
+        android:layout_alignParentBottom="true"
+        android:onClick="speak_onclick" />
 </RelativeLayout>

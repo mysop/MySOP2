@@ -3,9 +3,13 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector;
@@ -13,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -26,6 +32,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.widget.Toast;
 
 //p303
 public class Steprecording extends Activity {
@@ -42,6 +50,13 @@ public class Steprecording extends Activity {
     private static final String TAG_RECODE = "recode";
 
     private GestureDetector detector;
+    EditText edit1;
+
+    private Intent recognizerIntent = null;
+    private GridView gridView;
+    private List<String> messageList;
+    private ArrayAdapter<String> adapter;
+    private Context context;
 
 
     @Override
@@ -56,8 +71,60 @@ public class Steprecording extends Activity {
         detector = new GestureDetector(new MySimpleOnGestureListener());
         ScrollView sv = (ScrollView)findViewById(R.id.scrollView);
         sv.setOnTouchListener(new MyOnTouchListener());
+
+        context = this;
+        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+/*        if (!hasRecognizer()) {
+            Toast.makeText(context, "無語音辨識服務", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }*/
+        messageList = new ArrayList<>();
+
     }
 
+    private boolean hasRecognizer() {
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> list = pm.queryIntentActivities(recognizerIntent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        if (list.size() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+/*    public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {// 失去焦点
+            edit1.getTag();
+        }
+    }*/
+
+
+    public void speak_onclick(View view) {
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "請說...");
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+        startActivityForResult(recognizerIntent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent it) {
+        messageList.clear();
+        if (requestCode != 1) {
+            return;
+        }
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        List<String> list =
+                it.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        for (String s : list) {
+            messageList.add(s);
+        }
+
+    }
 
 
     @Override
@@ -172,17 +239,16 @@ public class Steprecording extends Activity {
                 TextView text1 = new TextView(Steprecording.this);
                 text1.setText(productsList.get(i).get(TAG_RECODE+r));
 
-                EditText edit1 = new EditText(Steprecording.this);
+                //EditText edit1 = new EditText(Steprecording.this);
+                edit1 = new EditText(Steprecording.this);
+                //edit1.setTag("text"+i);
                 ly.addView(text1);
                 ly.addView(edit1);
             }
 
-            ly.setOnTouchListener(new MyOnTouchListener());
+            //if(edit1.getTag().equals(1)){edit1.setText("qqq");}
 
-/*            AlertDialog.Builder dialog = new AlertDialog.Builder(Steprecording.this);
-            dialog.setTitle("");
-            dialog.setMessage(productsList.get(1).get(TAG_RECODE + "3"));
-            dialog.show();*/
+            ly.setOnTouchListener(new MyOnTouchListener());
 
 
         }
@@ -191,6 +257,7 @@ public class Steprecording extends Activity {
 
 
 
+    //抓滑動，還沒寫儲存的doinbackground
     class MyOnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -214,4 +281,5 @@ public class Steprecording extends Activity {
         }
 
     }
+
 }

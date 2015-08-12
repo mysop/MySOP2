@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 
+//p302
 public class Stepdescription extends Activity {
 
     private GestureDetector detector;

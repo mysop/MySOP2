@@ -3,10 +3,12 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -46,17 +48,16 @@ public class Steprecording extends Activity {
     ArrayList<HashMap<String, String>> productsList;
     JSONArray products = null;
 
-    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecoding.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecording.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_RECODE = "recode";
 
 
-    private static String url_record = "http://140.115.80.237/front/mysop_login.jsp";
+    private static String url_record = "http://140.115.80.237/front/mysop_steprecording1.jsp";
 
     private GestureDetector detector;
     EditText[] edit1 = new EditText[20];
-    EditText et1;
 
     private Intent recognizerIntent = null;
     private GridView gridView;
@@ -65,6 +66,7 @@ public class Steprecording extends Activity {
     private Context context;
 
     private int count=0;
+    private String step="";
 
 
     @Override
@@ -77,48 +79,31 @@ public class Steprecording extends Activity {
         // Loading products in Background Thread
         new LoadInput().execute();
         detector = new GestureDetector(new MySimpleOnGestureListener());
-        ScrollView sv = (ScrollView)findViewById(R.id.scrollView);
+
+                ScrollView sv = (ScrollView)findViewById(R.id.scrollView);
         sv.setOnTouchListener(new MyOnTouchListener());
+        //LinearLayout llb = (LinearLayout)findViewById(R.id.linearLayoutbackground);
+        //llb.setOnTouchListener(new MyOnTouchListener());
 
-        context = this;
-        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        /*if (!hasRecognizer()) {
-            Toast.makeText(context, "無語音辨識服務", Toast.LENGTH_SHORT).show();
-            //finish();
-            return;
-        }*/
         messageList = new ArrayList<>();
-
     }
-
-    private boolean hasRecognizer() {
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> list = pm.queryIntentActivities(recognizerIntent,
-                PackageManager.MATCH_DEFAULT_ONLY);
-        if (list.size() != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-/*    public void onFocusChange(View v, boolean hasFocus) {
-        if (!hasFocus) {// 失去焦点
-            edit1.getTag();
-        }
-    }*/
 
 
     public void speak_onclick(View view) {
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "請說...");
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
-        startActivityForResult(recognizerIntent, 1);
+        try {
+            startActivityForResult(recognizerIntent, 1);
+        }catch(ActivityNotFoundException a){
+            Toast.makeText(getApplicationContext(),"抱歉您的系统不支持语音识别输入。",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent it) {
+        super.onActivityResult(requestCode, resultCode, it);
         messageList.clear();
         if (requestCode != 1) {
             return;
@@ -126,8 +111,7 @@ public class Steprecording extends Activity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        List<String> list =
-                it.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        List<String> list = it.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
         for (String s : list) {
             messageList.add(s);
         }
@@ -135,7 +119,7 @@ public class Steprecording extends Activity {
     }
 
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_steprecording, menu);
@@ -155,7 +139,7 @@ public class Steprecording extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     /**
      * Background Async Task to Load all product by making HTTP Request
@@ -189,6 +173,7 @@ public class Steprecording extends Activity {
 
             try {
                 // Checking for SUCCESS TAG
+                step = json.getString("step");
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
@@ -253,22 +238,25 @@ public class Steprecording extends Activity {
                 edit1[i] = new EditText(Steprecording.this.getApplicationContext());
                 //edit1[i].setId(400+i);
 
+                edit1[i].setTextColor(Color.rgb(0, 0, 0));
+
+                edit1[0].setText("eee");
                 ly.addView(text1);
                 ly.addView(edit1[i]);
             }
 
             //if(edit1.getTag().equals(1)){edit1.setText("qqq");}
 
-            ly.setOnTouchListener(new MyOnTouchListener());
+            //ly.setOnTouchListener(new MyOnTouchListener());
 
 
         }
 
     }
 
+    int postcount;
 
-
-    //抓滑動，還沒寫儲存的doinbackground
+    //抓滑動
     class MyOnTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -281,11 +269,18 @@ public class Steprecording extends Activity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             // TODO Auto-generated method stub
             if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
-                Intent intent = new Intent();
+
+
+                for(postcount=0;postcount<count;postcount++) {
+                    new Recording().execute();
+                }
+                Toast.makeText(Steprecording.this,"傳完啦",Toast.LENGTH_LONG).show();
+
+/*                Intent intent = new Intent();
                 intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
                 startActivity(intent);
                 // 设置切换动画，从右边进入，左边退出
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);*/
                 return true;
             } else
                 return false;
@@ -311,15 +306,11 @@ public class Steprecording extends Activity {
             //EditText et1 = (EditText)edit1.findViewById(20);
             //String Account = Steprecording.this.et1.getText().toString();
 
-            String ttt = "";
-            Array[] ggg = new Array[20];
-            for(int i=0; i<=count;i++) {
-                ttt = edit1[i].getText().toString();
-                //ggg[i] = g;
-            }
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("Account", ttt));
 
+            params.add(new BasicNameValuePair("RecordText", edit1[postcount].getText().toString()));
+            params.add(new BasicNameValuePair("StepNumber", step));
+            params.add(new BasicNameValuePair("RecordOrder", String.valueOf(postcount)));
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
             Log.d("Create Response", json.toString());
@@ -327,9 +318,9 @@ public class Steprecording extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-
+                    Toast.makeText(Steprecording.this,"successsss",Toast.LENGTH_LONG).show();
                 }else if(e == 2){
-
+                    Toast.makeText(Steprecording.this,"fail",Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();

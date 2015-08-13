@@ -10,13 +10,16 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/linearLayoutbackground"
+        android:background="#FFA488" >
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:id="@+id/linearlayouttitle">
+            android:id="@+id/linearlayouttitle"
+            android:background="#77FFCC">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,13 +46,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/scrollView"
-            android:layout_alignBottom="@+id/linearlayouttitle">
+            android:layout_alignBottom="@+id/linearlayouttitle"
+            android:background="#FFFF77">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/linearlayoutinput">
+                android:id="@+id/linearlayoutinput"
+                android:background="#99BBFF">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

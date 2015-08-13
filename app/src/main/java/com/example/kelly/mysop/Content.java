@@ -33,7 +33,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//鍵盤手請看237
 //134行 帳號暫時註解
 //帳號暫時寫死  sopnumber也是
 

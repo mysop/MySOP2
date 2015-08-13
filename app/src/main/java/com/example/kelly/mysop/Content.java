@@ -329,7 +329,6 @@ public class Content extends Activity {
              download.setText(String.valueOf(likecount));
 
             //放入啟動規則
-            System.out.println("HELLO "+STARTRULE);
             switch (STARTRULE){
                 case "1":
                     cagetory.setText("人工啟動");

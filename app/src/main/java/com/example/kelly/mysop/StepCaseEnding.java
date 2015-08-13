@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -32,6 +34,13 @@ public class StepCaseEnding extends Activity {
     private EditText edit3;
     private EditText edit4;
     private EditText edit5;
+    private TextView unit1;
+    private TextView unit2;
+    private TextView unit3;
+    private TextView unit4;
+    private TextView unit5;
+
+
 
     ArrayList<HashMap<String, String>> productsList;
     JSONArray products = null;
@@ -62,6 +71,12 @@ public class StepCaseEnding extends Activity {
         edit3=(EditText)findViewById(R.id.endEdit3);
         edit4=(EditText)findViewById(R.id.endEdit4);
         edit5=(EditText)findViewById(R.id.endEdit5);
+        unit1=(TextView)findViewById(R.id.Endunit1);
+        unit2=(TextView)findViewById(R.id.Endunit2);
+        unit3=(TextView)findViewById(R.id.Endunit3);
+        unit4=(TextView)findViewById(R.id.Endunit4);
+        unit5=(TextView)findViewById(R.id.Endunit5);
+
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -109,16 +124,12 @@ public class StepCaseEnding extends Activity {
             //先寫死stepnumber
             String Stepnumber ="1" ;
 
-
             ArrayList params = new ArrayList();
-
 
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
 
             // 抓紀錄
           JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products, "GET", params);
-
-
 
             try {
 
@@ -163,6 +174,29 @@ public class StepCaseEnding extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
+
+            for (int i = 0; i < products.length(); i++) {
+
+            }
+            switch(products.length()){
+                case 1:
+                    edit1.setText(productsList.get(0).get(TAG_TEXT));
+                    unit1.setText(productsList.get(0).get(TAG_UNIT));
+
+                    break;
+                case 2:
+
+            }
+
+            edit1.setText(productsList.get(0).get(TAG_TEXT));
+            unit1.setText(productsList.get(0).get(TAG_UNIT));
+            edit2.setText(productsList.get(1).get(TAG_TEXT));
+            unit2.setText(productsList.get(1).get(TAG_UNIT));
+//            edit3.setText(productsList.get(2).get(TAG_TEXT)+productsList.get(2).get(TAG_UNIT));
+//            edit4.setText(productsList.get(3).get(TAG_TEXT)+productsList.get(3).get(TAG_UNIT));
+//            edit5.setText(productsList.get(4).get(TAG_TEXT)+productsList.get(4).get(TAG_UNIT));
+//
+
 
 
             }

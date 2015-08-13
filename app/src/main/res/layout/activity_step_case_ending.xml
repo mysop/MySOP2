@@ -53,64 +53,152 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="1-1 請輸入..."
-            android:id="@+id/endText1" />
+            android:id="@+id/endText1"
+            android:visibility="invisible" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endEdit1"
-            android:layout_gravity="center_horizontal" />
+            android:weightSum="1"
+            android:visibility="invisible"
+            android:id="@+id/l1">
+
+            <EditText
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endEdit1"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="單位"
+                android:id="@+id/Endunit1"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="1-2請輸入..."
-            android:id="@+id/endText2" />
+            android:id="@+id/endText2"
+            android:visibility="invisible" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endEdit2"
-            android:layout_gravity="center_horizontal" />
+            android:visibility="invisible"
+            android:id="@+id/l2">
+
+            <EditText
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endEdit2"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="單位"
+                android:id="@+id/Endunit2"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="1-3請輸入..."
-            android:id="@+id/endText3" />
+            android:id="@+id/endText3"
+            android:visibility="invisible" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endEdit3" />
+            android:visibility="invisible"
+            android:id="@+id/l3">
+
+            <EditText
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endEdit3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="單位"
+                android:id="@+id/Endunit3"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="1-4請輸入..."
-            android:id="@+id/endText4" />
+            android:id="@+id/endText4"
+            android:visibility="invisible" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endEdit4"
-            android:layout_gravity="center_horizontal" />
+            android:weightSum="1"
+            android:visibility="invisible"
+            android:id="@+id/l4">
+
+            <EditText
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endEdit4"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="單位"
+                android:id="@+id/Endunit4" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="1-5請輸入..."
-            android:id="@+id/endText5" />
+            android:id="@+id/endText5"
+            android:visibility="invisible" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endEdit5"
-            android:layout_gravity="center_horizontal" />
+            android:visibility="invisible"
+            android:id="@+id/l5">
+
+            <EditText
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endEdit5"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="單位"
+                android:id="@+id/Endunit5" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button

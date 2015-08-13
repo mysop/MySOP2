@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="20150803"
+                        android:text="20150813"
                         android:id="@+id/content_sopnumber"
                         android:layout_marginLeft="20dp"
                         android:textColor="#ff010105" />
@@ -150,7 +150,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="下載次數"
+                    android:text="收藏量"
                     android:id="@+id/downloadtext"
                     android:layout_marginLeft="20dp"
                     android:textColor="#7B7B7B" />
@@ -190,7 +190,7 @@
                     >
 
                     <ImageView
-                        android:layout_width="fill_parent"
+                        android:layout_width="200dp"
                         android:layout_height="fill_parent"
                         android:id="@+id/graph1"
                         android:src="@drawable/test1"
@@ -198,7 +198,7 @@
                         android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="fill_parent"
+                        android:layout_width="200dp"
                         android:layout_height="fill_parent"
                         android:id="@+id/graph2"
                         android:src="@drawable/test2"
@@ -206,7 +206,7 @@
                         android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="fill_parent"
+                        android:layout_width="200dp"
                         android:layout_height="fill_parent"
                         android:id="@+id/graph3"
                         android:src="@drawable/test3"

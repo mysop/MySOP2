@@ -54,7 +54,7 @@ public class Steprecording extends Activity {
     private static String url_record = "http://140.115.80.237/front/mysop_login.jsp";
 
     private GestureDetector detector;
-    EditText edit1;
+    EditText[] edit1 = new EditText[20];
     EditText et1;
 
     private Intent recognizerIntent = null;
@@ -245,11 +245,11 @@ public class Steprecording extends Activity {
                 text1.setText(productsList.get(i).get(TAG_RECODE+r));
 
 
-                edit1 = new EditText(Steprecording.this.getApplicationContext());
-                edit1.setId(400+i);
+                edit1[i] = new EditText(Steprecording.this.getApplicationContext());
+                //edit1[i].setId(400+i);
 
                 ly.addView(text1);
-                ly.addView(edit1);
+                ly.addView(edit1[i]);
             }
 
             //if(edit1.getTag().equals(1)){edit1.setText("qqq");}

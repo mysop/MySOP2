@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,8 @@ public class Steprecording extends Activity {
     private List<String> messageList;
     private ArrayAdapter<String> adapter;
     private Context context;
+
+    private int count=0;
 
 
     @Override
@@ -238,6 +241,8 @@ public class Steprecording extends Activity {
 
             LinearLayout ly = (LinearLayout)findViewById(R.id.linearlayoutinput);
 
+            count=products.length();
+
             for(int i=0; i<products.length();i++) {
 
                 int r = i+2;
@@ -304,11 +309,17 @@ public class Steprecording extends Activity {
         protected String doInBackground(String... args) {
 
             //EditText et1 = (EditText)edit1.findViewById(20);
-            String Account = Steprecording.this.et1.getText().toString();
+            //String Account = Steprecording.this.et1.getText().toString();
 
-
+            String ttt = "";
+            Array[] ggg = new Array[20];
+            for(int i=0; i<=count;i++) {
+                ttt = edit1[i].getText().toString();
+                //ggg[i] = g;
+            }
             ArrayList params = new ArrayList();
-         //   params.add(new BasicNameValuePair("Account", Account));
+            params.add(new BasicNameValuePair("Account", ttt));
+
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
             Log.d("Create Response", json.toString());

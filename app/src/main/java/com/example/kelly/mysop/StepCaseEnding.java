@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,24 +26,17 @@ import java.util.HashMap;
 
 public class StepCaseEnding extends Activity {
 
-    private TextView title;
     private TextView text1;
     private TextView text2;
     private TextView text3;
     private TextView text4;
     private TextView text5;
-    private EditText edit1;
-    private EditText edit2;
-    private EditText edit3;
-    private EditText edit4;
-    private EditText edit5;
-    private TextView unit1;
-    private TextView unit2;
-    private TextView unit3;
-    private TextView unit4;
-    private TextView unit5;
+    private EditText edit1,edit2,edit3,edit4,edit5;
+    private TextView unit1,unit2,unit3,unit4,unit5;
     private LinearLayout l1,l2,l3,l4,l5;
     private Button change;
+    public int Count;
+    public int Step=1;
 
 
 
@@ -117,6 +111,13 @@ public class StepCaseEnding extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void endChange (View v){
+      for(Step=1;Step<=Count;Step++){
+          new SOPContent1().execute();
+      }
+
+
+    }
 
     class SOPContent extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
@@ -148,6 +149,7 @@ public class StepCaseEnding extends Activity {
                 if(e == 1) {
 
                     products = json1.getJSONArray(TAG_PRODUCTS);
+                    Count=products.length();
 
                     for (int i = 0; i < products.length(); i++) {
                         JSONObject c = products.getJSONObject(i);
@@ -182,11 +184,7 @@ public class StepCaseEnding extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-
-            for (int i = 0; i < products.length(); i++) {
-
-            }
-            switch(products.length()){
+            switch(Count){
                 case 1:
                     edit1.setText(productsList.get(0).get(TAG_TEXT));
                     unit1.setText(productsList.get(0).get(TAG_UNIT));
@@ -255,5 +253,77 @@ public class StepCaseEnding extends Activity {
 
             }
         }
+
+
+    class SOPContent1 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(StepCaseEnding.this);
+            pDialog.setMessage("Changing..Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+
+        protected String doInBackground(String... args) {
+
+            //先寫死stepnumber
+            String Stepnumber ="1" ;
+
+            ArrayList params = new ArrayList();
+
+            params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
+
+            // 抓紀錄
+            JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products, "GET", params);
+
+            try {
+
+                //讀取紀錄
+                int e = json1.getInt(TAG_SUCCESS);
+                if(e == 1) {
+
+                    products = json1.getJSONArray(TAG_PRODUCTS);
+
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject c = products.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String text = c.getString(TAG_TEXT);
+                        String unit = c.getString(TAG_UNIT);
+
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_TEXT, text);
+                        map.put(TAG_UNIT, unit);
+
+                        // adding HashList to ArrayList
+                        productsList.add(map);
+                    }
+                }
+
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+
+
+
+
+        }
+    }
     }
 

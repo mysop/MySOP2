@@ -14,9 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -50,6 +52,8 @@ public class Content extends Activity {
     private TextView cagetory;
     private TextView subtitle;
     private TextView Ctext;
+    private ImageView graph1,graph2,graph3;
+    private HorizontalScrollView horizontalScrollView;
 
     JSONParser jsonParser = new JSONParser();
     //讀取 sop內容 圖片
@@ -127,6 +131,11 @@ public class Content extends Activity {
          Ctext=(TextView)findViewById(R.id.content_text);
         sopnumber=(TextView)findViewById(R.id.content_sopnumber);
 
+        graph1=(ImageView)findViewById(R.id.graph1);
+        graph2=(ImageView)findViewById(R.id.graph2);
+        graph3=(ImageView)findViewById(R.id.graph3);
+
+        horizontalScrollView=( HorizontalScrollView)findViewById(R.id.horizontalScrollView);
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
@@ -274,15 +283,29 @@ public class Content extends Activity {
 
                 if(e2==1){
                     SOPGRAPH = json.getString(TAG_SOPGRAPH);
-                    GRAPH1 = json.getString(TAG_GRAPH1);
-                    GRAPH2 = json.getString(TAG_GRAPH2);
-                    GRAPH3 = json.getString(TAG_GRAPH3);
                     SOPNAME = json.getString(TAG_SOPNAME);
                     NUMBER  = json.getString(TAG_NUMBER);
                     DETAIL = json.getString(TAG_DETAIL);
                     INTRO  = json.getString(TAG_INTRO);
                     ACCOUNT= json.getString(TAG_PID);
                     STARTRULE=json.getString(TAG_STARTRULE);
+                    //判斷有沒有介紹的圖片
+                    if(json.getString(TAG_GRAPH1).equals(null)){
+                        GRAPH1="none";
+                    }else{
+                    GRAPH1 = json.getString(TAG_GRAPH1);
+                    }
+                    if(json.getString(TAG_GRAPH2).equals(null)){
+                        GRAPH2="none";
+                    }else{
+                        GRAPH2 = json.getString(TAG_GRAPH2);
+                    }
+                    if(json.getString(TAG_GRAPH3).equals(null)){
+                        GRAPH3="none";
+                    }else{
+                        GRAPH3 = json.getString(TAG_GRAPH3);
+                    }
+
                 }else{
                 }
 
@@ -317,12 +340,28 @@ public class Content extends Activity {
             //放入sop圖片們
             new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
                     .execute(SOPGRAPH);
+            if(GRAPH1.equals("none")){
+                graph1.setVisibility(8);
+            }else{
             new DownloadImageTask((ImageView)findViewById(R.id.graph1))
                     .execute(GRAPH1);
-            new DownloadImageTask((ImageView)findViewById(R.id.graph2))
-                    .execute(GRAPH2);
-            new DownloadImageTask((ImageView)findViewById(R.id.graph3))
-                    .execute(GRAPH3);
+                horizontalScrollView.setVisibility(0);
+            }
+            if(GRAPH2.equals("none")){
+                graph2.setVisibility(8);
+            }else{
+                new DownloadImageTask((ImageView)findViewById(R.id.graph2))
+                        .execute(GRAPH2);
+                horizontalScrollView.setVisibility(0);
+            }
+            if(GRAPH3.equals("none")){
+                graph3.setVisibility(8);
+            }else{
+                new DownloadImageTask((ImageView)findViewById(R.id.graph3))
+                        .execute(GRAPH3);
+                horizontalScrollView.setVisibility(0);
+            }
+
 
             //放入收藏數
              download.setText(String.valueOf(likecount));

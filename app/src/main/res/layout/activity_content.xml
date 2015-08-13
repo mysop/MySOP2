@@ -53,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="20150813"
+                        android:text="20150814"
                         android:id="@+id/content_sopnumber"
                         android:layout_marginLeft="20dp"
                         android:textColor="#ff010105" />
@@ -181,7 +181,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:id="@+id/horizontalScrollView"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:orientation="horizontal"

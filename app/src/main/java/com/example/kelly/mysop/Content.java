@@ -346,6 +346,9 @@ public class Content extends Activity {
             new DownloadImageTask((ImageView)findViewById(R.id.graph1))
                     .execute(GRAPH1);
                 horizontalScrollView.setVisibility(0);
+                horizontalScrollView.getLayoutParams().height=200;
+                graph1.getLayoutParams().width=200;
+                graph1.getLayoutParams().height=200;
             }
             if(GRAPH2.equals("none")){
                 graph2.setVisibility(8);
@@ -353,6 +356,9 @@ public class Content extends Activity {
                 new DownloadImageTask((ImageView)findViewById(R.id.graph2))
                         .execute(GRAPH2);
                 horizontalScrollView.setVisibility(0);
+                horizontalScrollView.getLayoutParams().height=200;
+                graph1.getLayoutParams().width=200;
+                graph1.getLayoutParams().height=200;
             }
             if(GRAPH3.equals("none")){
                 graph3.setVisibility(8);
@@ -360,6 +366,9 @@ public class Content extends Activity {
                 new DownloadImageTask((ImageView)findViewById(R.id.graph3))
                         .execute(GRAPH3);
                 horizontalScrollView.setVisibility(0);
+                horizontalScrollView.getLayoutParams().height=200;
+                graph1.getLayoutParams().width=200;
+                graph1.getLayoutParams().height=200;
             }
 
 

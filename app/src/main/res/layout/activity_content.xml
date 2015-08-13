@@ -17,7 +17,8 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
 
             <LinearLayout
@@ -142,8 +143,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="10dp"
+                android:layout_height="match_parent"
                 android:id="@+id/getrating">
 
                 <TextView
@@ -178,37 +178,40 @@
             </LinearLayout>
 
             <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:id="@+id/horizontalScrollView"
                 android:scrollbars="none"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:fillViewport="false"
+                android:layout_gravity="top">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    >
+                    android:background="#ffff00d8">
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="fill_parent"
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
                         android:id="@+id/graph1"
                         android:src="@drawable/test1"
                         android:scaleType="fitXY"
-                        android:layout_margin="2dp" />
+                        android:layout_margin="2dp"
+                        android:background="#ff3455ff" />
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="fill_parent"
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
                         android:id="@+id/graph2"
                         android:src="@drawable/test2"
                         android:scaleType="fitXY"
                         android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="200dp"
-                        android:layout_height="fill_parent"
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
                         android:id="@+id/graph3"
                         android:src="@drawable/test3"
                         android:scaleType="fitXY"
@@ -220,7 +223,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:id="@+id/hh">
 
                 <TextView
                     android:layout_width="wrap_content"

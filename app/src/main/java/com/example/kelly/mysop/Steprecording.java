@@ -64,6 +64,7 @@ public class Steprecording extends Activity {
     private List<String> messageList;
     private ArrayAdapter<String> adapter;
     private Context context;
+    EditText edtext = null;
 
     private int count=0;
     private String step="";
@@ -118,16 +119,19 @@ public class Steprecording extends Activity {
             messageList.add(s);
         }
         Log.d("howmany",String.valueOf(count));
-        if(voice < count) {
-            edit1[voice].setText(messageList.get(0));
-            voice++;
-            Log.d("vvv",String.valueOf(voice));
-        }else{
-            voice = count-1;
-            edit1[voice].setText(messageList.get(0));
-            Log.d("nnn",String.valueOf(voice));
+        if(edtext != null){
+            edtext.setText(messageList.get(0));
+        }else {
+            if (voice < count) {
+                edit1[voice].setText(messageList.get(0));
+                voice++;
+                Log.d("vvv", String.valueOf(voice));
+            } else {
+                voice = count - 1;
+                edit1[voice].setText(messageList.get(0));
+                Log.d("nnn", String.valueOf(voice));
+            }
         }
-
     }
 
 
@@ -252,6 +256,7 @@ public class Steprecording extends Activity {
 
                 edit1[i].setTextColor(Color.rgb(0, 0, 0));
                 edit1[i].setOnFocusChangeListener(new MyOnFocusChangeListener());
+                edit1[i].setSingleLine(true);
                 edit1[0].setText("eee");
                 ly.addView(text1);
                 ly.addView(edit1[i]);
@@ -271,6 +276,8 @@ public class Steprecording extends Activity {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus) {
                 Log.i("test", "获得焦点");
+                Log.i("test", getCurrentFocus().toString());
+                edtext = (EditText)getCurrentFocus();
             } else {
                 Log.i("test", "失去焦点");
             }

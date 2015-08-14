@@ -1,6 +1,7 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class StepCaseEnding extends Activity {
     //連線 case ending
     JSONParser jsonParser = new JSONParser();
     private static String url_all_products = "http://140.115.80.237/front/mysop_stepCaseclose.jsp";
+    private static String url_all_products1 = "http://140.115.80.237/front/mysop_stepCaseclose1.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_TEXT = "text";
@@ -128,11 +130,15 @@ public class StepCaseEnding extends Activity {
         return super.onOptionsItemSelected(item);
     }
     public void endChange (View v){
-      for(Step=1;Step<=Count;Step++){
-          new SOPContent1().execute();
+        SOPContent1[] SO= new SOPContent1[10];
+      for(Step=0;Step<Count;Step++){
+          SO[Step]=new SOPContent1();
+          SO[Step].execute(Step);
       }
-
-
+        AlertDialog.Builder dialog = new AlertDialog.Builder(StepCaseEnding.this);
+        dialog.setTitle("");
+        dialog.setMessage("更改成功");
+        dialog.show();
     }
 
     class SOPContent extends AsyncTask<String, String, String> {
@@ -339,64 +345,85 @@ public class StepCaseEnding extends Activity {
                     default:
                         break;
                }
-
             }
-
-
-
-
             }
         }
 
 
-    class SOPContent1 extends AsyncTask<String, String, String> {
+    //更改紀錄
+    class SOPContent1 extends AsyncTask<Integer, String, String> {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(StepCaseEnding.this);
             pDialog.setMessage("Changing..Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
-            pDialog.show();
+          //  pDialog.show();
+
         }
 
 
-        protected String doInBackground(String... args) {
+        protected String doInBackground(Integer... args) {
 
             //先寫死stepnumber
             String Stepnumber ="1" ;
 
+            int a=args[0]+1;
+
+            String RecordOrder=Integer.toString(a);
+            String Nexttext="";
+
+            switch (a){
+                case 1:
+                    Nexttext=StepCaseEnding.this.edit1.getText().toString();
+                    break;
+                case 2:
+                    Nexttext=StepCaseEnding.this.edit2.getText().toString();
+                    break;
+                case 3:
+                    Nexttext=StepCaseEnding.this.edit3.getText().toString();
+                    break;
+                case 4:
+                    Nexttext=StepCaseEnding.this.edit4.getText().toString();
+                    break;
+                case 5:
+                    Nexttext=StepCaseEnding.this.edit5.getText().toString();
+                    break;
+                case 6:
+                    Nexttext=StepCaseEnding.this.edit6.getText().toString();
+                    break;
+                case 7:
+                    Nexttext=StepCaseEnding.this.edit7.getText().toString();
+                    break;
+                case 8:
+                    Nexttext=StepCaseEnding.this.edit8.getText().toString();
+                    break;
+                case 9:
+                    Nexttext=StepCaseEnding.this.edit9.getText().toString();
+                    break;
+                case 10:
+                    Nexttext=StepCaseEnding.this.edit10.getText().toString();
+                    break;
+                default:
+                    break;
+            }
+
             ArrayList params = new ArrayList();
+            System.out.println(Nexttext);
 
+            params.add(new BasicNameValuePair("Newtext", Nexttext) );
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
+            params.add(new BasicNameValuePair("Recordorder", RecordOrder) );
 
-            // 抓紀錄
-            JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products, "GET", params);
+            // 上傳更改的紀錄
+            JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products1, "POST", params);
 
             try {
-
-                //讀取紀錄
+                //更改紀錄
                 int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
+                    System.out.println("HELLO");
 
-                    products = json1.getJSONArray(TAG_PRODUCTS);
-
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
-
-                        // Storing each json item in variable
-                        String text = c.getString(TAG_TEXT);
-                        String unit = c.getString(TAG_UNIT);
-
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_TEXT, text);
-                        map.put(TAG_UNIT, unit);
-
-                        // adding HashList to ArrayList
-                        productsList.add(map);
-                    }
                 }
 
             } catch (JSONException var9) {
@@ -412,9 +439,7 @@ public class StepCaseEnding extends Activity {
          * **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
-            pDialog.dismiss();
-
-
+          //  pDialog.dismiss();
 
 
         }

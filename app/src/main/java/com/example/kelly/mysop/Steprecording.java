@@ -67,6 +67,7 @@ public class Steprecording extends Activity {
 
     private int count=0;
     private String step="";
+    String RecordText[] = new String[20];
 
 
     @Override
@@ -115,7 +116,7 @@ public class Steprecording extends Activity {
         for (String s : list) {
             messageList.add(s);
         }
-
+        edit1[0].setText(messageList.get(0));
     }
 
 
@@ -254,7 +255,8 @@ public class Steprecording extends Activity {
 
     }
 
-    int postcount;
+
+
 
     //抓滑動
     class MyOnTouchListener implements View.OnTouchListener {
@@ -269,12 +271,15 @@ public class Steprecording extends Activity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             // TODO Auto-generated method stub
             if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
+                Log.d("ohitwork",edit1[1].getText().toString());
 
-
-                for(postcount=0;postcount<count;postcount++) {
-                    new Recording().execute();
+                //new Recording().execute();
+                Recording[] RC = new Recording[20];
+                for(int postcount=0;postcount<count;postcount++) {
+                    RC[postcount] = new Recording();
+                    RC[postcount].execute(postcount);
                 }
-                Toast.makeText(Steprecording.this,"傳完啦",Toast.LENGTH_LONG).show();
+
 
 /*                Intent intent = new Intent();
                 intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
@@ -289,7 +294,7 @@ public class Steprecording extends Activity {
     }
 
     //回傳
-    class Recording extends AsyncTask<String, String, String> {
+    class Recording extends AsyncTask<Integer, String, String> {
         Recording() {}
 
         protected void onPreExecute() {
@@ -298,35 +303,40 @@ public class Steprecording extends Activity {
             Steprecording.this.pDialog.setMessage("Recording...");
             Steprecording.this.pDialog.setIndeterminate(false);
             Steprecording.this.pDialog.setCancelable(true);
-            Steprecording.this.pDialog.show();
+            //Steprecording.this.pDialog.show();
         }
 
-        protected String doInBackground(String... args) {
+        protected String doInBackground(Integer... args) {
 
             //EditText et1 = (EditText)edit1.findViewById(20);
             //String Account = Steprecording.this.et1.getText().toString();
 
+            int a = args[0];
+            RecordText[a] = Steprecording.this.edit1[a].getText().toString();
             ArrayList params = new ArrayList();
 
-            params.add(new BasicNameValuePair("RecordText", edit1[postcount].getText().toString()));
-            params.add(new BasicNameValuePair("StepNumber", step));
-            params.add(new BasicNameValuePair("RecordOrder", String.valueOf(postcount)));
+            params.add(new BasicNameValuePair("RecordText", RecordText[a]));
+            //params.add(new BasicNameValuePair("StepNumber", step));
+            params.add(new BasicNameValuePair("StepNumber", "g2034step"+String.valueOf(a)));
+            Log.d("step","g2034step"+String.valueOf(a));
+            params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a)));
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
             Log.d("Create Response", json.toString());
 
             try {
                 int e = json.getInt(TAG_SUCCESS);
-                if(e == 1) {
-                    Toast.makeText(Steprecording.this,"successsss",Toast.LENGTH_LONG).show();
-                }else if(e == 2){
-                    Toast.makeText(Steprecording.this,"fail",Toast.LENGTH_LONG).show();
+                if (e == 1) {
+                    Log.d("YES","SSS");
+                } else if (e == 2) {
+                    Log.d("WRONG","SSS");
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();
-            }
 
-            return null;
+            }
+            //Steprecording.this.pDialog.dismiss();
+        return null;
         }
 
         protected void onPostExecute(String file_url) {

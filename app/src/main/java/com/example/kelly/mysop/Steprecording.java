@@ -281,11 +281,11 @@ public class Steprecording extends Activity {
                 }
 
 
-/*                Intent intent = new Intent();
+                Intent intent = new Intent();
                 intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
                 startActivity(intent);
                 // 设置切换动画，从右边进入，左边退出
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);*/
+                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 return true;
             } else
                 return false;
@@ -317,9 +317,9 @@ public class Steprecording extends Activity {
 
             params.add(new BasicNameValuePair("RecordText", RecordText[a]));
             //params.add(new BasicNameValuePair("StepNumber", step));
-            params.add(new BasicNameValuePair("StepNumber", "g2034step"+String.valueOf(a)));
+            params.add(new BasicNameValuePair("StepNumber", "g2037step"));
             Log.d("step","g2034step"+String.valueOf(a));
-            params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a)));
+            params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a+1)));
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
             Log.d("Create Response", json.toString());

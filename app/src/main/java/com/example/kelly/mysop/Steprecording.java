@@ -98,10 +98,11 @@ public class Steprecording extends Activity {
         try {
             startActivityForResult(recognizerIntent, 1);
         }catch(ActivityNotFoundException a){
-            Toast.makeText(getApplicationContext(),"抱歉您的系统不支持语音识别输入。",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"抱歉您的系統不支持語音識別輸入。",Toast.LENGTH_LONG).show();
         }
     }
 
+    int voice=0;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent it) {
         super.onActivityResult(requestCode, resultCode, it);
@@ -116,7 +117,17 @@ public class Steprecording extends Activity {
         for (String s : list) {
             messageList.add(s);
         }
-        edit1[0].setText(messageList.get(0));
+        Log.d("howmany",String.valueOf(count));
+        if(voice < count) {
+            edit1[voice].setText(messageList.get(0));
+            voice++;
+            Log.d("vvv",String.valueOf(voice));
+        }else{
+            voice = count-1;
+            edit1[voice].setText(messageList.get(0));
+            Log.d("nnn",String.valueOf(voice));
+        }
+
     }
 
 
@@ -240,7 +251,7 @@ public class Steprecording extends Activity {
                 //edit1[i].setId(400+i);
 
                 edit1[i].setTextColor(Color.rgb(0, 0, 0));
-
+                edit1[i].setOnFocusChangeListener(new MyOnFocusChangeListener());
                 edit1[0].setText("eee");
                 ly.addView(text1);
                 ly.addView(edit1[i]);
@@ -256,7 +267,15 @@ public class Steprecording extends Activity {
     }
 
 
-
+    class MyOnFocusChangeListener implements View.OnFocusChangeListener{
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                Log.i("test", "获得焦点");
+            } else {
+                Log.i("test", "失去焦点");
+            }
+        }
+    }
 
     //抓滑動
     class MyOnTouchListener implements View.OnTouchListener {
@@ -317,8 +336,8 @@ public class Steprecording extends Activity {
 
             params.add(new BasicNameValuePair("RecordText", RecordText[a]));
             //params.add(new BasicNameValuePair("StepNumber", step));
-            params.add(new BasicNameValuePair("StepNumber", "g2037step"));
-            Log.d("step","g2034step"+String.valueOf(a));
+            params.add(new BasicNameValuePair("StepNumber", "i2037step"));
+            Log.d("step","i2037step"+String.valueOf(a));
             params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a+1)));
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
@@ -340,7 +359,7 @@ public class Steprecording extends Activity {
         }
 
         protected void onPostExecute(String file_url) {
-            Steprecording.this.pDialog.dismiss();
+            //Steprecording.this.pDialog.dismiss();
         }
     }
 

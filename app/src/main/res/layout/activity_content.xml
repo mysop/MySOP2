@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="20150814"
+                        android:text="20150803"
                         android:id="@+id/content_sopnumber"
                         android:layout_marginLeft="20dp"
                         android:textColor="#ff010105" />
@@ -178,19 +178,18 @@
             </LinearLayout>
 
             <HorizontalScrollView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:id="@+id/horizontalScrollView"
                 android:scrollbars="none"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:fillViewport="false"
                 android:layout_gravity="top">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="#ffff00d8">
+                    android:layout_height="fill_parent">
 
                     <ImageView
                         android:layout_width="1dp"
@@ -199,7 +198,8 @@
                         android:src="@drawable/test1"
                         android:scaleType="fitXY"
                         android:layout_margin="2dp"
-                        android:background="#ff3455ff" />
+                        android:background="#ff3455ff"
+                        android:visibility="visible" />
 
                     <ImageView
                         android:layout_width="1dp"
@@ -233,15 +233,6 @@
                     android:text="subtitle"
                     android:id="@+id/content_subtitle"
                     android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A one-of-a-kind destination where our rarest coffees are small-batch roasted, packaged and enjoyed. It may be a labor of love, but it’s mostly love.\nOur coffee masters have distilled their years of tasting knowledge down to three simple questions to help you find a coffee you’re sure to love."
-                    android:id="@+id/content_text"
-                    android:textSize="20dp"
-                    android:background="@drawable/context_linear"
-                    android:paddingLeft="3dp" />
 
             </LinearLayout>
 
@@ -292,6 +283,15 @@
 
 
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A one-of-a-kind destination where our rarest coffees are small-batch roasted, packaged and enjoyed. It may be a labor of love, but it’s mostly love.\nOur coffee masters have distilled their years of tasting knowledge down to three simple questions to help you find a coffee you’re sure to love."
+        android:id="@+id/content_text"
+        android:textSize="20dp"
+        android:background="@drawable/context_linear"
+        android:paddingLeft="3dp" />
 
 
 </LinearLayout >

@@ -350,7 +350,7 @@ public class Content extends Activity {
                 graph1.getLayoutParams().width=200;
                 graph1.getLayoutParams().height=200;
             }
-            if(GRAPH2.equals("none")){
+            if(GRAPH2.equals("none")&&GRAPH1.equals("none")){
                 graph2.setVisibility(8);
             }else{
                 new DownloadImageTask((ImageView)findViewById(R.id.graph2))
@@ -360,7 +360,7 @@ public class Content extends Activity {
                 graph1.getLayoutParams().width=200;
                 graph1.getLayoutParams().height=200;
             }
-            if(GRAPH3.equals("none")){
+            if(GRAPH3.equals("none")&&GRAPH2.equals("none")&&GRAPH1.equals("none")){
                 graph3.setVisibility(8);
             }else{
                 new DownloadImageTask((ImageView)findViewById(R.id.graph3))

@@ -26,14 +26,10 @@ import java.util.HashMap;
 
 public class StepCaseEnding extends Activity {
 
-    private TextView text1;
-    private TextView text2;
-    private TextView text3;
-    private TextView text4;
-    private TextView text5;
-    private EditText edit1,edit2,edit3,edit4,edit5;
-    private TextView unit1,unit2,unit3,unit4,unit5;
-    private LinearLayout l1,l2,l3,l4,l5;
+    private TextView text1,text2,text3,text4,text5,text6,text7,text8,text9,text10;
+    private EditText edit1,edit2,edit3,edit4,edit5,edit6,edit7,edit8,edit9,edit10;
+    private TextView unit1,unit2,unit3,unit4,unit5,unit6,unit7,unit8,unit9,unit10;
+    private LinearLayout l1,l2,l3,l4,l5,l6,l7,l8,l9,l10;
     private Button change;
     public int Count;
     public int Step=1;
@@ -64,21 +60,41 @@ public class StepCaseEnding extends Activity {
         text3=(TextView)findViewById(R.id.endText3);
         text4=(TextView)findViewById(R.id.endText4);
         text5=(TextView)findViewById(R.id.endText5);
+        text6=(TextView)findViewById(R.id.endText6);
+        text7=(TextView)findViewById(R.id.endText7);
+        text8=(TextView)findViewById(R.id.endText8);
+        text9=(TextView)findViewById(R.id.endText9);
+        text10=(TextView)findViewById(R.id.endText10);
         edit1=(EditText)findViewById(R.id.endEdit1);
         edit2=(EditText)findViewById(R.id.endEdit2);
         edit3=(EditText)findViewById(R.id.endEdit3);
         edit4=(EditText)findViewById(R.id.endEdit4);
         edit5=(EditText)findViewById(R.id.endEdit5);
+        edit6=(EditText)findViewById(R.id.endEdit6);
+        edit7=(EditText)findViewById(R.id.endEdit7);
+        edit8=(EditText)findViewById(R.id.endEdit8);
+        edit9=(EditText)findViewById(R.id.endEdit9);
+        edit10=(EditText)findViewById(R.id.endEdit10);
         unit1=(TextView)findViewById(R.id.Endunit1);
         unit2=(TextView)findViewById(R.id.Endunit2);
         unit3=(TextView)findViewById(R.id.Endunit3);
         unit4=(TextView)findViewById(R.id.Endunit4);
         unit5=(TextView)findViewById(R.id.Endunit5);
+        unit6=(TextView)findViewById(R.id.Endunit6);
+        unit7=(TextView)findViewById(R.id.Endunit7);
+        unit8=(TextView)findViewById(R.id.Endunit8);
+        unit9=(TextView)findViewById(R.id.Endunit9);
+        unit10=(TextView)findViewById(R.id.Endunit10);
         l1=(LinearLayout)findViewById(R.id.l1);
         l2=(LinearLayout)findViewById(R.id.l2);
         l3=(LinearLayout)findViewById(R.id.l3);
         l4=(LinearLayout)findViewById(R.id.l4);
         l5=(LinearLayout)findViewById(R.id.l5);
+        l6=(LinearLayout)findViewById(R.id.l6);
+        l7=(LinearLayout)findViewById(R.id.l7);
+        l8=(LinearLayout)findViewById(R.id.l8);
+        l9=(LinearLayout)findViewById(R.id.l9);
+        l10=(LinearLayout)findViewById(R.id.l10);
         change=(Button)findViewById(R.id.change);
 
 
@@ -184,67 +200,145 @@ public class StepCaseEnding extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-            switch(Count){
-                case 1:
-                    edit1.setText(productsList.get(0).get(TAG_TEXT));
-                    unit1.setText(productsList.get(0).get(TAG_UNIT));
-                    l1.setVisibility(0);
+            if(Count<6) {
+                switch (Count) {
+                    case 1:
+                        edit1.setText(productsList.get(0).get(TAG_TEXT));
+                        unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        l1.setVisibility(0);
 
-                    break;
-                case 2:
-                    edit1.setText(productsList.get(0).get(TAG_TEXT));
-                    unit1.setText(productsList.get(0).get(TAG_UNIT));
-                    l1.setVisibility(0);
-                    edit2.setText(productsList.get(1).get(TAG_TEXT));
-                    unit2.setText(productsList.get(1).get(TAG_UNIT));
-                    l2.setVisibility(0);
-                    break;
-                case 3:
-                    edit1.setText(productsList.get(0).get(TAG_TEXT));
-                    unit1.setText(productsList.get(0).get(TAG_UNIT));
-                    l1.setVisibility(0);
-                    edit2.setText(productsList.get(1).get(TAG_TEXT));
-                    unit2.setText(productsList.get(1).get(TAG_UNIT));
-                    l2.setVisibility(0);
-                    edit3.setText(productsList.get(2).get(TAG_TEXT));
-                    unit3.setText(productsList.get(2).get(TAG_UNIT));
-                    l3.setVisibility(0);
-                    break;
-                case 4:
-                    edit1.setText(productsList.get(0).get(TAG_TEXT));
-                    unit1.setText(productsList.get(0).get(TAG_UNIT));
-                    l1.setVisibility(0);
-                    edit2.setText(productsList.get(1).get(TAG_TEXT));
-                    unit2.setText(productsList.get(1).get(TAG_UNIT));
-                    l2.setVisibility(0);
-                    edit3.setText(productsList.get(2).get(TAG_TEXT));
-                    unit3.setText(productsList.get(2).get(TAG_UNIT));
-                    l3.setVisibility(0);
-                    edit4.setText(productsList.get(3).get(TAG_TEXT));
-                    unit4.setText(productsList.get(3).get(TAG_UNIT));
-                    l4.setVisibility(0);
-                    break;
-                case 5:
-                    edit1.setText(productsList.get(0).get(TAG_TEXT));
-                    unit1.setText(productsList.get(0).get(TAG_UNIT));
-                    l1.setVisibility(0);
-                    edit2.setText(productsList.get(1).get(TAG_TEXT));
-                    unit2.setText(productsList.get(1).get(TAG_UNIT));
-                    l2.setVisibility(0);
-                    edit3.setText(productsList.get(2).get(TAG_TEXT));
-                    unit3.setText(productsList.get(2).get(TAG_UNIT));
-                    l3.setVisibility(0);
-                    edit4.setText(productsList.get(3).get(TAG_TEXT));
-                    unit4.setText(productsList.get(3).get(TAG_UNIT));
-                    l4.setVisibility(0);
-                    edit5.setText(productsList.get(4).get(TAG_TEXT));
-                    unit5.setText(productsList.get(4).get(TAG_UNIT));
-                    l5.setVisibility(0);
-                    break;
-                default:
-                    change.setVisibility(8);
-                    break;
+                        break;
+                    case 2:
+                        edit1.setText(productsList.get(0).get(TAG_TEXT));
+                        unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        l1.setVisibility(0);
+                        edit2.setText(productsList.get(1).get(TAG_TEXT));
+                        unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        l2.setVisibility(0);
+                        break;
+                    case 3:
+                        edit1.setText(productsList.get(0).get(TAG_TEXT));
+                        unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        l1.setVisibility(0);
+                        edit2.setText(productsList.get(1).get(TAG_TEXT));
+                        unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        l2.setVisibility(0);
+                        edit3.setText(productsList.get(2).get(TAG_TEXT));
+                        unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        l3.setVisibility(0);
+                        break;
+                    case 4:
+                        edit1.setText(productsList.get(0).get(TAG_TEXT));
+                        unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        l1.setVisibility(0);
+                        edit2.setText(productsList.get(1).get(TAG_TEXT));
+                        unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        l2.setVisibility(0);
+                        edit3.setText(productsList.get(2).get(TAG_TEXT));
+                        unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        l3.setVisibility(0);
+                        edit4.setText(productsList.get(3).get(TAG_TEXT));
+                        unit4.setText(productsList.get(3).get(TAG_UNIT));
+                        l4.setVisibility(0);
+                        break;
+                    case 5:
+                        edit1.setText(productsList.get(0).get(TAG_TEXT));
+                        unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        l1.setVisibility(0);
+                        edit2.setText(productsList.get(1).get(TAG_TEXT));
+                        unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        l2.setVisibility(0);
+                        edit3.setText(productsList.get(2).get(TAG_TEXT));
+                        unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        l3.setVisibility(0);
+                        edit4.setText(productsList.get(3).get(TAG_TEXT));
+                        unit4.setText(productsList.get(3).get(TAG_UNIT));
+                        l4.setVisibility(0);
+                        edit5.setText(productsList.get(4).get(TAG_TEXT));
+                        unit5.setText(productsList.get(4).get(TAG_UNIT));
+                        l5.setVisibility(0);
+                        break;
+                    default:
+                        change.setVisibility(8);
+                        break;
 
+                }
+            }else{
+                edit1.setText(productsList.get(0).get(TAG_TEXT));
+                unit1.setText(productsList.get(0).get(TAG_UNIT));
+                l1.setVisibility(0);
+                edit2.setText(productsList.get(1).get(TAG_TEXT));
+                unit2.setText(productsList.get(1).get(TAG_UNIT));
+                l2.setVisibility(0);
+                edit3.setText(productsList.get(2).get(TAG_TEXT));
+                unit3.setText(productsList.get(2).get(TAG_UNIT));
+                l3.setVisibility(0);
+                edit4.setText(productsList.get(3).get(TAG_TEXT));
+                unit4.setText(productsList.get(3).get(TAG_UNIT));
+                l4.setVisibility(0);
+                edit5.setText(productsList.get(4).get(TAG_TEXT));
+                unit5.setText(productsList.get(4).get(TAG_UNIT));
+                l5.setVisibility(0);
+
+                switch (Count) {
+                    case 6:
+                        edit6.setText(productsList.get(5).get(TAG_TEXT));
+                        unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        l6.setVisibility(0);
+                        break;
+                    case 7:
+                        edit6.setText(productsList.get(5).get(TAG_TEXT));
+                        unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        l6.setVisibility(0);
+                        edit7.setText(productsList.get(6).get(TAG_TEXT));
+                        unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        l7.setVisibility(0);
+                        break;
+                    case 8:
+                        edit6.setText(productsList.get(5).get(TAG_TEXT));
+                        unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        l6.setVisibility(0);
+                        edit7.setText(productsList.get(6).get(TAG_TEXT));
+                        unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        l7.setVisibility(0);
+                        edit8.setText(productsList.get(7).get(TAG_TEXT));
+                        unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        l8.setVisibility(0);
+                        break;
+                    case 9:
+                        edit6.setText(productsList.get(5).get(TAG_TEXT));
+                        unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        l6.setVisibility(0);
+                        edit7.setText(productsList.get(6).get(TAG_TEXT));
+                        unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        l7.setVisibility(0);
+                        edit8.setText(productsList.get(7).get(TAG_TEXT));
+                        unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        l8.setVisibility(0);
+                        edit9.setText(productsList.get(8).get(TAG_TEXT));
+                        unit9.setText(productsList.get(8).get(TAG_UNIT));
+                        l9.setVisibility(0);
+                        break;
+                    case 10:
+                        edit6.setText(productsList.get(5).get(TAG_TEXT));
+                        unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        l6.setVisibility(0);
+                        edit7.setText(productsList.get(6).get(TAG_TEXT));
+                        unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        l7.setVisibility(0);
+                        edit8.setText(productsList.get(7).get(TAG_TEXT));
+                        unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        l8.setVisibility(0);
+                        edit9.setText(productsList.get(8).get(TAG_TEXT));
+                        unit9.setText(productsList.get(8).get(TAG_UNIT));
+                        l9.setVisibility(0);
+                        edit10.setText(productsList.get(9).get(TAG_TEXT));
+                        unit10.setText(productsList.get(9).get(TAG_UNIT));
+                        l10.setVisibility(0);
+                        break;
+                    default:
+                        break;
+               }
 
             }
 

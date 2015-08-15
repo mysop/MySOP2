@@ -3,6 +3,7 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
@@ -35,7 +36,9 @@ public class StepCaseEnding extends Activity {
     public int Count;
     public int Step=1;
 
-
+    //先寫死帳號和 SOPnumber
+    String TAG_ACCOUNT = "q@gmail.com";
+    String Sopnumber = "20150814";
 
     ArrayList<HashMap<String, String>> productsList;
     JSONArray products = null;
@@ -43,8 +46,10 @@ public class StepCaseEnding extends Activity {
 
     //連線 case ending
     JSONParser jsonParser = new JSONParser();
+    //第一個是傳入紀錄值  第二個是更改紀錄值  第三個是 結案（刪掉代辦）
     private static String url_all_products = "http://140.115.80.237/front/mysop_stepCaseclose.jsp";
     private static String url_all_products1 = "http://140.115.80.237/front/mysop_stepCaseclose1.jsp";
+    private static String url_all_products2 = "http://140.115.80.237/front/mysop_stepCaseclose2.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_TEXT = "text";
@@ -99,7 +104,7 @@ public class StepCaseEnding extends Activity {
         l10=(LinearLayout)findViewById(R.id.l10);
         change=(Button)findViewById(R.id.change);
 
-
+        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
 
@@ -139,6 +144,12 @@ public class StepCaseEnding extends Activity {
         dialog.setTitle("");
         dialog.setMessage("更改成功");
         dialog.show();
+    }
+
+    public void close (View v){
+        new SOPContent2().execute();
+        Intent it = new Intent(this,Mysop.class);
+        startActivity(it);
     }
 
     class SOPContent extends AsyncTask<String, String, String> {
@@ -369,7 +380,6 @@ public class StepCaseEnding extends Activity {
             String Stepnumber ="1" ;
 
             int a=args[0]+1;
-
             String RecordOrder=Integer.toString(a);
             String Nexttext="";
 
@@ -422,7 +432,6 @@ public class StepCaseEnding extends Activity {
                 //更改紀錄
                 int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    System.out.println("HELLO");
 
                 }
 
@@ -441,8 +450,40 @@ public class StepCaseEnding extends Activity {
             // dismiss the dialog after getting all products
           //  pDialog.dismiss();
 
-
         }
+    }
+    //結案 刪除sop
+    class SOPContent2 extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(StepCaseEnding.this);
+            pDialog.setMessage("Being Close. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            ArrayList params2 = new ArrayList();
+
+            params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+
+            JSONObject json2 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products2,"POST",params2);
+            try {
+
+                int e3 = json2.getInt(TAG_SUCCESS);
+                if(e3 == 1) {
+                }
+
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+            pDialog.dismiss();
+            return null;
+        }
+
     }
     }
 

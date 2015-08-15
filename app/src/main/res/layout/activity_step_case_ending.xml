@@ -17,7 +17,8 @@
         android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="close" />
 
     <TextView
         android:layout_width="wrap_content"

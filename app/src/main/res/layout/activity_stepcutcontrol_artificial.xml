@@ -14,7 +14,7 @@
         android:id="@+id/button7"
         android:textColor="#ffffffff"
         android:background="#ffff3f2f"
-        android:onClick="login_check"
+        android:onClick="checkok"
         android:textSize="25dp"
         android:textStyle="bold"
         android:typeface="serif"

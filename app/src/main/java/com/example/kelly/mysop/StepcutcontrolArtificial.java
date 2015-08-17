@@ -7,6 +7,7 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 
 //p304
 public class StepcutcontrolArtificial extends Activity implements GestureDetector.OnGestureListener {
@@ -53,9 +54,8 @@ public class StepcutcontrolArtificial extends Activity implements GestureDetecto
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         // TODO Auto-generated method stub
         if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
-            Intent intent = new Intent();
-            intent.setClass(this, Start.class);
-            startActivity(intent);
+            Intent it = new Intent(this,Start.class);
+            startActivity(it);
             // 设置切换动画，从右边进入，左边退出
             overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
             return true;
@@ -83,5 +83,11 @@ public class StepcutcontrolArtificial extends Activity implements GestureDetecto
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void checkok (View v){
+
+        Intent it = new Intent(this,Stepnextcontrol.class);
+        startActivity(it);
     }
 }

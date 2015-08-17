@@ -138,7 +138,7 @@ public class Login extends Activity {
                 if(e == 1) {
 
 
-                }else if(e == 2){
+                }else if(e == 6){
 
                     Intent i = new Intent(Login.this.getApplicationContext(), Error.class);
                     Login.this.startActivity(i);

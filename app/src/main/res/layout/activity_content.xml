@@ -43,7 +43,7 @@
                     <TextView
                         android:layout_width="204dp"
                         android:layout_height="wrap_content"
-                        android:text="Title"
+                        android:text="星巴克收藏"
                         android:textSize = "34dp"
                         android:id="@+id/content_title"
                         android:layout_marginLeft="15dp"
@@ -179,7 +179,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="200dp"
                 android:id="@+id/horizontalScrollView"
                 android:scrollbars="none"
                 android:visibility="visible"
@@ -192,8 +192,8 @@
                     android:layout_height="fill_parent">
 
                     <ImageView
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:id="@+id/graph1"
                         android:src="@drawable/test1"
                         android:scaleType="fitXY"
@@ -202,16 +202,16 @@
                         android:visibility="visible" />
 
                     <ImageView
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:id="@+id/graph2"
                         android:src="@drawable/test2"
                         android:scaleType="fitXY"
                         android:layout_margin="2dp" />
 
                     <ImageView
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:id="@+id/graph3"
                         android:src="@drawable/test3"
                         android:scaleType="fitXY"
@@ -233,6 +233,16 @@
                     android:text="subtitle"
                     android:id="@+id/content_subtitle"
                     android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A one-of-a-kind destination where our rarest coffees are small-batch roasted, packaged and enjoyed. It may be a labor of love, but it’s mostly love.\nOur coffee masters have distilled their years of tasting knowledge down to three simple questions to help you find a coffee you’re sure to love."
+                    android:id="@+id/content_text"
+                    android:textSize="20dp"
+                    android:background="@drawable/context_linear"
+                    android:paddingLeft="3dp" />
+
 
             </LinearLayout>
 

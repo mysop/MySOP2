@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Changepassword extends Activity {
 
-
+//帳號先寫死
     private ProgressDialog pDialog;
     private EditText et1;
     private EditText et2;
@@ -32,9 +32,9 @@ public class Changepassword extends Activity {
     String strHint3;
 
     JSONParser jsonParser = new JSONParser();
-    private static String url_changepassword = "http://140.115.80.237/front/mysop_register.jsp";
+    private static String url_changepassword = "http://140.115.80.237/front/mysop_changePassword.jsp";
     private static final String TAG_SUCCESS = "success";
-    static String TAG_ACCOUNT = "";
+    static String TAG_ACCOUNT = "q@gmail.com";
 
 
     @Override
@@ -137,9 +137,11 @@ public class Changepassword extends Activity {
             String NewPassword = Changepassword.this.et2.getText().toString();
 
 
+
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("Originalpassword", Originalpassword));
+            params.add(new BasicNameValuePair("Password", Originalpassword));
             params.add(new BasicNameValuePair("NewPassword", NewPassword));
+            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
 
             JSONObject json = Changepassword.this.jsonParser.makeHttpRequest(Changepassword.url_changepassword, "POST", params);
             Log.d("Create Response", json.toString());
@@ -148,14 +150,13 @@ public class Changepassword extends Activity {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
 
-                    Intent i = new Intent(Changepassword.this.getApplicationContext(), Emailverify.class);
-                    Changepassword.this.startActivity(i);
-                    Changepassword.this.finish();
-                }else if(e == 2){
+                    Intent it = new Intent(Changepassword.this,Mysop.class);
+                    startActivity(it);
 
-                    Intent i = new Intent(Changepassword.this.getApplicationContext(), ChangePasswordError.class);
-                    Changepassword.this.startActivity(i);
-                    Changepassword.this.finish();
+                }else if(e == 6){
+
+                    Intent it = new Intent(Changepassword.this,ChangePasswordError.class);
+                    startActivity(it);
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();

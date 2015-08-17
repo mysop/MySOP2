@@ -136,7 +136,8 @@ public class Login extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-
+                    Intent it = new Intent(Login.this,Mysop.class);
+                    startActivity(it);
 
                 }else if(e == 6){
 

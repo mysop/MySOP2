@@ -1,9 +1,11 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Error extends Activity {
@@ -35,5 +37,10 @@ public class Error extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void again (View v){
+        Intent it = new Intent(this,Login.class);
+        startActivity(it);
     }
 }

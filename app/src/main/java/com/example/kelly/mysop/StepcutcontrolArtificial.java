@@ -54,10 +54,10 @@ public class StepcutcontrolArtificial extends Activity implements GestureDetecto
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         // TODO Auto-generated method stub
         if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
-            Intent it = new Intent(this,Start.class);
-            startActivity(it);
-            // 设置切换动画，从右边进入，左边退出
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//            Intent it = new Intent(this,Start.class);
+//            startActivity(it);
+//            // 设置切换动画，从右边进入，左边退出
+//            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
             return true;
         } else
             return false;

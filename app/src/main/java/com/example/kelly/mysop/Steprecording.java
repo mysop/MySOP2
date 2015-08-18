@@ -48,13 +48,13 @@ public class Steprecording extends Activity {
     ArrayList<HashMap<String, String>> productsList;
     JSONArray products = null;
 
-    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecording.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecording2.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_RECODE = "recode";
 
 
-    private static String url_record = "http://140.115.80.237/front/mysop_steprecording1.jsp";
+    private static String url_record = "http://140.115.80.237/front/mysop_steprecording3.jsp";
 
     private GestureDetector detector;
     EditText[] edit1 = new EditText[20];
@@ -201,7 +201,7 @@ public class Steprecording extends Activity {
 
 
                         // Storing each json item in variable
-                        int r = i+2;
+                        int r = i+1;
                         String id = c.getString(TAG_RECODE+r);
 
 
@@ -246,7 +246,7 @@ public class Steprecording extends Activity {
 
             for(int i=0; i<products.length();i++) {
 
-                int r = i+2;
+                int r = i+1;
                 TextView text1 = new TextView(Steprecording.this);
                 text1.setText(productsList.get(i).get(TAG_RECODE+r));
 
@@ -341,11 +341,13 @@ public class Steprecording extends Activity {
             RecordText[a] = Steprecording.this.edit1[a].getText().toString();
             ArrayList params = new ArrayList();
 
-            params.add(new BasicNameValuePair("RecordText", RecordText[a]));
-            //params.add(new BasicNameValuePair("StepNumber", step));
-            params.add(new BasicNameValuePair("StepNumber", "i2037step"));
-            Log.d("step","i2037step"+String.valueOf(a));
+            //和使用者有關的-->按號，現在還要手動改
+            params.add(new BasicNameValuePair("CaseNumber", "j2037case"));
+            //同一step的每一次/個record-->step一樣，現在還要手動改
+            params.add(new BasicNameValuePair("StepOrder", "12"));
             params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a+1)));
+            Log.d("RecordOrder", String.valueOf(a+1));
+            params.add(new BasicNameValuePair("RecordText", RecordText[a]));
 
             JSONObject json = Steprecording.this.jParser.makeHttpRequest(Steprecording.url_record, "POST", params);
             Log.d("Create Response", json.toString());

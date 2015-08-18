@@ -41,7 +41,7 @@ public class Stepnextcontrol extends Activity {
     ArrayList<HashMap<String, String>> productsList;
     JSONArray products = null;
 
-    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecording.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/mysop_steprecording2.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_RECODE = "recode";
@@ -143,7 +143,7 @@ public class Stepnextcontrol extends Activity {
 
 
                         // Storing each json item in variable
-                        int r = i+2;
+                        int r = i+1;
                         String id = c.getString(TAG_RECODE+r);
 
 
@@ -186,7 +186,7 @@ public class Stepnextcontrol extends Activity {
 
             for(int i=0; i<products.length();i++) {
 
-                int r = i+2;
+                int r = i+1;
                 list[i] = productsList.get(i).get(TAG_RECODE+r);
 
             }

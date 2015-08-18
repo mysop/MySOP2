@@ -39,14 +39,14 @@ public class StepCaseEnding extends Activity {
     //先寫死帳號和 SOPnumber
     String TAG_ACCOUNT = "q@gmail.com";
     String Sopnumber = "20150814";
-
     ArrayList<HashMap<String, String>> productsList;
+    ArrayList<HashMap<String, String>> valueList;
     JSONArray products = null;
-
+    JSONArray products1 = null;
 
     //連線 case ending
     JSONParser jsonParser = new JSONParser();
-    //第一個是傳入紀錄說明  第二個是更改紀錄值  第三個是 結案（刪掉代辦）
+    //第一個是傳入紀錄說明和記錄值  第二個是更改紀錄值  第三個是 結案（刪掉代辦）
     private static String url_all_products = "http://140.115.80.237/front/mysop_stepCaseclose.jsp";
     private static String url_all_products1 = "http://140.115.80.237/front/mysop_stepCaseclose1.jsp";
     private static String url_all_products2 = "http://140.115.80.237/front/mysop_stepCaseclose2.jsp";
@@ -54,6 +54,7 @@ public class StepCaseEnding extends Activity {
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_TEXT = "text";
     private static final String TAG_UNIT = "unit";
+    private static final String TAG_VALUE = "value";
     private ProgressDialog pDialog;
 
     @Override
@@ -107,6 +108,7 @@ public class StepCaseEnding extends Activity {
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
+        valueList = new ArrayList<HashMap<String, String>>();
 
         new SOPContent().execute();
 
@@ -159,28 +161,29 @@ public class StepCaseEnding extends Activity {
             pDialog.setMessage("Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
-            pDialog.show();
+           // pDialog.show();
         }
 
 
         protected String doInBackground(String... args) {
 
-            //先寫死stepnumber
+            //先寫死stepnumber casenumber
             String Stepnumber ="1" ;
+            String Casenumber="4";
 
             ArrayList params = new ArrayList();
+            ArrayList params1 = new ArrayList();
 
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
+            params.add(new BasicNameValuePair("Casenumber", Casenumber) );
 
-            // 抓紀錄說明
-          JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products, "GET", params);
+            // 抓紀錄說明和記錄值
+          JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products, "GET", params);            try {
 
-            try {
 
-                //讀取紀錄說明
                 int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
-
+                   //讀取紀錄說明
                     products = json1.getJSONArray(TAG_PRODUCTS);
                     Count=products.length();
 
@@ -201,11 +204,24 @@ public class StepCaseEnding extends Activity {
                         // adding HashList to ArrayList
                         productsList.add(map);
                     }
+                    //抓記錄值
+                    products1=json1.getJSONArray("values");
+                    for(int i=0 ;i<products1.length();i++){
+                        JSONObject c =products1.getJSONObject(i);
+                        String value=c.getString(TAG_VALUE);
+                        HashMap<String,String> vmap = new HashMap<String, String>();
+                        vmap.put(TAG_VALUE,value);
+
+                       valueList.add(vmap);
+                    }
                     }
 
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
+
+
+
 
             return null;
         }
@@ -222,57 +238,71 @@ public class StepCaseEnding extends Activity {
                     case 1:
                         text1.setText(productsList.get(0).get(TAG_TEXT));
                         unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        edit1.setText(valueList.get(0).get(TAG_VALUE));
                         l1.setVisibility(0);
-
                         break;
                     case 2:
                         text1.setText(productsList.get(0).get(TAG_TEXT));
                         unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        edit1.setText(valueList.get(0).get(TAG_VALUE));
                         l1.setVisibility(0);
                         text2.setText(productsList.get(1).get(TAG_TEXT));
                         unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        edit2.setText(valueList.get(1).get(TAG_VALUE));
                         l2.setVisibility(0);
                         break;
                     case 3:
                         text1.setText(productsList.get(0).get(TAG_TEXT));
                         unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        edit1.setText(valueList.get(0).get(TAG_VALUE));
                         l1.setVisibility(0);
                         text2.setText(productsList.get(1).get(TAG_TEXT));
                         unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        edit2.setText(valueList.get(1).get(TAG_VALUE));
                         l2.setVisibility(0);
                         text3.setText(productsList.get(2).get(TAG_TEXT));
                         unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        edit3.setText(valueList.get(2).get(TAG_VALUE));
                         l3.setVisibility(0);
                         break;
                     case 4:
                         text1.setText(productsList.get(0).get(TAG_TEXT));
                         unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        edit1.setText(valueList.get(0).get(TAG_VALUE));
                         l1.setVisibility(0);
                         text2.setText(productsList.get(1).get(TAG_TEXT));
                         unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        edit2.setText(valueList.get(1).get(TAG_VALUE));
                         l2.setVisibility(0);
                         text3.setText(productsList.get(2).get(TAG_TEXT));
                         unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        edit3.setText(valueList.get(2).get(TAG_VALUE));
                         l3.setVisibility(0);
                         text4.setText(productsList.get(3).get(TAG_TEXT));
                         unit4.setText(productsList.get(3).get(TAG_UNIT));
+                        edit4.setText(valueList.get(3).get(TAG_VALUE));
                         l4.setVisibility(0);
                         break;
                     case 5:
                         text1.setText(productsList.get(0).get(TAG_TEXT));
                         unit1.setText(productsList.get(0).get(TAG_UNIT));
+                        edit1.setText(valueList.get(0).get(TAG_VALUE));
                         l1.setVisibility(0);
                         text2.setText(productsList.get(1).get(TAG_TEXT));
                         unit2.setText(productsList.get(1).get(TAG_UNIT));
+                        edit2.setText(valueList.get(1).get(TAG_VALUE));
                         l2.setVisibility(0);
                         text3.setText(productsList.get(2).get(TAG_TEXT));
                         unit3.setText(productsList.get(2).get(TAG_UNIT));
+                        edit3.setText(valueList.get(2).get(TAG_VALUE));
                         l3.setVisibility(0);
                         text4.setText(productsList.get(3).get(TAG_TEXT));
                         unit4.setText(productsList.get(3).get(TAG_UNIT));
+                        edit4.setText(valueList.get(3).get(TAG_VALUE));
                         l4.setVisibility(0);
                         text5.setText(productsList.get(4).get(TAG_TEXT));
                         unit5.setText(productsList.get(4).get(TAG_UNIT));
+                        edit5.setText(valueList.get(4).get(TAG_VALUE));
                         l5.setVisibility(0);
                         break;
                     default:
@@ -283,74 +313,94 @@ public class StepCaseEnding extends Activity {
             }else{
                 text1.setText(productsList.get(0).get(TAG_TEXT));
                 unit1.setText(productsList.get(0).get(TAG_UNIT));
+                edit1.setText(valueList.get(0).get(TAG_VALUE));
                 l1.setVisibility(0);
                 text2.setText(productsList.get(1).get(TAG_TEXT));
                 unit2.setText(productsList.get(1).get(TAG_UNIT));
+                edit2.setText(valueList.get(1).get(TAG_VALUE));
                 l2.setVisibility(0);
                 text3.setText(productsList.get(2).get(TAG_TEXT));
                 unit3.setText(productsList.get(2).get(TAG_UNIT));
+                edit3.setText(valueList.get(2).get(TAG_VALUE));
                 l3.setVisibility(0);
                 text4.setText(productsList.get(3).get(TAG_TEXT));
                 unit4.setText(productsList.get(3).get(TAG_UNIT));
+                edit4.setText(valueList.get(3).get(TAG_VALUE));
                 l4.setVisibility(0);
                 text5.setText(productsList.get(4).get(TAG_TEXT));
                 unit5.setText(productsList.get(4).get(TAG_UNIT));
+                edit5.setText(valueList.get(4).get(TAG_VALUE));
                 l5.setVisibility(0);
 
                 switch (Count) {
                     case 6:
                         text6.setText(productsList.get(5).get(TAG_TEXT));
                         unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        edit6.setText(valueList.get(5).get(TAG_VALUE));
                         l6.setVisibility(0);
                         break;
                     case 7:
                         text6.setText(productsList.get(5).get(TAG_TEXT));
                         unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        edit6.setText(valueList.get(5).get(TAG_VALUE));
                         l6.setVisibility(0);
                         text7.setText(productsList.get(6).get(TAG_TEXT));
                         unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        edit7.setText(valueList.get(6).get(TAG_VALUE));
                         l7.setVisibility(0);
                         break;
                     case 8:
                         text6.setText(productsList.get(5).get(TAG_TEXT));
                         unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        edit6.setText(valueList.get(5).get(TAG_VALUE));
                         l6.setVisibility(0);
                         text7.setText(productsList.get(6).get(TAG_TEXT));
                         unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        edit7.setText(valueList.get(6).get(TAG_VALUE));
                         l7.setVisibility(0);
                         text8.setText(productsList.get(7).get(TAG_TEXT));
                         unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        edit8.setText(valueList.get(7).get(TAG_VALUE));
                         l8.setVisibility(0);
                         break;
                     case 9:
                         text6.setText(productsList.get(5).get(TAG_TEXT));
                         unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        edit6.setText(valueList.get(5).get(TAG_VALUE));
                         l6.setVisibility(0);
                         text7.setText(productsList.get(6).get(TAG_TEXT));
                         unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        edit7.setText(valueList.get(6).get(TAG_VALUE));
                         l7.setVisibility(0);
                         text8.setText(productsList.get(7).get(TAG_TEXT));
                         unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        edit8.setText(valueList.get(7).get(TAG_VALUE));
                         l8.setVisibility(0);
                         text9.setText(productsList.get(8).get(TAG_TEXT));
                         unit9.setText(productsList.get(8).get(TAG_UNIT));
+                        edit9.setText(valueList.get(8).get(TAG_VALUE));
                         l9.setVisibility(0);
                         break;
                     case 10:
                         text6.setText(productsList.get(5).get(TAG_TEXT));
                         unit6.setText(productsList.get(5).get(TAG_UNIT));
+                        edit6.setText(valueList.get(5).get(TAG_VALUE));
                         l6.setVisibility(0);
                         text7.setText(productsList.get(6).get(TAG_TEXT));
                         unit7.setText(productsList.get(6).get(TAG_UNIT));
+                        edit7.setText(valueList.get(6).get(TAG_VALUE));
                         l7.setVisibility(0);
                         text8.setText(productsList.get(7).get(TAG_TEXT));
                         unit8.setText(productsList.get(7).get(TAG_UNIT));
+                        edit8.setText(valueList.get(7).get(TAG_VALUE));
                         l8.setVisibility(0);
                         text9.setText(productsList.get(8).get(TAG_TEXT));
                         unit9.setText(productsList.get(8).get(TAG_UNIT));
+                        edit9.setText(valueList.get(8).get(TAG_VALUE));
                         l9.setVisibility(0);
                         text10.setText(productsList.get(9).get(TAG_TEXT));
                         unit10.setText(productsList.get(9).get(TAG_UNIT));
+                        edit10.setText(valueList.get(9).get(TAG_VALUE));
                         l10.setVisibility(0);
                         break;
                     default:
@@ -377,7 +427,7 @@ public class StepCaseEnding extends Activity {
         protected String doInBackground(Integer... args) {
 
             //先寫死stepnumber
-            String Stepnumber ="1" ;
+            String Casenumber ="4" ;
 
             int a=args[0]+1;
             String RecordOrder=Integer.toString(a);
@@ -422,7 +472,7 @@ public class StepCaseEnding extends Activity {
             System.out.println(Nexttext);
 
             params.add(new BasicNameValuePair("Newtext", Nexttext) );
-            params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
+            params.add(new BasicNameValuePair("Casenumber", Casenumber) );
             params.add(new BasicNameValuePair("Recordorder", RecordOrder) );
 
             // 上傳更改的紀錄

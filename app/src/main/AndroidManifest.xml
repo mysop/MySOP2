@@ -126,16 +126,13 @@
             android:name=".StepActionControlQRcode"
             android:label="@string/title_activity_step_action_control_qrcode"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+
         </activity>
         <activity
             android:name=".StepActionControlIbeacon"
             android:label="@string/title_activity_step_action_control_ibeacon"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StepCutControlQRcode"
@@ -148,6 +145,13 @@
             android:label="@string/title_activity_step_action_control"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
     </application>
 
 </manifest>

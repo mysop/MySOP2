@@ -112,7 +112,7 @@ public class StepActionControlQRcode extends Activity {
             pDialog.setMessage("QR code checking.... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
-            pDialog.show();;
+            pDialog.show();
         }
 
         protected Integer doInBackground(String... args) {

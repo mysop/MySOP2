@@ -32,7 +32,8 @@ public class StepActionControl extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control);
-        textView1 = (TextView) findViewById(R.id.qrcode);
+
+        new CheckStartrule().execute();
     }
 
 
@@ -119,7 +120,7 @@ public class StepActionControl extends Activity {
                     //cagetory.setText("QR code");
                     Intent it = new Intent(StepActionControl.this,StepActionControlQRcode.class);
                     startActivity(it);
-
+                    finish();
                     break;
                 case 5:
                    // cagetory.setText("NFC");

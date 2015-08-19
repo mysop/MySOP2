@@ -97,7 +97,10 @@ public class StepCutControl extends Activity {
             pDialog.dismiss();
             switch (finishrule){
                 case 1:
-                    // cagetory.setText("人工啟動");
+                    // cagetory.setText("人工完工");
+                    Intent it = new Intent(StepCutControl.this,StepcutcontrolArtificial.class);
+                    startActivity(it);
+                    finish();
 
                     break;
                 case 2:
@@ -107,12 +110,11 @@ public class StepCutControl extends Activity {
                 case 3:
                     //cagetory.setText("Beacon");
 
-
                     break;
                 case 4:
                     //cagetory.setText("QR code");
-                    Intent it = new Intent(StepCutControl.this,StepCutControlQRcode.class);
-                    startActivity(it);
+                    Intent it4 = new Intent(StepCutControl.this,StepCutControlQRcode.class);
+                    startActivity(it4);
                     finish();
                     break;
                 case 5:

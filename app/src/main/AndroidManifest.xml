@@ -16,8 +16,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -135,6 +134,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -142,7 +142,6 @@
             android:name=".StepCutControlQRcode"
             android:label="@string/title_activity_step_cut_control_qrcode"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepActionControl"
@@ -153,13 +152,16 @@
             android:name=".StepCutControl"
             android:label="@string/title_activity_step_cut_control"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepActionControlGPS"
             android:label="StepActionControlGPS"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
+        </activity>
+        <activity
+            android:name=".StepCutControlIbeacon"
+            android:label="@string/title_activity_step_cut_control_ibeacon"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 

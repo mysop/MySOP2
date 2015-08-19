@@ -141,18 +141,12 @@
             android:name=".StepCutControlQRcode"
             android:label="@string/title_activity_step_cut_control_qrcode"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-<<<<<<< Updated upstream
-=======
 
         </activity>
         <activity
             android:name=".StepActionControl"
             android:label="@string/title_activity_step_action_control"
             android:theme="@android:style/Theme.Light.NoTitleBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
->>>>>>> Stashed changes
-
         </activity>
     </application>
 

@@ -2,6 +2,7 @@ package com.example.kelly.mysop;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
@@ -28,8 +29,6 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
                 .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
         beaconManager.bind(this);
-
-
     }
     @Override
     protected void onDestroy() {
@@ -48,6 +47,12 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
                 try {
                     Log.d(TAG, "didEnterRegion");
                     beaconManager.startRangingBeaconsInRegion(region);
+                    Intent intent = new Intent();
+                    intent.setClass(StepActionControlIbeacon.this, Stepdescription.class);
+                    startActivity(intent);
+                    // 设置切换动画，从右边进入，左边退出
+                    overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+                    finish();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

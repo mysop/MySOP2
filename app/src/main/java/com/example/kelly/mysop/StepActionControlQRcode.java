@@ -28,7 +28,7 @@ public class StepActionControlQRcode extends Activity {
     //讀取 sop內容 圖片
     private static String url_create_product = "http://140.115.80.237/front/mysop_ACqrcode.jsp";
     private static final String TAG_SUCCESS = "success";
-    int ok=0;
+
 
     TextView textView1;
 

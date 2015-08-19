@@ -60,6 +60,7 @@
     <string name="title_activity_stepnextcontrol">Stepnextcontrol</string>
     <string name="title_activity_step_case_ending">StepCaseEnding</string>
     <string name="title_activity_step_action_control_qrcode">StepActionControlQRcode</string>
+    <string name="title_activity_step_action_control_ibeacon">StepActionControlIbeacon</string>
 
 
 

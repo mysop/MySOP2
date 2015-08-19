@@ -123,7 +123,12 @@
         <activity
             android:name=".StepActionControlQRcode"
             android:label="@string/title_activity_step_action_control_qrcode"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".StepActionControlIbeacon"
+            android:label="@string/title_activity_step_action_control_ibeacon"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
     public static final String TAG = "BeaconsEverywhere";
     private BeaconManager beaconManager;
+
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 qrcode 圖片
@@ -33,6 +35,8 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UUID = "UUID";
     String UUID = "";
+
+    int connectfinish=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,18 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
             adapter.enable();
 
         }
+        new Checkibeacon().execute();
+        while(connectfinish == 0){
+            Log.d("isithere","yes");
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+
+                }
+            }, 2000);
+        }
+
+
 
         beaconManager = BeaconManager.getInstanceForApplication(this);
 
@@ -169,7 +185,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
             String StepNumber = "2";
 
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("tepNumber", StepNumber));
+            params.add(new BasicNameValuePair("StepNumber", StepNumber));
 
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest(url_uuid, "GET", params);
@@ -200,6 +216,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
+            connectfinish=1;
         }
     }
 

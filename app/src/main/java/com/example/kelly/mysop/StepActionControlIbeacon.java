@@ -38,6 +38,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
     int connectfinish=0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,16 +55,8 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
         }
         new Checkibeacon().execute();
-        while(connectfinish == 0){
-            Log.d("isithere","yes");
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
 
-                }
-            }, 2000);
-        }
-
+        Log.d("isithere",Integer.toString(connectfinish));
 
 
         beaconManager = BeaconManager.getInstanceForApplication(this);
@@ -87,7 +80,14 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     @Override
     public void onBeaconServiceConnect() {
 
-        final Region region = new Region("myBeaons", Identifier.parse(UUID), null, null);
+        if(connectfinish==0) {
+
+        }
+        Log.d("ishere",Integer.toString(connectfinish));
+
+        if(connectfinish == 0){}
+
+        Region region = new Region("myBeaons", Identifier.parse(UUID), null, null);
 
         beaconManager.setMonitorNotifier(new MonitorNotifier() {
             @Override
@@ -217,6 +217,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             connectfinish=1;
+
         }
     }
 

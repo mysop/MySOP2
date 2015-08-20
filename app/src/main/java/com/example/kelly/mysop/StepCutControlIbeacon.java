@@ -10,6 +10,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -38,25 +39,28 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
     private static String url_uuid = "http://140.115.80.237/front/mysop_CCibeacon.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UUID = "UUID";
-    String UUID = "";
+    String UUID = "00000000-0000-0000-0000-000000000000";
 
     int connectfinish=0;
 
-
+    BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_ibeacon);
 
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
-        if(adapter.isEnabled()!=true){//如果藍芽未開啟
-            //則打開藍芽(會問使用者)
-            //Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            //startActivity(enabler);
+
+        if (adapter == null){
+            Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
+        }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
+            //打開藍芽(會問使用者)
+            Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enabler);
+            Toast.makeText(this, "藍芽藍芽?ohno", Toast.LENGTH_LONG).show();
 
             //則打開藍芽(不問使用者)
-            adapter.enable();
+            //adapter.enable();
 
         }
         new Checkibeacon().execute();
@@ -64,12 +68,18 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
         Log.d("isithere", Integer.toString(connectfinish));
 
 
-        beaconManager = BeaconManager.getInstanceForApplication(this);
+        //beaconManager = BeaconManager.getInstanceForApplication(this);
 
-        beaconManager.getBeaconParsers().add(new BeaconParser()
-                .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
-        beaconManager.bind(this);
+        //beaconManager.bind(this);
+    }
+
+
+    public void refresh(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -131,6 +141,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
         });
 
         try {
+            Log.d("uuid",region.getIdentifier(0).toString());
             beaconManager.startMonitoringBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -164,7 +175,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class Checkibeacon extends AsyncTask<String, String, String> {
+    class Checkibeacon extends AsyncTask<String, String, Integer> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -182,7 +193,9 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
         /**
          * getting All products from url
          */
-        protected String doInBackground(String... args) {
+        protected Integer doInBackground(String... args) {
+
+            int returnvalue = 0;
 
             String StepNumber = "2";
 
@@ -201,6 +214,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
 
                 if (success == 1) {
                     UUID = json.getString(TAG_UUID);
+                    returnvalue = 1;
                 } else {
 
                 }
@@ -208,17 +222,24 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer {
                 e.printStackTrace();
             }
 
-            return null;
+            return returnvalue;
         }
 
         /**
          * After completing background task Dismiss the progress dialog
          * *
          */
-        protected void onPostExecute(String file_url) {
+        protected void onPostExecute(Integer returnvalue) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             connectfinish=1;
+            if (returnvalue == 1){
+                beaconManager = BeaconManager.getInstanceForApplication(StepCutControlIbeacon.this);
+
+                beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+
+                beaconManager.bind(StepCutControlIbeacon.this);
+            }
 
         }
     }

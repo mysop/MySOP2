@@ -11,6 +11,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.*;
 import org.apache.http.NameValuePair;
@@ -45,7 +46,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         setContentView(R.layout.activity_step_action_control_ibeacon);
 
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
-        if(adapter.isEnabled()!=true){//如果藍芽未開啟
+
+        if (adapter == null){
+            Toast.makeText(this,"藍芽藍芽?",Toast.LENGTH_LONG).show();
+        }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
             //則打開藍芽(會問使用者)
             //Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             //startActivity(enabler);

@@ -85,6 +85,9 @@ public class StepActionControlGPS extends Activity {
                 // 最後則帶入定位更新Listener。
                 mLocationManager.requestLocationUpdates
                         (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepActionControlGPS.this);
+                dialog1.setMessage("GPS...Pleas... wait");
+                dialog1.show();
 
             }
         });
@@ -107,23 +110,18 @@ public class StepActionControlGPS extends Activity {
             }
 
 
-
             //印出我的座標-經度緯度
 
             Log.d("TAG", "我的座標 - 經度 : " + mLocation.getLongitude() + "  , 緯度 : " + mLocation.getLatitude());
 
 
-            pDialog1 = new ProgressDialog(StepActionControlGPS.this);
-            pDialog1.setMessage("GPS.... Please wait...");
-            pDialog1.setIndeterminate(false);
-            pDialog1.setCancelable(false);
-            pDialog1.show();
+
 
             //for迴圈，印出景點店家名稱及距離，並依照距離由近至遠排列
             //第一筆為最近的景點店家，最後一筆為最遠的景點店家
             for(int i = 0 ; i < 1 ; i++ )
             {
-                pDialog1.dismiss();
+
                 Log.d("TAG", " , 距離為 : " + DistanceText(Pois.get(i).getDistance()) );
                 if(Pois.get(i).getDistance()>100){
                     AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlGPS.this);

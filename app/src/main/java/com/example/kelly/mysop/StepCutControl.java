@@ -123,6 +123,9 @@ public class StepCutControl extends Activity {
                     break;
                 case 6:
                     // cagetory.setText("定位");
+                    Intent it6 = new Intent(StepCutControl.this,StepCutControlGPS.class);
+                    startActivity(it6);
+                    finish();
                     break;
                 case 7:
                     //  cagetory.setText("時間到期");

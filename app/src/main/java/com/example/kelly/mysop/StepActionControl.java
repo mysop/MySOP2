@@ -68,7 +68,7 @@ public class StepActionControl extends Activity {
         protected Integer doInBackground(String... args) {
 
             //先寫死stepnumber
-            String Stepnumber = "1";
+            String Stepnumber = "3";
 
             int startrule=0;
 
@@ -123,6 +123,9 @@ public class StepActionControl extends Activity {
                     break;
                 case 6:
                    // cagetory.setText("定位");
+                    Intent it6 = new Intent(StepActionControl.this,StepActionControlGPS.class);
+                    startActivity(it6);
+                    finish();
                     break;
                 case 7:
                   //  cagetory.setText("時間到期");

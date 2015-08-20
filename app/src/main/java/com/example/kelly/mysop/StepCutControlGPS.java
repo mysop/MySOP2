@@ -79,6 +79,9 @@ public class StepCutControlGPS extends Activity {
                 // 最後則帶入定位更新Listener。
                 mLocationManager.requestLocationUpdates
                         (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepCutControlGPS.this);
+                dialog1.setMessage("GPS...Pleas... wait");
+                dialog1.show();
 
             }
         });

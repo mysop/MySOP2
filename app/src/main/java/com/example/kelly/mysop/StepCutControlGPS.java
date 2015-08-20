@@ -3,17 +3,15 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,11 +22,9 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 
-public class StepActionControlGPS extends Activity {
+public class StepCutControlGPS extends Activity {
     private LocationManager mLocationManager;               //宣告定位管理控制
     private ArrayList<Poi> Pois = new ArrayList<Poi>();   //建立List，屬性為Poi物件
     public TextView gps;
@@ -36,7 +32,7 @@ public class StepActionControlGPS extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 gps
-    private static String url_create_product = "http://140.115.80.237/front/mysop_ACgps.jsp";
+    private static String url_create_product = "http://140.115.80.237/front/mysop_CCgps.jsp";
     private static final String TAG_SUCCESS = "success";
 
     private static final String TAG_Latitude = "Latitude";
@@ -45,12 +41,11 @@ public class StepActionControlGPS extends Activity {
     private static double DLatitude=0 ;
     private  static double DLongitude=0;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_action_control_gps);
+        setContentView(R.layout.activity_step_cut_control_gps);
+
 
         //建立物件，並放入List裡 (建立物件需帶入名稱、緯度、經度)
 //        Pois.add(new Poi(25.04661 , 121.5168 ));
@@ -59,16 +54,16 @@ public class StepActionControlGPS extends Activity {
 //        Pois.add(new Poi( 22.61177 , 120.30031 ));
 //        Pois.add(new Poi(25.10988 , 121.84519 ));
 
-        gps=(TextView)findViewById(R.id.gps);
+        gps=(TextView)findViewById(R.id.gps1);
 
         //取得定位權限
         mLocationManager = (LocationManager) getSystemService(StepActionControlGPS.LOCATION_SERVICE);
-       //連線取目的地
+        //連線取目的地
         new CheckGPS().execute();
 
         //取得在Layout建立的Button元件
 
-        Button btn = (Button) findViewById(R.id.btn);
+        Button btn = (Button) findViewById(R.id.btn1);
 
 
         btn.setOnClickListener(new View.OnClickListener()
@@ -117,13 +112,13 @@ public class StepActionControlGPS extends Activity {
             {
                 Log.d("TAG", " , 距離為 : " + DistanceText(Pois.get(i).getDistance()) );
                 if(Pois.get(i).getDistance()>100){
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlGPS.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(StepCutControlGPS.this);
                     dialog.setTitle("");
                     dialog.setMessage("還未到目的地，距離還有"+DistanceText(Pois.get(i).getDistance()));
                     dialog.show();
 
                 }else{
-                    Intent it = new Intent(StepActionControlGPS.this,Stepdescription.class);
+                    Intent it = new Intent(StepCutControlGPS.this,Stepnextcontrol.class);
                     startActivity(it);
 
                 }
@@ -178,11 +173,10 @@ public class StepActionControlGPS extends Activity {
 
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step_action_control_g, menu);
+        getMenuInflater().inflate(R.menu.menu_step_cut_control_g, menu);
         return true;
     }
 
@@ -250,7 +244,7 @@ public class StepActionControlGPS extends Activity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(StepActionControlGPS.this);
+            pDialog = new ProgressDialog(StepCutControlGPS.this);
             pDialog.setMessage("Loading.... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -265,7 +259,7 @@ public class StepActionControlGPS extends Activity {
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
 
-            JSONObject json = StepActionControlGPS.this.jsonParser.makeHttpRequest(StepActionControlGPS.url_create_product, "GET", params);
+            JSONObject json = StepCutControlGPS.this.jsonParser.makeHttpRequest(StepCutControlGPS.url_create_product, "GET", params);
 
 
             try {
@@ -278,7 +272,7 @@ public class StepActionControlGPS extends Activity {
 
                 }else if(e == 6){
 
-                   // valoreOnPostExecute=1;
+                    // valoreOnPostExecute=1;
 
                 }
             } catch (JSONException var9) {
@@ -300,8 +294,4 @@ public class StepActionControlGPS extends Activity {
 //            }
         }
     }
-
-
-
-
 }

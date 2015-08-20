@@ -3,18 +3,21 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -41,10 +44,15 @@ public class StepCutControlGPS extends Activity {
     private static double DLatitude=0 ;
     private  static double DLongitude=0;
 
+    public boolean getService = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_gps);
+        testLocationProvider();
+
 
 
         //建立物件，並放入List裡 (建立物件需帶入名稱、緯度、經度)
@@ -241,6 +249,37 @@ public class StepCutControlGPS extends Activity {
 
         }
     }
+    //測試ps有沒有打開
+    private void testLocationProvider() {
+        // TODO Auto-generated method stub
+        try {
+            LocationManager status = (LocationManager) (this.getSystemService(StepCutControlGPS.LOCATION_SERVICE));
+            if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+                getService = true; // 確認開啟定位服務
+
+            } else {
+
+                Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder ad = new AlertDialog.Builder(StepCutControlGPS.this);
+                ad.setTitle("您好,請把'定位'打開喔!! ");
+                ad.setMessage("內容喔" );
+                ad.setNeutralButton("開啟定位服務!!",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //不做任何事情 直接關閉對話方塊
+                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); // 開啟設定頁面
+                            }
+                        });
+                ad.show();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     class CheckGPS extends AsyncTask<String, String, Integer> {
 

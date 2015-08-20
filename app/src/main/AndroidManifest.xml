@@ -144,11 +144,7 @@
             android:name=".StepActionControl"
             android:label="@string/title_activity_step_action_control"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -173,6 +169,11 @@
             android:name=".StepCutControlGPS"
             android:label="@string/title_activity_step_cut_control_gps"
             android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>

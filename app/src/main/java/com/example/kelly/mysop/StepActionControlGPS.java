@@ -34,6 +34,7 @@ public class StepActionControlGPS extends Activity {
     public TextView gps;
 
     private ProgressDialog pDialog;
+    private ProgressDialog pDialog1;
     JSONParser jsonParser = new JSONParser();
     //讀取 gps
     private static String url_create_product = "http://140.115.80.237/front/mysop_ACgps.jsp";
@@ -111,10 +112,18 @@ public class StepActionControlGPS extends Activity {
 
             Log.d("TAG", "我的座標 - 經度 : " + mLocation.getLongitude() + "  , 緯度 : " + mLocation.getLatitude());
 
+
+            pDialog1 = new ProgressDialog(StepActionControlGPS.this);
+            pDialog1.setMessage("GPS.... Please wait...");
+            pDialog1.setIndeterminate(false);
+            pDialog1.setCancelable(false);
+            pDialog1.show();
+
             //for迴圈，印出景點店家名稱及距離，並依照距離由近至遠排列
             //第一筆為最近的景點店家，最後一筆為最遠的景點店家
             for(int i = 0 ; i < 1 ; i++ )
             {
+                pDialog1.dismiss();
                 Log.d("TAG", " , 距離為 : " + DistanceText(Pois.get(i).getDistance()) );
                 if(Pois.get(i).getDistance()>100){
                     AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlGPS.this);

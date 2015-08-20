@@ -34,7 +34,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     private static String url_uuid = "http://140.115.80.237/front/mysop_ACibeacon.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UUID = "UUID";
-    String UUID = "";
+    String UUID = "00000000-0000-0000-0000-000000000000";
 
     int connectfinish=0;
 
@@ -49,26 +49,29 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
             //則打開藍芽(會問使用者)
             //Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             //startActivity(enabler);
-
+            Log.d("BLUE","");
             //則打開藍芽(不問使用者)
             adapter.enable();
+            //refresh();
 
         }
+
         new Checkibeacon().execute();
 
         Log.d("isithere",Integer.toString(connectfinish));
 
 
-        beaconManager = BeaconManager.getInstanceForApplication(this);
+        //beaconManager = BeaconManager.getInstanceForApplication(this);
 
-        beaconManager.getBeaconParsers().add(new BeaconParser()
-                .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+        //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
-        beaconManager.bind(this);
+        //beaconManager.bind(this);
     }
 
     public void refresh(){
-
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -130,6 +133,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         });
 
         try {
+           Log.d("uuid",region.getIdentifier(0).toString());
+/*             if(region.getIdentifier(0).toString() == "00000000-0000-0000-0000-000000000000"){
+                onBeaconServiceConnect();
+            }*/
             beaconManager.startMonitoringBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -162,7 +169,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class Checkibeacon extends AsyncTask<String, String, String> {
+    class Checkibeacon extends AsyncTask<String, String, Integer> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -180,7 +187,9 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         /**
          * getting All products from url
          */
-        protected String doInBackground(String... args) {
+        protected Integer doInBackground(String... args) {
+
+            int returnvalue = 0;
 
             String StepNumber = "2";
 
@@ -199,6 +208,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
                 if (success == 1) {
                     UUID = json.getString(TAG_UUID);
+                    returnvalue = 1;
                 } else {
 
                 }
@@ -206,17 +216,24 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
                 e.printStackTrace();
             }
 
-            return null;
+            return returnvalue;
         }
 
         /**
          * After completing background task Dismiss the progress dialog
          * *
          */
-        protected void onPostExecute(String file_url) {
+        protected void onPostExecute(Integer returnvalue) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-            connectfinish=1;
+            connectfinish=1;//測試用
+            if (returnvalue == 1){
+                beaconManager = BeaconManager.getInstanceForApplication(StepActionControlIbeacon.this);
+
+                beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+
+                beaconManager.bind(StepActionControlIbeacon.this);
+            }
 
         }
     }

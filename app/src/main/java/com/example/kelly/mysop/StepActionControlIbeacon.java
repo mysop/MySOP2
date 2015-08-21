@@ -3,9 +3,7 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +11,6 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.*;
@@ -27,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class StepActionControlIbeacon extends Activity implements BeaconConsumer{
+public class StepActionControlIbeacon extends Activity implements BeaconConsumer {
 
     public static final String TAG = "BeaconsEverywhere";
     private BeaconManager beaconManager;
@@ -35,56 +32,50 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 qrcode 圖片
-    private static String url_uuid = "http://140.115.80.237/front/mysop_CCibeacon.jsp";
+    private static String url_uuid = "http://140.115.80.237/front/mysop_ACibeacon.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UUID = "UUID";
     String UUID = "00000000-0000-0000-0000-000000000000";
 
-    int connectfinish = 0;
+    int connectfinish=0;
 
-    BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_cut_control_ibeacon);
-        Log.d("oncreateee", Integer.toString(connectfinish));
+        setContentView(R.layout.activity_step_action_control_ibeacon);
 
-/*        if (adapter == null){
-            Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
+
+        if (adapter == null){
+            Toast.makeText(this,"藍芽藍芽?",Toast.LENGTH_LONG).show();
         }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
-            //打開藍芽(會問使用者)
-            Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enabler);
-            Toast.makeText(this, "藍芽藍芽?ohno", Toast.LENGTH_LONG).show();
-            beaconManager = BeaconManager.getInstanceForApplication(StepCutControlIbeacon.this);
-            beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-            beaconManager.bind(StepCutControlIbeacon.this);
-            //onDestroy();
-            refresh();
-
+            //則打開藍芽(會問使用者)
+            //Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            //startActivity(enabler);
+            Log.d("BLUE","");
             //則打開藍芽(不問使用者)
-            //adapter.enable();
+            adapter.enable();
+            //refresh();
 
-        }else {
-            //new Check_beacon().execute();
+        }
 
-            Log.d("isithere", Integer.toString(connectfinish));
+        new Checkibeacon().execute();
 
-        }*/
+        Log.d("isithere",Integer.toString(connectfinish));
+
+
         //beaconManager = BeaconManager.getInstanceForApplication(this);
+
         //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+
         //beaconManager.bind(this);
     }
 
-
     public void refresh(){
-
-        Intent intent = new Intent();
-        intent.setClass(StepActionControlIbeacon.this, StepCutControlIbeacon.class);
-        //Intent intent = getIntent();
-        startActivity(intent);
+        Intent intent = getIntent();
         finish();
+        startActivity(intent);
     }
 
     @Override
@@ -99,7 +90,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         if(connectfinish==0) {
 
         }
-        Log.d("connectfinish?",Integer.toString(connectfinish));
+        Log.d("ishere",Integer.toString(connectfinish));
 
         if(connectfinish == 0){}
 
@@ -146,7 +137,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         });
 
         try {
-            Log.d("uuid",region.getIdentifier(0).toString());
+           Log.d("uuid",region.getIdentifier(0).toString());
+/*             if(region.getIdentifier(0).toString() == "00000000-0000-0000-0000-000000000000"){
+                onBeaconServiceConnect();
+            }*/
             beaconManager.startMonitoringBeaconsInRegion(region);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -154,25 +148,32 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
     }
 
-    public void start_beacon(View view){
-        if (adapter == null){
-            Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
-        }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
-            //打開藍芽(會問使用者)
-            Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enabler);
-            Toast.makeText(this, "藍芽藍芽?ohno", Toast.LENGTH_LONG).show();
-        }else {
-            new Check_beacon().execute();
-            Log.d("isithere", Integer.toString(connectfinish));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_step_action_control_ibeacon, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
-    class Check_beacon extends AsyncTask<String, String, Integer> {
+    class Checkibeacon extends AsyncTask<String, String, Integer> {
 
         /**
          * Before starting background thread Show Progress Dialog
@@ -229,7 +230,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         protected void onPostExecute(Integer returnvalue) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-            connectfinish=1;
+            connectfinish=1;//測試用
             if (returnvalue == 1){
                 beaconManager = BeaconManager.getInstanceForApplication(StepActionControlIbeacon.this);
 
@@ -240,7 +241,5 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
         }
     }
-
-
 
 }

@@ -110,6 +110,11 @@
             android:name=".Steprecording"
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".StepcutcontrolArtificial"
@@ -155,11 +160,7 @@
             android:name=".StepActionControlGPS"
             android:label="StepActionControlGPS"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -184,6 +185,7 @@
                 <data android:mimeType="text/plain" />
 
             </intent-filter>
+
 
         </activity>
     </application>

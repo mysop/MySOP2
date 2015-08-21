@@ -47,16 +47,27 @@ public class StepCutControlGPS extends Activity {
     public boolean getService = false;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_gps);
         //testLocationProvider();
 
-        if(isOpenGps()==false){
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+//        if(isOpenGps()==false){
+//            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//            startActivity(intent);
+//
+//        }
+        //LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(StepCutControlGPS.this, "已開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
+        } else {
+            Toast.makeText(StepCutControlGPS.this, "請開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
         }
 
 
@@ -79,42 +90,51 @@ public class StepCutControlGPS extends Activity {
         Button btn = (Button) findViewById(R.id.btn1);
 
 
-        btn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //把資料庫要把對的經緯度放進去
-                Pois.add(new Poi(DLatitude ,DLongitude ));
-                System.out.println("Now "+DLongitude+" AND "+DLatitude);
-                //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
-                //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
-                // 最後則帶入定位更新Listener。
-                mLocationManager.requestLocationUpdates
-                        (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
-                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepCutControlGPS.this);
-                dialog1.setMessage("GPS...Pleas... wait");
-                dialog1.show();
-
-            }
-        });
+//        btn.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                //把資料庫要把對的經緯度放進去
+//                Pois.add(new Poi(DLatitude ,DLongitude ));
+//                System.out.println("Now "+DLongitude+" AND "+DLatitude);
+//                //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
+//                //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
+//                // 最後則帶入定位更新Listener。
+//                mLocationManager.requestLocationUpdates
+//                        (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+//                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepCutControlGPS.this);
+//                dialog1.setMessage("GPS...Please... wait");
+//                dialog1.show();
+//
+//            }
+//        });
 
     }
 
-    private boolean isOpenGps() {
-
-        LocationManager locationManager
-                = (LocationManager) this.getSystemService(StepCutControlGPS.LOCATION_SERVICE);
-        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
-        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        if (gps || network) {
-            return true;
+    public void GPSonClick (View v){
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+           // Toast.makeText(StepCutControlGPS.this, "已開啟定位服務", Toast.LENGTH_LONG)
+           //         .show();
+            Pois.add(new Poi(DLatitude ,DLongitude ));
+            System.out.println("Now "+DLongitude+" AND "+DLatitude);
+            //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
+            //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
+            // 最後則帶入定位更新Listener。
+            mLocationManager.requestLocationUpdates
+                    (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepCutControlGPS.this);
+            dialog1.setMessage("GPS...Please... wait");
+            dialog1.show();
+        } else {
+            Toast.makeText(StepCutControlGPS.this, "請開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
         }
 
-        return false;
     }
+
+
 
     //更新定位Listener
     public LocationListener LocationChange = new LocationListener()
@@ -269,36 +289,6 @@ public class StepCutControlGPS extends Activity {
 
         }
     }
-//    //測試ps有沒有打開
-//    private void testLocationProvider() {
-//        // TODO Auto-generated method stub
-//        try {
-//            LocationManager status = (LocationManager) (this.getSystemService(StepCutControlGPS.LOCATION_SERVICE));
-//            if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//                // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-//                getService = true; // 確認開啟定位服務
-//
-//            } else {
-//
-//                Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-//                AlertDialog.Builder ad = new AlertDialog.Builder(StepCutControlGPS.this);
-//                ad.setTitle("您好,請把'定位'打開喔!! ");
-//                ad.setMessage("內容喔" );
-//                ad.setNeutralButton("開啟定位服務!!",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                //不做任何事情 直接關閉對話方塊
-//                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); // 開啟設定頁面
-//                            }
-//                        });
-//                ad.show();
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
 
     class CheckGPS extends AsyncTask<String, String, Integer> {
@@ -323,7 +313,6 @@ public class StepCutControlGPS extends Activity {
 
             JSONObject json = StepCutControlGPS.this.jsonParser.makeHttpRequest(StepCutControlGPS.url_create_product, "GET", params);
 
-
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
@@ -331,10 +320,8 @@ public class StepCutControlGPS extends Activity {
                     DLatitude=Double.parseDouble(json.getString(TAG_Latitude));
                     System.out.println("Here "+DLongitude+" AND "+DLatitude);
 
-
                 }else if(e == 6){
 
-                    // valoreOnPostExecute=1;
 
                 }
             } catch (JSONException var9) {
@@ -347,13 +334,7 @@ public class StepCutControlGPS extends Activity {
         protected void onPostExecute(Integer valoreOnPostExecute) {
 
             pDialog.dismiss();
-//            if(valoreOnPostExecute==1){
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlQRcode.this);
-//                dialog.setTitle("");
-//                dialog.setMessage("目標錯誤，請尋找正確QR code");
-//                dialog.show();
-//
-//            }
+
         }
     }
 }

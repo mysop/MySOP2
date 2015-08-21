@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -53,12 +54,16 @@ public class StepActionControlGPS extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_gps);
 
-        //建立物件，並放入List裡 (建立物件需帶入名稱、緯度、經度)
-//        Pois.add(new Poi(25.04661 , 121.5168 ));
-//        Pois.add(new Poi(24.13682 , 120.6850 ));
-//        Pois.add(new Poi( 25.03362 , 121.56500 ));
-//        Pois.add(new Poi( 22.61177 , 120.30031 ));
-//        Pois.add(new Poi(25.10988 , 121.84519 ));
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, "已開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
+        } else {
+            Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
+        }
+
 
         gps=(TextView)findViewById(R.id.gps);
 
@@ -67,32 +72,33 @@ public class StepActionControlGPS extends Activity {
        //連線取目的地
         new CheckGPS().execute();
 
-        //取得在Layout建立的Button元件
 
-        Button btn = (Button) findViewById(R.id.btn);
-
-
-        btn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //把資料庫要把對的經緯度放進去
-                Pois.add(new Poi(DLatitude ,DLongitude ));
-                System.out.println("Now "+DLongitude+" AND "+DLatitude);
-                //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
-                //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
-                // 最後則帶入定位更新Listener。
-                mLocationManager.requestLocationUpdates
-                        (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
-                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepActionControlGPS.this);
-                dialog1.setMessage("GPS...Pleas... wait");
-                dialog1.show();
-
-            }
-        });
 
     }
+
+    public void GPSonClick1 (View v){
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            // Toast.makeText(StepCutControlGPS.this, "已開啟定位服務", Toast.LENGTH_LONG)
+            //         .show();
+            Pois.add(new Poi(DLatitude ,DLongitude ));
+            System.out.println("Now "+DLongitude+" AND "+DLatitude);
+            //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
+            //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
+            // 最後則帶入定位更新Listener。
+            mLocationManager.requestLocationUpdates
+                    (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(this);
+            dialog1.setMessage("GPS...Please... wait");
+            dialog1.show();
+        } else {
+            Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG)
+                    .show();
+        }
+
+    }
+
 
     //更新定位Listener
     public LocationListener LocationChange = new LocationListener()
@@ -170,17 +176,16 @@ public class StepActionControlGPS extends Activity {
     //帶入使用者及景點店家經緯度可計算出距離
     public double Distance(double longitude1, double latitude1, double longitude2,double latitude2)
     {
-        double radLatitude1 = latitude1 * Math.PI / 180;
-        double radLatitude2 = latitude2 * Math.PI / 180;
-        double l = radLatitude1 - radLatitude2;
-        double p = longitude1 * Math.PI / 180 - longitude2 * Math.PI / 180;
-        double distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(l / 2), 2)
-                + Math.cos(radLatitude1) * Math.cos(radLatitude2)
-                * Math.pow(Math.sin(p / 2), 2)));
-        distance = distance * 6378137.0;
-        distance = Math.round(distance * 10000) / 10000;
-
-        return distance ;
+        double EARTH_RADIUS = 6378137;
+        double radLat1 = latitude1*Math.PI / 180.0;
+        double radLat2 = latitude2*Math.PI / 180.0;
+        double a = radLat1 - radLat2;
+        double b = longitude1*Math.PI / 180.0 - longitude2*Math.PI / 180.0;
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+        return s;
     }
 
 
@@ -285,7 +290,6 @@ public class StepActionControlGPS extends Activity {
 
                 }else if(e == 6){
 
-                   // valoreOnPostExecute=1;
 
                 }
             } catch (JSONException var9) {
@@ -298,13 +302,7 @@ public class StepActionControlGPS extends Activity {
         protected void onPostExecute(Integer valoreOnPostExecute) {
 
             pDialog.dismiss();
-//            if(valoreOnPostExecute==1){
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlQRcode.this);
-//                dialog.setTitle("");
-//                dialog.setMessage("目標錯誤，請尋找正確QR code");
-//                dialog.show();
-//
-//            }
+
         }
     }
 

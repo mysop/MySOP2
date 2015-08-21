@@ -1,6 +1,12 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,5 +41,17 @@ public class StepActionControlNFC extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleIntent(Intent intent) {
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        if (tag != null) {
+            Ndef ndef = Ndef.get(tag);
+            NdefMessage ndefMessage = ndef.getCachedNdefMessage();
+            NdefRecord[] records = ndefMessage.getRecords();
+            for (NdefRecord ndefRecord : records) {
+                System.out.println("ndefRecord:" + ndefRecord);
+            }
+        }
     }
 }

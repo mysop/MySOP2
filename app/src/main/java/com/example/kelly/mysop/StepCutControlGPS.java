@@ -51,8 +51,13 @@ public class StepCutControlGPS extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_gps);
-        testLocationProvider();
+        //testLocationProvider();
 
+        if(isOpenGps()==false){
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+
+        }
 
 
         //建立物件，並放入List裡 (建立物件需帶入名稱、緯度、經度)
@@ -94,6 +99,21 @@ public class StepCutControlGPS extends Activity {
             }
         });
 
+    }
+
+    private boolean isOpenGps() {
+
+        LocationManager locationManager
+                = (LocationManager) this.getSystemService(StepCutControlGPS.LOCATION_SERVICE);
+        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+
+        return false;
     }
 
     //更新定位Listener
@@ -169,17 +189,17 @@ public class StepCutControlGPS extends Activity {
     //帶入使用者及景點店家經緯度可計算出距離
     public double Distance(double longitude1, double latitude1, double longitude2,double latitude2)
     {
-        double radLatitude1 = latitude1 * Math.PI / 180;
-        double radLatitude2 = latitude2 * Math.PI / 180;
-        double l = radLatitude1 - radLatitude2;
-        double p = longitude1 * Math.PI / 180 - longitude2 * Math.PI / 180;
-        double distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(l / 2), 2)
-                + Math.cos(radLatitude1) * Math.cos(radLatitude2)
-                * Math.pow(Math.sin(p / 2), 2)));
-        distance = distance * 6378137.0;
-        distance = Math.round(distance * 10000) / 10000;
 
-        return distance ;
+        double EARTH_RADIUS = 6378137;
+        double radLat1 = latitude1*Math.PI / 180.0;
+        double radLat2 = latitude2*Math.PI / 180.0;
+        double a = radLat1 - radLat2;
+        double b = longitude1*Math.PI / 180.0 - longitude2*Math.PI / 180.0;
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+        return s;
     }
 
 
@@ -249,35 +269,35 @@ public class StepCutControlGPS extends Activity {
 
         }
     }
-    //測試ps有沒有打開
-    private void testLocationProvider() {
-        // TODO Auto-generated method stub
-        try {
-            LocationManager status = (LocationManager) (this.getSystemService(StepCutControlGPS.LOCATION_SERVICE));
-            if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-                getService = true; // 確認開啟定位服務
-
-            } else {
-
-                Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-                AlertDialog.Builder ad = new AlertDialog.Builder(StepCutControlGPS.this);
-                ad.setTitle("您好,請把'定位'打開喔!! ");
-                ad.setMessage("內容喔" );
-                ad.setNeutralButton("開啟定位服務!!",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //不做任何事情 直接關閉對話方塊
-                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); // 開啟設定頁面
-                            }
-                        });
-                ad.show();
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    //測試ps有沒有打開
+//    private void testLocationProvider() {
+//        // TODO Auto-generated method stub
+//        try {
+//            LocationManager status = (LocationManager) (this.getSystemService(StepCutControlGPS.LOCATION_SERVICE));
+//            if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+//                // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+//                getService = true; // 確認開啟定位服務
+//
+//            } else {
+//
+//                Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
+//                AlertDialog.Builder ad = new AlertDialog.Builder(StepCutControlGPS.this);
+//                ad.setTitle("您好,請把'定位'打開喔!! ");
+//                ad.setMessage("內容喔" );
+//                ad.setNeutralButton("開啟定位服務!!",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //不做任何事情 直接關閉對話方塊
+//                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); // 開啟設定頁面
+//                            }
+//                        });
+//                ad.show();
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 

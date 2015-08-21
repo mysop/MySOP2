@@ -52,13 +52,7 @@ public class StepCutControlGPS extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_gps);
-        //testLocationProvider();
 
-//        if(isOpenGps()==false){
-//            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//            startActivity(intent);
-//
-//        }
         //LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -70,14 +64,6 @@ public class StepCutControlGPS extends Activity {
                     .show();
         }
 
-
-        //建立物件，並放入List裡 (建立物件需帶入名稱、緯度、經度)
-//        Pois.add(new Poi(25.04661 , 121.5168 ));
-//        Pois.add(new Poi(24.13682 , 120.6850 ));
-//        Pois.add(new Poi( 25.03362 , 121.56500 ));
-//        Pois.add(new Poi( 22.61177 , 120.30031 ));
-//        Pois.add(new Poi(25.10988 , 121.84519 ));
-
         gps=(TextView)findViewById(R.id.gps1);
 
         //取得定位權限
@@ -87,28 +73,7 @@ public class StepCutControlGPS extends Activity {
 
         //取得在Layout建立的Button元件
 
-        Button btn = (Button) findViewById(R.id.btn1);
 
-
-//        btn.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                //把資料庫要把對的經緯度放進去
-//                Pois.add(new Poi(DLatitude ,DLongitude ));
-//                System.out.println("Now "+DLongitude+" AND "+DLatitude);
-//                //按下按鈕後讀取我的位置，定位抓取方式為網路讀取
-//                //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
-//                // 最後則帶入定位更新Listener。
-//                mLocationManager.requestLocationUpdates
-//                        (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
-//                AlertDialog.Builder dialog1 = new AlertDialog.Builder(StepCutControlGPS.this);
-//                dialog1.setMessage("GPS...Please... wait");
-//                dialog1.show();
-//
-//            }
-//        });
 
     }
 

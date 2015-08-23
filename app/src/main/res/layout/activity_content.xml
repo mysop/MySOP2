@@ -265,7 +265,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/inputText"
                     android:singleLine="true"
-                    />
+                    android:linksClickable="false" />
 
                 <RatingBar
                     android:layout_width="wrap_content"

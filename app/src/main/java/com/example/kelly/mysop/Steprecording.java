@@ -257,7 +257,8 @@ public class Steprecording extends Activity {
                 edit1[i].setTextColor(Color.rgb(0, 0, 0));
                 edit1[i].setOnFocusChangeListener(new MyOnFocusChangeListener());
                 edit1[i].setSingleLine(true);
-                edit1[0].setText("eee");
+                edit1[i].setBackgroundColor(Color.parseColor("#FEFBE6"));
+                //edit1[0].setText("eee");
                 ly.addView(text1);
                 ly.addView(edit1[i]);
             }
@@ -299,19 +300,34 @@ public class Steprecording extends Activity {
             if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
                 Log.d("ohitwork",edit1[1].getText().toString());
 
-                //new Recording().execute();
-                Recording[] RC = new Recording[20];
-                for(int postcount=0;postcount<count;postcount++) {
-                    RC[postcount] = new Recording();
-                    RC[postcount].execute(postcount);
+                boolean didinput = true;
+
+                for(int j=0;j<count;j++){
+                    if(edit1[j].getText().toString().equals("")){
+                        didinput = false;
+                    }
                 }
 
+                if(didinput) {
+                    //new Recording().execute();
+                    Recording[] RC = new Recording[20];
+                    for (int postcount = 0; postcount < count; postcount++) {
+                        RC[postcount] = new Recording();
+                        RC[postcount].execute(postcount);
+                    }
 
-                Intent intent = new Intent();
-                intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
-                startActivity(intent);
-                // 设置切换动画，从右边进入，左边退出
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+
+                    Intent intent = new Intent();
+                    intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
+                    startActivity(intent);
+                    // 设置切换动画，从右边进入，左边退出
+                    overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+                }else{
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Steprecording.this);
+                    dialog.setTitle("");
+                    dialog.setMessage("請紀錄完成再前往下一頁!");
+                    dialog.show();
+                }
                 return true;
             } else
                 return false;

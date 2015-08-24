@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/linearLayoutbackground"
-        android:background="#FFA488" android:focusableInTouchMode="true" android:focusable="true"
+        android:background="#FFFFFF" android:focusableInTouchMode="true" android:focusable="true"
         android:weightSum="1">
 
         <LinearLayout
@@ -20,7 +20,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:id="@+id/linearlayouttitle"
-            android:background="#77FFCC" android:focusableInTouchMode="true" android:focusable="true">
+            android:background="#FFFFFF" android:focusableInTouchMode="true" android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,14 +48,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/scrollView"
             android:layout_alignBottom="@+id/linearlayouttitle"
-            android:background="#FFFF77"
+            android:background="#FFFFFF"
             android:layout_weight="0.88">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+<<<<<<< HEAD
                 android:id="@+id/linearlayoutinput">
+=======
+                android:id="@+id/linearlayoutinput"
+                android:background="#FFFFFF">
+>>>>>>> origin/master
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

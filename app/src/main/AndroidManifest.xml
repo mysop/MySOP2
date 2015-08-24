@@ -17,7 +17,15 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.NFC" />
+=======
+    <uses-permission android:name="android.permission.NFC"/>
+
+
+    <uses-feature android:required="true" android:name="android.hardware.nfc"></uses-feature>
+
+>>>>>>> origin/master
 
     <uses-feature
         android:name="android.hardware.nfc"

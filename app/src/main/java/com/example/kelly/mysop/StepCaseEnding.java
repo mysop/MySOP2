@@ -328,7 +328,7 @@ public class StepCaseEnding extends Activity {
 
                 edit[i] = new EditText(StepCaseEnding.this.getApplicationContext());
 
-
+                edit[i].setBackgroundColor(Color.parseColor("#FEFBE6"));
                 edit[i].setTextColor(Color.rgb(0, 0, 0));
                 edit[i].setSingleLine(true);
                 //edit.linecolor

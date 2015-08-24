@@ -68,6 +68,8 @@
     <string name="title_activity_step_cut_control_ibeacon">StepCutControlIbeacon</string>
     <string name="title_activity_step_cut_control_gps">StepCutControlGPS</string>
     <string name="title_activity_step_action_control_nfc">StepActionControlNFC</string>
+    <string name="title_activity_step_action_control_artificial">StepActionControlArtificial
+    </string>
 
 
 

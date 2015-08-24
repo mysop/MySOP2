@@ -99,6 +99,8 @@ public class StepActionControl extends Activity {
             switch (startrule){
                 case 1:
                    // cagetory.setText("人工啟動");
+                    Intent it1 = new Intent(StepActionControl.this,StepActionControlArtificial.class);
+                    startActivity(it1);
 
                     break;
                 case 2:
@@ -113,8 +115,8 @@ public class StepActionControl extends Activity {
                     break;
                 case 4:
                     //cagetory.setText("QR code");
-                    Intent it = new Intent(StepActionControl.this,StepActionControlQRcode.class);
-                    startActivity(it);
+                    Intent it4 = new Intent(StepActionControl.this,StepActionControlQRcode.class);
+                    startActivity(it4);
                     finish();
                     break;
                 case 5:

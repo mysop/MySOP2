@@ -17,10 +17,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.NFC"/>
-    <uses-feature android:required="true" android:name="android.hardware.nfc"></uses-feature>
+    <uses-permission android:name="android.permission.NFC" />
 
-
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -160,9 +161,7 @@
             android:name=".StepActionControlGPS"
             android:label="StepActionControlGPS"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
-
         <activity
             android:name=".StepCutControlIbeacon"
             android:label="@string/title_activity_step_cut_control_ibeacon"
@@ -172,21 +171,23 @@
             android:name=".StepCutControlGPS"
             android:label="@string/title_activity_step_cut_control_gps"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
-
         </activity>
         <activity
             android:name=".StepActionControlNFC"
             android:label="@string/title_activity_step_action_control_nfc"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
-                <action  android:name = "android.nfc.action.NDEF_DISCOVERED"  />
-                <category  android:name = "android.intent.category.DEFAULT"  />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
-
             </intent-filter>
-
-
+        </activity>
+        <activity
+            android:name=".StepActionControlArtificial"
+            android:label="@string/title_activity_step_action_control_artificial"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>
 

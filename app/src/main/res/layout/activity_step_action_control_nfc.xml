@@ -8,21 +8,6 @@
     android:background="#ffffffff"
     android:id="@+id/nnn">
 
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:text="啟動偵測"
-        android:id="@+id/btn"
-        android:textColor="#ffffffff"
-        android:background="#ffff3f2f"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:typeface="serif"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:onClick="onClick" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,16 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="請使用NFC"
-        android:id="@+id/textView12"
-        android:textColor="#7e7e7e"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="啟動方法"
         android:id="@+id/textView13"
         android:layout_below="@+id/textView1"
@@ -68,8 +43,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/kk"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="請使用NFC"
+        android:id="@+id/textView12"
+        android:textColor="#7e7e7e"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/textView14"
+        android:textColor="#7e7e7e"
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

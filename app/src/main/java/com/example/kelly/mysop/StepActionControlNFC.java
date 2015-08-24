@@ -49,7 +49,7 @@ public class StepActionControlNFC extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_nfc);
 
-        mTextView = (TextView)findViewById(R.id.textView12);
+        mTextView = (TextView)findViewById(R.id.textView14);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mNfcAdapter != null) {
             mTextView.setText("支持讀取NFC!");

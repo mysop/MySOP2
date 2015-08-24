@@ -320,7 +320,7 @@ public class Steprecording extends Activity {
                     Intent intent = new Intent();
                     intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
                     startActivity(intent);
-                    // 设置切换动画，从右边进入，左边退出
+                    //切換畫面，右近左出
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 }else{
                     AlertDialog.Builder dialog = new AlertDialog.Builder(Steprecording.this);

@@ -97,39 +97,51 @@ public class StepCutControl extends Activity {
             pDialog.dismiss();
             switch (finishrule){
                 case 1:
-                    // cagetory.setText("人工完工");
-                    Intent it = new Intent(StepCutControl.this,StepcutcontrolArtificial.class);
+                    // cagetory.setText("記錄完成");
+                    //予帆會在steprecording做 所以直接跳下一頁
+                    Intent it = new Intent(StepCutControl.this,Stepnextcontrol.class);
                     startActivity(it);
                     finish();
-
                     break;
                 case 2:
-                    // cagetory.setText("前一步驟\n完工");
+                    // cagetory.setText("記錄完成且通過");
 
                     break;
                 case 3:
-                    //cagetory.setText("Beacon");
-
+                    //cagetory.setText("人工確認");
+                    Intent it3 = new Intent(StepCutControl.this,StepcutcontrolArtificial.class);
+                    startActivity(it3);
+                    finish();
                     break;
                 case 4:
-                    //cagetory.setText("QR code");
-                    Intent it4 = new Intent(StepCutControl.this,StepCutControlQRcode.class);
+                    //cagetory.setText("Beacon");
+                    Intent it4 = new Intent(StepCutControl.this,StepCutControlIbeacon.class);
                     startActivity(it4);
                     finish();
                     break;
                 case 5:
-                    // cagetory.setText("NFC");
+                    // cagetory.setText("QR Code");
+                    Intent it5 = new Intent(StepCutControl.this,StepCutControlQRcode.class);
+                    startActivity(it5);
+                    finish();
 
                     break;
                 case 6:
-                    // cagetory.setText("定位");
-                    Intent it6 = new Intent(StepCutControl.this,StepCutControlGPS.class);
-                    startActivity(it6);
-                    finish();
+                    // cagetory.setText("NFC");
+
                     break;
                 case 7:
-                    //  cagetory.setText("時間到期");
+                    //  cagetory.setText("自動完工");
+                    Intent it7 = new Intent(StepCutControl.this,Stepnextcontrol.class);
+                    startActivity(it7);
                     break;
+                case 8:
+                    //  cagetory.setText("時間");
+                    break;
+                default:
+                    System.out.println("WRONG");
+                    break;
+
             }
 
 

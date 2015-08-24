@@ -187,6 +187,11 @@
         <activity
             android:name=".StepActionControlArtificial"
             android:label="@string/title_activity_step_action_control_artificial"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".StepActionControlTime"
+            android:label="@string/title_activity_step_action_control_time"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>

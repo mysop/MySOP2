@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -57,6 +58,11 @@ public class StepActionControlArtificial extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void artfiOpen(View v){
+        Intent it = new Intent(StepActionControlArtificial.this,Stepdescription.class);
+        startActivity(it);
     }
 
     //讀取第幾步驟

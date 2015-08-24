@@ -105,13 +105,14 @@ public class StepActionControl extends Activity {
                     break;
                 case 2:
                    // cagetory.setText("前一步驟\n完工");
+                    Intent it = new Intent(StepActionControl.this,Stepdescription.class);
+                    startActivity(it);
 
                     break;
                 case 3:
                     //cagetory.setText("Beacon");
                     Intent it3 = new Intent(StepActionControl.this,StepActionControlIbeacon.class);
                     startActivity(it3);
-
                     break;
                 case 4:
                     //cagetory.setText("QR code");
@@ -121,7 +122,6 @@ public class StepActionControl extends Activity {
                     break;
                 case 5:
                    // cagetory.setText("NFC");
-
                     break;
                 case 6:
                    // cagetory.setText("定位");
@@ -131,6 +131,12 @@ public class StepActionControl extends Activity {
                     break;
                 case 7:
                   //  cagetory.setText("時間到期");
+                    Intent it7 = new Intent(StepActionControl.this,StepActionControlTime.class);
+                    startActivity(it7);
+                    finish();
+                    break;
+                default:
+                    System.out.println("WRONG");
                     break;
             }
 

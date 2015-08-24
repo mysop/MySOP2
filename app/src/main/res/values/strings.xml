@@ -70,6 +70,7 @@
     <string name="title_activity_step_action_control_nfc">StepActionControlNFC</string>
     <string name="title_activity_step_action_control_artificial">StepActionControlArtificial
     </string>
+    <string name="title_activity_step_action_control_time">StepActionControlTime</string>
 
 
 

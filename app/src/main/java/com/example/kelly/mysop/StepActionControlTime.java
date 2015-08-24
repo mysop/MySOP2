@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -73,6 +74,19 @@ public class StepActionControlTime extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void timeonclick(View v){
+        if(check==1){
+            Intent it5 = new Intent(StepActionControlTime.this,Stepdescription.class);
+            startActivity(it5);
+            finish();
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlTime.this);
+            dialog.setTitle("");
+            dialog.setMessage("時間未到，請靜候");
+            dialog.show();
+        }
     }
 
     class CheckTime extends AsyncTask<String, String, Integer> {
@@ -171,6 +185,7 @@ public class StepActionControlTime extends Activity {
                         timedifference.setText("還差" + month + "月" + day + "天" + hour + "小时" + min + "分");
                     }
                 }else{
+                    //過期
                     timedifference.setTextColor(Color.RED);
                     if (month == 0) {
                         timedifference.setText("過期" + day + "天" + hour + "小时" + min + "分");

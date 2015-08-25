@@ -17,30 +17,30 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import java.text.ParseException;
 
-
-public class StepActionControlTime extends Activity {
+public class StepCutControlTime extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 時間是否一樣
-    private static String url_create_product = "http://140.115.80.237/front/mysop_ACtime.jsp";
+    private static String url_create_product = "http://140.115.80.237/front/mysop_CCtime.jsp";
     private static final String TAG_SUCCESS = "success";
     private static String str;
     private static Button timebtn;
     private static String Starttime="";
     private static TextView timedifference;
-    //檢查 是否有過期 0未過期 1過期 2剛好
+    //檢查 是否有過期 0未過期 1過期
     private static int check=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_action_control_time);
+        setContentView(R.layout.activity_step_cut_control_time);
+
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
@@ -50,14 +50,14 @@ public class StepActionControlTime extends Activity {
         timebtn=(Button)findViewById(R.id.timecheck);
         timedifference=(TextView)findViewById(R.id.timedifference);
 
-        new CheckTime().execute();
+        new CheckTimeEnd().execute();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step_action_control_time, menu);
+        getMenuInflater().inflate(R.menu.menu_step_cut_control_time, menu);
         return true;
     }
 
@@ -77,29 +77,23 @@ public class StepActionControlTime extends Activity {
     }
 
     public void timeonclick(View v){
-        if(check==2){
-            Intent it5 = new Intent(StepActionControlTime.this,Stepdescription.class);
+        if(check!=1){
+            Intent it5 = new Intent(StepCutControlTime.this,Stepnextcontrol.class);
             startActivity(it5);
             finish();
-        }else if(check==0){
-            AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlTime.this);
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(StepCutControlTime.this);
             dialog.setTitle("");
             dialog.setMessage("時間未到，請靜候");
             dialog.show();
-        }else if(check==1){
-            AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlTime.this);
-            dialog.setTitle("");
-            dialog.setMessage("時間已過");
-            dialog.show();
         }
     }
-
-    class CheckTime extends AsyncTask<String, String, Integer> {
+    class CheckTimeEnd extends AsyncTask<String, String, Integer> {
 
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(StepActionControlTime.this);
+            pDialog = new ProgressDialog(StepCutControlTime.this);
             pDialog.setMessage("Time checking.... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -110,25 +104,23 @@ public class StepActionControlTime extends Activity {
             //寫死 Stepnumber
             String Stepnumber="5";
             String Time= str;
-            Integer CHECK=0;//CHECK 0代表過期或未到 1代表已到
+            Integer CHECK=0;
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
             params.add(new BasicNameValuePair("Time", Time));
 
-            JSONObject json = StepActionControlTime.this.jsonParser.makeHttpRequest(StepActionControlTime.url_create_product, "POST", params);
+            JSONObject json = StepCutControlTime.this.jsonParser.makeHttpRequest(StepCutControlTime.url_create_product, "POST", params);
 
 
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    Intent it = new Intent(StepActionControlTime.this,Stepdescription.class);
+                    Intent it = new Intent(StepCutControlTime.this,Stepdescription.class);
                     startActivity(it);
                     CHECK=1;
-                    timebtn.setText("啟動");
 
                 }else if(e == 6){
-
                     Starttime=json.getString("starttime");
                     System.out.println("Startime"+Starttime);
 
@@ -164,7 +156,7 @@ public class StepActionControlTime extends Activity {
                 //比較時間大小
                 if(now.getTime()>date.getTime()) {
                     //未過期
-                     l = now.getTime() - date.getTime();
+                    l = now.getTime() - date.getTime();
                     check=0;
                 }else{
                     //過期
@@ -180,7 +172,6 @@ public class StepActionControlTime extends Activity {
                 System.out.println(month+"月" + day + "天" + hour + "小时" + min + "分" + s + "秒");
 
                 if(check==0) {
-                    timebtn.setText("時辰未到");
                     if (month == 0) {
                         timedifference.setText("還差" + day + "天" + hour + "小时" + min + "分");
                     } else if (month == 0 && day == 0) {
@@ -193,18 +184,19 @@ public class StepActionControlTime extends Activity {
                     }
                 }else{
                     //過期
-                    timedifference.setTextColor(Color.RED);
-                    timebtn.setText("啟動");
-                    if (month == 0) {
-                        timedifference.setText("過期" + day + "天" + hour + "小时" + min + "分");
-                    } else if (month == 0 && day == 0) {
-                        timedifference.setText("過期" + hour + "小时" + min + "分");
-                    } else if (month == 0 && day == 0 && hour == 0) {
-                        timedifference.setText("過期" + min + "分");
-                        timedifference.setTextColor(Color.RED);
-                    } else {
-                        timedifference.setText("過期" + month + "月" + day + "天" + hour + "小时" + min + "分");
-                    }
+//                    timedifference.setTextColor(Color.RED);
+//                    if (month == 0) {
+//                        timedifference.setText("過期" + day + "天" + hour + "小时" + min + "分");
+//                    } else if (month == 0 && day == 0) {
+//                        timedifference.setText("過期" + hour + "小时" + min + "分");
+//                    } else if (month == 0 && day == 0 && hour == 0) {
+//                        timedifference.setText("過期" + min + "分");
+//                        timedifference.setTextColor(Color.RED);
+//                    } else {
+//                        timedifference.setText("過期" + month + "月" + day + "天" + hour + "小时" + min + "分");
+//                    }
+                    Intent it = new Intent(StepCutControlTime.this,Stepnextcontrol.class);
+                    startActivity(it);
                 }
             }
 

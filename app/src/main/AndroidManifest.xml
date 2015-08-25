@@ -196,7 +196,6 @@
             android:name=".StepActionControlTime"
             android:label="@string/title_activity_step_action_control_time"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepCutControlNFC"
@@ -209,6 +208,11 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".StepCutControlTime"
+            android:label="@string/title_activity_step_cut_control_time"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>
 

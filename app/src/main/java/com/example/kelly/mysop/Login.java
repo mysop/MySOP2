@@ -53,7 +53,7 @@ public class Login extends Activity {
         for (int i = 0; i < mArray.length; i++) {
             final int j = i;
 
-            //EditText 获得焦点时hint消失，失去焦点时hint显示
+            //EditText 獲得/失去焦點hint消失/出現
             mArray[j].setOnFocusChangeListener(new OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -101,7 +101,7 @@ public class Login extends Activity {
 
 
     public void forgetpassword (View v){
-        Intent it = new Intent(this,Forget.class);
+        Intent it = new Intent(this,Forgetpwd.class);
         startActivity(it);
     }
 
@@ -109,7 +109,7 @@ public class Login extends Activity {
          (Login.this.new CreateAccount()).execute(new String[0]);
     }
     class CreateAccount extends AsyncTask<String, String, String> {
-        CreateAccount() {}
+
 
         protected void onPreExecute() {
             super.onPreExecute();

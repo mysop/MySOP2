@@ -10,10 +10,16 @@ import android.view.View;
 
 public class Forget extends Activity {
 
+    String TAG_ACCOUNT = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
     }
 
 

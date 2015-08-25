@@ -77,7 +77,10 @@ public class StepActionControlNFC extends Activity {
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         String s = action + "\n\n" + tag.toString();
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        //NFC Tag中第一項Text要放UUID
         String[] NFC_UUID = new String[20];
+
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
@@ -92,7 +95,7 @@ public class StepActionControlNFC extends Activity {
                             int langCodeLen = payload[0] & 0077;
                             s += ("\n\nNdefMessage[" + i + "], NdefRecord[" + j + "]:\n\"" +
                                     new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1, textEncoding) + "\"");
-                            NFC_UUID[0] = new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1, textEncoding);
+                            NFC_UUID[j] = new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1, textEncoding);
                         }
                     }
                 }
@@ -100,7 +103,7 @@ public class StepActionControlNFC extends Activity {
                 Log.e("TagDispatch", e.toString());
             }
         }
-        mTextView.setText(s);
+        //mTextView.setText(s);
         new Check_NFC().execute(NFC_UUID[0]);
     }
 

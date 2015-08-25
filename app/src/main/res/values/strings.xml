@@ -72,7 +72,11 @@
     </string>
     <string name="title_activity_step_action_control_time">StepActionControlTime</string>
     <string name="title_activity_step_cut_control_nfc">StepCutControlNFC</string>
+<<<<<<< HEAD
     <string name="title_activity_step_cut_control_time">StepCutControlTime</string>
+=======
+    <string name="title_activity_forgetpwd">Forgetpwd</string>
+>>>>>>> origin/master
 
 
 

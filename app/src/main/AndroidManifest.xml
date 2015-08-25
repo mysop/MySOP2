@@ -214,15 +214,15 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity
             android:name=".StepCutControlTime"
             android:label="@string/title_activity_step_cut_control_time"
             android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
-=======
 
->>>>>>> origin/master
+
+
     </application>
 
 </manifest>

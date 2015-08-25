@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class StepActionControlNFC extends Activity {
+
+public class StepCutControlNFC extends Activity {
 
     private TextView mTextView;
     private NfcAdapter mNfcAdapter;
@@ -40,7 +41,7 @@ public class StepActionControlNFC extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 NFC
-    private static String url_NFC = "http://140.115.80.237/front/mysop_ACnfc.jsp";
+    private static String url_NFC = "http://140.115.80.237/front/mysop_CCnfc.jsp";
     private static final String TAG_SUCCESS = "success";
 
 
@@ -49,7 +50,7 @@ public class StepActionControlNFC extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_nfc);
 
-        mTextView = (TextView)findViewById(R.id.AC_NFC_textView5);
+        mTextView = (TextView)findViewById(R.id.CC_NFC_textView5);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mNfcAdapter != null) {
             mTextView.setText("支持讀取NFC!");
@@ -123,7 +124,7 @@ public class StepActionControlNFC extends Activity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(StepActionControlNFC.this);
+            pDialog = new ProgressDialog(StepCutControlNFC.this);
             pDialog.setMessage("Matching... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -141,7 +142,7 @@ public class StepActionControlNFC extends Activity {
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
             params.add(new BasicNameValuePair("NFC_UUID", NFC_UUID));
-            JSONObject json = StepActionControlNFC.this.jsonParser.makeHttpRequest(StepActionControlNFC.url_NFC, "GET", params);
+            JSONObject json = StepCutControlNFC.this.jsonParser.makeHttpRequest(StepCutControlNFC.url_NFC, "GET", params);
 
 
             try {
@@ -163,12 +164,12 @@ public class StepActionControlNFC extends Activity {
             pDialog.dismiss();
             if (returnvalue == 1){
                 Intent intent = new Intent();
-                intent.setClass(StepActionControlNFC.this, Stepdescription.class);
+                intent.setClass(StepCutControlNFC.this, Stepnextcontrol.class);
                 startActivity(intent);
                 //切換畫面，右近左出
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
             }else if(returnvalue == 6){
-                AlertDialog.Builder dialog = new AlertDialog.Builder(StepActionControlNFC.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(StepCutControlNFC.this);
                 dialog.setTitle("");
                 dialog.setMessage("比對結果錯誤，請使用正確的NFC Tag比對!");
                 dialog.show();
@@ -176,5 +177,4 @@ public class StepActionControlNFC extends Activity {
 
         }
     }
-
 }

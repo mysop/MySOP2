@@ -17,15 +17,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.NFC" />
 
-
-
-    <uses-feature android:required="true" android:name="android.hardware.nfc"></uses-feature>
-
-
-
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -118,13 +114,11 @@
             android:name=".Steprecording"
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepcutcontrolArtificial"
             android:label="@string/title_activity_stepcutcontrol_artificial"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Stepnextcontrol"
@@ -140,19 +134,16 @@
             android:name=".StepActionControlQRcode"
             android:label="@string/title_activity_step_action_control_qrcode"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepActionControlIbeacon"
             android:label="@string/title_activity_step_action_control_ibeacon"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepCutControlQRcode"
             android:label="@string/title_activity_step_cut_control_qrcode"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepActionControl"
@@ -173,7 +164,6 @@
             android:name=".StepCutControlIbeacon"
             android:label="@string/title_activity_step_cut_control_ibeacon"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepCutControlGPS"
@@ -200,11 +190,23 @@
         <activity
             android:name=".StepActionControlTime"
             android:label="@string/title_activity_step_action_control_time"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StepCutControlNFC"
+            android:label="@string/title_activity_step_cut_control_nfc"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
     </application>

@@ -156,12 +156,12 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
 
     public void start_beacon(View view){
         if (adapter == null){
-            Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "藍芽藍芽?不支持藍芽!", Toast.LENGTH_LONG).show();
         }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
             //打開藍芽(會問使用者)
             Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivity(enabler);
-            Toast.makeText(this, "藍芽藍芽?ohno", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "藍芽藍芽?沒打開喔!", Toast.LENGTH_LONG).show();
         }else {
             new Check_beacon().execute();
             Log.d("isithere", Integer.toString(connectfinish));

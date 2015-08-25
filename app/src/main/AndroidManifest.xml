@@ -57,9 +57,19 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
+            android:name=".Forgetpwd"
+            android:label="@string/title_activity_forgetpwd"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
             android:name=".Login"
             android:label="@string/title_activity_main"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Changepassword"
@@ -159,11 +169,6 @@
             android:name=".StepActionControlGPS"
             android:label="StepActionControlGPS"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StepCutControlIbeacon"
@@ -196,7 +201,6 @@
             android:name=".StepActionControlTime"
             android:label="@string/title_activity_step_action_control_time"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepCutControlNFC"
@@ -210,6 +214,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -34,7 +34,7 @@ public class Login extends Activity {
     String strHint2;
 
     JSONParser jsonParser = new JSONParser();
-        private static final String TAG_SUCCESS = "success";
+    private static final String TAG_SUCCESS = "success";
     static String TAG_ACCOUNT = "";
 
 

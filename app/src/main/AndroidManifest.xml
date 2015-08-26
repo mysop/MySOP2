@@ -65,11 +65,7 @@
             android:name=".Login"
             android:label="@string/title_activity_main"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Changepassword"
@@ -128,11 +124,6 @@
         <activity
             android:name=".StepcutcontrolArtificial"
             android:label="@string/title_activity_stepcutcontrol_artificial"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
-        <activity
-            android:name=".Stepnextcontrol"
-            android:label="@string/title_activity_stepnextcontrol"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
@@ -223,6 +214,11 @@
             android:name=".StepNextControlUser"
             android:label="@string/title_activity_step_next_control_user"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".StepNextControl"

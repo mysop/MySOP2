@@ -214,15 +214,16 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".StepCutControlTime"
             android:label="@string/title_activity_step_cut_control_time"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-
-
-
+        <activity
+            android:name=".StepNextControlUser"
+            android:label="@string/title_activity_step_next_control_user"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

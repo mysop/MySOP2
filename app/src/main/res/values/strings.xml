@@ -77,6 +77,7 @@
 
     <string name="title_activity_forgetpwd">Forgetpwd</string>
     <string name="title_activity_step_next_control_user">StepNextControlUser</string>
+    <string name="title_activity_step_next_control">StepNextControl</string>
 
 
 

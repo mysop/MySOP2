@@ -20,10 +20,10 @@ import java.util.ArrayList;
 public class StepActionControl extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-     private static String url_create_product1 = "http://140.115.80.237/front/mysop_AC.jsp";
+    private static String url_create_product1 = "http://140.115.80.237/front/mysop_AC.jsp";
     private static final String TAG_SUCCESS = "success";
-    String TAG_NEXTSTEPNUMBER = "";//從P305來的話
-
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,21 @@ public class StepActionControl extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        if(bundle.getString("TAG_NEXTSTEPNUMBER") != null){
-            TAG_NEXTSTEPNUMBER = bundle.getString("TAG_NEXTSTEPNUMBER");
+
+        //從P305來的話
+        if(bundle.getString("TAG_NEXT_STEP_NUMBER") != null){
+            TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
+
+            new CheckStartrule().execute();
+        }else{
+
+            //沒從P305來的話，再從資料庫抓嗎???先寫死好了
+            TAG_STEP_NUMBER = "3";
+            new CheckStartrule().execute();
         }
 
 
-        new CheckStartrule().execute();
+
     }
 
 
@@ -76,23 +85,24 @@ public class StepActionControl extends Activity {
 
         protected Integer doInBackground(String... args) {
 
-            //先寫死stepnumber
-            String Stepnumber = "3";
 
-            int startrule=0;
+            String Stepnumber = TAG_STEP_NUMBER;
+
+            int startrule = 0;
 
             //for get
-            ArrayList params2 = new ArrayList();
+            ArrayList params = new ArrayList();
 
-            params2.add(new BasicNameValuePair("Stepnumber", Stepnumber));
+            params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
 
-            JSONObject json2 = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_create_product1,"GET",params2);
+            JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_create_product1,"GET",params);
 
             try {
                 //加入清單
-                int e3 = json2.getInt(TAG_SUCCESS);
+                int e3 = json.getInt(TAG_SUCCESS);
                 if(e3 == 1) {
-                    startrule=json2.getInt("startrule");
+                    startrule = json.getInt("startrule");
+                    TAG_STEP_ORDER = json.getInt("startrule");
                 }
 
             } catch (JSONException var9) {
@@ -105,42 +115,58 @@ public class StepActionControl extends Activity {
         protected void onPostExecute(Integer startrule) {
 
             pDialog.dismiss();
+
+            //設定傳送參數
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+            bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+
             switch (startrule){
                 case 1:
                    // cagetory.setText("人工啟動");
                     Intent it1 = new Intent(StepActionControl.this,StepActionControlArtificial.class);
+                    it1.putExtras(bundle);//將參數放入intent
                     startActivity(it1);
 
                     break;
                 case 2:
                    // cagetory.setText("前一步驟\n完工");
                     Intent it = new Intent(StepActionControl.this,Stepdescription.class);
+                    it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
 
                     break;
                 case 3:
                     //cagetory.setText("Beacon");
                     Intent it3 = new Intent(StepActionControl.this,StepActionControlIbeacon.class);
+                    it3.putExtras(bundle);//將參數放入intent
                     startActivity(it3);
                     break;
                 case 4:
                     //cagetory.setText("QR code");
                     Intent it4 = new Intent(StepActionControl.this,StepActionControlQRcode.class);
+                    it4.putExtras(bundle);//將參數放入intent
                     startActivity(it4);
                     finish();
                     break;
                 case 5:
                    // cagetory.setText("NFC");
+                    Intent it5 = new Intent(StepActionControl.this,StepActionControlNFC.class);
+                    it5.putExtras(bundle);//將參數放入intent
+                    startActivity(it5);
+                    finish();
                     break;
                 case 6:
                    // cagetory.setText("定位");
                     Intent it6 = new Intent(StepActionControl.this,StepActionControlGPS.class);
+                    it6.putExtras(bundle);//將參數放入intent
                     startActivity(it6);
                     finish();
                     break;
                 case 7:
                   //  cagetory.setText("時間到期");
                     Intent it7 = new Intent(StepActionControl.this,StepActionControlTime.class);
+                    it7.putExtras(bundle);//將參數放入intent
                     startActivity(it7);
                     finish();
                     break;

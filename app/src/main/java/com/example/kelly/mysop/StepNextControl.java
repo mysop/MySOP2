@@ -21,7 +21,7 @@ public class StepNextControl extends Activity {
     JSONParser jsonParser = new JSONParser();
     private static String url_next_control = "http://140.115.80.237/front/mysop_StepNextControl.jsp";
     private static final String TAG_SUCCESS = "success";
-    String TAG_NEXTSTEPNUMBER = "";
+    String TAG_NEXT_STEP_NUMBER = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class StepNextControl extends Activity {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
                     nextsteprule = json.getInt("nextsteprule");
-                    TAG_NEXTSTEPNUMBER = json.getString("nextstepnumber");
+                    TAG_NEXT_STEP_NUMBER = json.getString("nextstepnumber");
 
                 }
 
@@ -105,7 +105,7 @@ public class StepNextControl extends Activity {
                     Intent it = new Intent(StepNextControl.this,StepActionControl.class);
                     //設定傳送參數
                     Bundle bundle = new Bundle();
-                    bundle.putString("TAG_NEXTSTEPNUMBER", TAG_NEXTSTEPNUMBER);
+                    bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
                     it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
                     finish();

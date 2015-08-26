@@ -24,17 +24,28 @@ public class StepActionControlArtificial extends Activity {
     private static String url_create_product = "http://140.115.80.237/front/mysop_ACArtificial.jsp";
     private static final String TAG_SUCCESS = "success";
 
-    private static String Step="";
+    //private static String Step="";
 
     private static TextView steporder;
+
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_artificial);
+        steporder = (TextView)findViewById(R.id.textView2);
 
-        steporder=(TextView)findViewById(R.id.textView2);
-        new CheckStep().execute();
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+
+        steporder.setText( Integer.toString(TAG_STEP_ORDER));
+
+        //new CheckStep().execute();
     }
 
 
@@ -66,7 +77,7 @@ public class StepActionControlArtificial extends Activity {
     }
 
     //讀取第幾步驟
-    class CheckStep extends AsyncTask<String, String, String> {
+/*    class CheckStep extends AsyncTask<String, String, String> {
 
 
         protected void onPreExecute() {
@@ -111,5 +122,5 @@ public class StepActionControlArtificial extends Activity {
             steporder.setText(Step);
 
         }
-    }
+    }*/
 }

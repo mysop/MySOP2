@@ -87,7 +87,7 @@ public class StepcutcontrolArtificial extends Activity implements GestureDetecto
 
     public void checkok (View v){
 
-        Intent it = new Intent(this,Stepnextcontrol.class);
+        Intent it = new Intent(this,StepNextControl.class);
         startActivity(it);
     }
 }

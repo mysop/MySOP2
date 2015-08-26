@@ -167,7 +167,7 @@ public class StepCutControlNFC extends Activity {
             pDialog.dismiss();
             if (returnvalue == 1){
                 Intent intent = new Intent();
-                intent.setClass(StepCutControlNFC.this, Stepnextcontrol.class);
+                intent.setClass(StepCutControlNFC.this, StepNextControl.class);
                 startActivity(intent);
                 //切換畫面，右近左出
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

@@ -129,7 +129,7 @@ public class StepCutControlQRcode extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    Intent it = new Intent(StepCutControlQRcode.this,Stepnextcontrol.class);
+                    Intent it = new Intent(StepCutControlQRcode.this,StepNextControl.class);
                     startActivity(it);
 
                 }else if(e == 6){

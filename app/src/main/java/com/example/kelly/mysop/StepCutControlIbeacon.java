@@ -112,7 +112,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
                     Log.d(TAG, "didEnterRegion");
                     beaconManager.startRangingBeaconsInRegion(region);
                     Intent intent = new Intent();
-                    intent.setClass(StepCutControlIbeacon.this, Stepnextcontrol.class);
+                    intent.setClass(StepCutControlIbeacon.this, StepNextControl.class);
                     startActivity(intent);
                     // 设置切换动画，从右边进入，左边退出
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

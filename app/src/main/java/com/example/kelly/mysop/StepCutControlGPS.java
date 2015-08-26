@@ -134,7 +134,7 @@ public class StepCutControlGPS extends Activity {
                     dialog.show();
 
                 }else{
-                    Intent it = new Intent(StepCutControlGPS.this,Stepnextcontrol.class);
+                    Intent it = new Intent(StepCutControlGPS.this,StepNextControl.class);
                     startActivity(it);
 
                 }

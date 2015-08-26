@@ -78,7 +78,7 @@ public class StepCutControlTime extends Activity {
 
     public void timeonclick(View v){
         if(check!=1){
-            Intent it5 = new Intent(StepCutControlTime.this,Stepnextcontrol.class);
+            Intent it5 = new Intent(StepCutControlTime.this,StepNextControl.class);
             startActivity(it5);
             finish();
         }else {
@@ -195,7 +195,7 @@ public class StepCutControlTime extends Activity {
 //                    } else {
 //                        timedifference.setText("過期" + month + "月" + day + "天" + hour + "小时" + min + "分");
 //                    }
-                    Intent it = new Intent(StepCutControlTime.this,Stepnextcontrol.class);
+                    Intent it = new Intent(StepCutControlTime.this,StepNextControl.class);
                     startActivity(it);
                 }
             }

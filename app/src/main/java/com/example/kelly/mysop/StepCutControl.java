@@ -99,7 +99,7 @@ public class StepCutControl extends Activity {
                 case 1:
                     // cagetory.setText("記錄完成");
                     //予帆會在steprecording做 所以直接跳下一頁
-                    Intent it = new Intent(StepCutControl.this,Stepnextcontrol.class);
+                    Intent it = new Intent(StepCutControl.this,StepNextControl.class);
                     startActivity(it);
                     finish();
                     break;
@@ -132,7 +132,7 @@ public class StepCutControl extends Activity {
                     break;
                 case 7:
                     //  cagetory.setText("自動完工");
-                    Intent it7 = new Intent(StepCutControl.this,Stepnextcontrol.class);
+                    Intent it7 = new Intent(StepCutControl.this,StepNextControl.class);
                     startActivity(it7);
                     break;
                 case 8:

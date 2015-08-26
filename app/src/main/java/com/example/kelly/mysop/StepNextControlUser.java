@@ -81,7 +81,7 @@ public class StepNextControlUser extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_stepnextcontrol, menu);
+        getMenuInflater().inflate(R.menu.menu_step_next_control_user, menu);
         return true;
     }
 

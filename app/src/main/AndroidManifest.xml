@@ -221,7 +221,8 @@
         </activity>
         <activity
             android:name=".StepNextControl"
-            android:label="@string/title_activity_step_next_control" >
+            android:label="@string/title_activity_step_next_control"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 

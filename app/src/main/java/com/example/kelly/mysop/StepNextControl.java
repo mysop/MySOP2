@@ -19,8 +19,9 @@ public class StepNextControl extends Activity {
 
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-    private static String url_next_control = "http://140.115.80.237/front/mysop_nextcontrol.jsp";
+    private static String url_next_control = "http://140.115.80.237/front/mysop_StepNextControl.jsp";
     private static final String TAG_SUCCESS = "success";
+    String TAG_NEXTSTEPNUMBER = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class StepNextControl extends Activity {
             //先寫死stepnumber
             String Stepnumber = "1";
 
-            int nextstepnumber = 0;
+            int nextsteprule = 0;
 
             //for get
             ArrayList params = new ArrayList();
@@ -83,35 +84,42 @@ public class StepNextControl extends Activity {
                 //加入清單
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    nextstepnumber = json.getInt("nextstepnumber");
+                    nextsteprule = json.getInt("nextsteprule");
+                    TAG_NEXTSTEPNUMBER = json.getString("nextstepnumber");
+
                 }
 
             } catch (JSONException var9) {
                 var9.printStackTrace();
             }
 
-            return nextstepnumber;
+            return nextsteprule;
         }
 
-        protected void onPostExecute(Integer nextstepnumber) {
+        protected void onPostExecute(Integer nextsteprule) {
 
             pDialog.dismiss();
-            switch (nextstepnumber){
+            switch (nextsteprule){
                 case 1:
-                    // cagetory.setText("記錄完成");
-                    //予帆會在steprecording做 所以直接跳下一頁
-                    Intent it = new Intent(StepNextControl.this,StepNextControl.class);
+                    // 依順序決定
+                    Intent it = new Intent(StepNextControl.this,StepActionControl.class);
+                    //設定傳送參數
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_NEXTSTEPNUMBER", TAG_NEXTSTEPNUMBER);
+                    it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
                     finish();
                     break;
                 case 2:
-                    // cagetory.setText("記錄完成且通過");
-
+                    // 依使用者決定
+                    Intent it1 = new Intent(StepNextControl.this,StepNextControlUser.class);
+                    startActivity(it1);
+                    finish();
                     break;
                 case 3:
-                    //cagetory.setText("人工確認");
-                    Intent it3 = new Intent(StepNextControl.this,StepcutcontrolArtificial.class);
-                    startActivity(it3);
+                    // 依資料決定
+                    Intent it2 = new Intent(StepNextControl.this,StepNextControl.class);
+                    startActivity(it2);
                     finish();
                     break;
 

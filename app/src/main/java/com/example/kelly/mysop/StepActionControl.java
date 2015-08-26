@@ -22,11 +22,20 @@ public class StepActionControl extends Activity {
     JSONParser jsonParser = new JSONParser();
      private static String url_create_product1 = "http://140.115.80.237/front/mysop_AC.jsp";
     private static final String TAG_SUCCESS = "success";
+    String TAG_NEXTSTEPNUMBER = "";//從P305來的話
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        if(bundle.getString("TAG_NEXTSTEPNUMBER") != null){
+            TAG_NEXTSTEPNUMBER = bundle.getString("TAG_NEXTSTEPNUMBER");
+        }
+
 
         new CheckStartrule().execute();
     }

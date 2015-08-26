@@ -27,6 +27,8 @@ public class StepNextControl extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_next_control);
 
+        new CheckNextControlRule().execute();
+
     }
 
 
@@ -48,10 +50,10 @@ public class StepNextControl extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    
     //判斷完工規則 1人工啟動 2前一步驟完工 3beacon 4QRcode 5NFC 6定位 7時間
     class CheckNextControlRule extends AsyncTask<String, String, Integer> {
         protected void onPreExecute() {

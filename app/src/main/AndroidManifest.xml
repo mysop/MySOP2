@@ -65,7 +65,6 @@
             android:name=".Login"
             android:label="@string/title_activity_main"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Changepassword"
@@ -219,12 +218,10 @@
             android:name=".StepNextControlUser"
             android:label="@string/title_activity_step_next_control_user"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepNextControl"
-            android:label="@string/title_activity_step_next_control"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:label="@string/title_activity_step_next_control" >
         </activity>
     </application>
 

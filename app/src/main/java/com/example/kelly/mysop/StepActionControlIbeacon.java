@@ -51,18 +51,15 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_cut_control_ibeacon);
+        setContentView(R.layout.activity_step_action_control_ibeacon);
         Log.d("oncreateee", Integer.toString(connectfinish));
 
-        TextView steporder = (TextView)findViewById(R.id.AC_ibeacon_textView2);
-
+        TextView ss = (TextView)findViewById(R.id.AC_ibeacon_textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
-
-        steporder.setText( Integer.toString(TAG_STEP_ORDER));
-
+        ss.setText( Integer.toString(TAG_STEP_ORDER));
 
     }
 

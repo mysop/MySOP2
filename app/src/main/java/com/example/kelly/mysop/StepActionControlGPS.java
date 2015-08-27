@@ -59,7 +59,7 @@ public class StepActionControlGPS extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
         steporder = (TextView)findViewById(R.id.textView2);
         steporder.setText( Integer.toString(TAG_STEP_ORDER));

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +60,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         Bundle bundle = intent.getExtras();	//取得Bundle
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
-        ss.setText( Integer.toString(TAG_STEP_ORDER));
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
     }
 
@@ -223,6 +224,9 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
                 beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
                 beaconManager.bind(StepActionControlIbeacon.this);
+
+                Button ibeacon_button = (Button)findViewById(R.id.AC_ibeacon_button);
+                ibeacon_button.setEnabled(false);
             }
 
         }

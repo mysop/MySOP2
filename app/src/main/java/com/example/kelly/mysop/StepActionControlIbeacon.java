@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.*;
@@ -44,37 +45,25 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
     BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_ibeacon);
         Log.d("oncreateee", Integer.toString(connectfinish));
 
-/*        if (adapter == null){
-            Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
-        }else if(adapter.isEnabled()!=true){//如果藍芽未開啟
-            //打開藍芽(會問使用者)
-            Intent enabler=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enabler);
-            Toast.makeText(this, "藍芽藍芽?ohno", Toast.LENGTH_LONG).show();
-            beaconManager = BeaconManager.getInstanceForApplication(StepCutControlIbeacon.this);
-            beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-            beaconManager.bind(StepCutControlIbeacon.this);
-            //onDestroy();
-            refresh();
+        TextView steporder = (TextView)findViewById(R.id.AC_ibeacon_textView2);
 
-            //則打開藍芽(不問使用者)
-            //adapter.enable();
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
-        }else {
-            //new Check_beacon().execute();
+        steporder.setText( Integer.toString(TAG_STEP_ORDER));
 
-            Log.d("isithere", Integer.toString(connectfinish));
 
-        }*/
-        //beaconManager = BeaconManager.getInstanceForApplication(this);
-        //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-        //beaconManager.bind(this);
     }
 
 
@@ -194,7 +183,8 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
             int returnvalue = 0;
 
-            String StepNumber = "2";
+            //String StepNumber = TAG_STEP_NUMBER;
+            String StepNumber = "3";
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("StepNumber", StepNumber));

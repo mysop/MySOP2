@@ -36,7 +36,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     //讀取 qrcode 圖片
-    private static String url_uuid = "http://140.115.80.237/front/mysop_CCibeacon.jsp";
+    private static String url_uuid = "http://140.115.80.237/front/mysop_ACibeacon.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UUID = "UUID";
     String UUID = "00000000-0000-0000-0000-000000000000";
@@ -181,7 +181,7 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
             int returnvalue = 0;
 
             //String StepNumber = TAG_STEP_NUMBER;
-            String StepNumber = "3";
+            String StepNumber = "2";
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("StepNumber", StepNumber));

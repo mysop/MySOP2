@@ -66,10 +66,12 @@ public class Content extends Activity {
     private static String url_create_product4 = "http://140.115.80.237/front/mysop_content5.jsp";
     //加入清單
     private static String url_create_product5 = "http://140.115.80.237/front/mysop_content6.jsp";
+    //讀取 sop的 步驟一的stepnumber for 加入清單用
+    private static String url_create_product6 = "http://140.115.80.237/front/mysop_content2.jsp";
 
 
     TextView sopnumber;
-    String TAG_ACCOUNT = "q@gmail.com";
+    String TAG_ACCOUNT = "abc@gmail.com";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
@@ -89,7 +91,7 @@ public class Content extends Activity {
     private static final String TAG_GRAPH3="graph3";
     private static final String TAG_STARTRULE="start_rule";
 
-
+    private static String STEPNUMBER ="";
     private static String NUMBER ="";
     private  static String DETAIL="";
     private static String SOPNAME="";
@@ -228,18 +230,29 @@ public class Content extends Activity {
             ArrayList params = new ArrayList();
             ArrayList params1 = new ArrayList();
             ArrayList params3 = new ArrayList();
+            ArrayList params2 = new ArrayList();
 
             params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
             params3.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
 
             // json抓sop內容  json1抓評論  json3抓like數
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
             JSONObject json1 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product1, "GET", params1);
             JSONObject json3 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product4, "GET", params3);
+            JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product6, "GET", params2);
 
 
             try {
+
+                int e3 = json2.getInt(TAG_SUCCESS);
+                if(e3==1){
+                    STEPNUMBER=json2.getString("stepnumber");
+                    System.out.println("OH"+STEPNUMBER);
+                }else{
+
+                }
 
                 //讀取評論
                 int e = json1.getInt(TAG_SUCCESS);
@@ -290,24 +303,19 @@ public class Content extends Activity {
                     ACCOUNT= json.getString(TAG_PID);
                     STARTRULE=json.getString(TAG_STARTRULE);
                     //判斷有沒有介紹的圖片
-                    if(json.getString(TAG_GRAPH1).equals(null)){
-                        GRAPH1="none";
-                    }else{
-                    GRAPH1 = json.getString(TAG_GRAPH1);
+                    if(!json.getString(TAG_GRAPH1).equals("")){
+                        GRAPH1 = json.getString(TAG_GRAPH1);
                     }
-                    if(json.getString(TAG_GRAPH2).equals(null)){
-                        GRAPH2="none";
-                    }else{
+                    if(!json.getString(TAG_GRAPH2).equals("")){
                         GRAPH2 = json.getString(TAG_GRAPH2);
                     }
-                    if(json.getString(TAG_GRAPH3).equals(null)){
-                        GRAPH3="none";
-                    }else{
+                    if(!json.getString(TAG_GRAPH3).equals("")){
                         GRAPH3 = json.getString(TAG_GRAPH3);
                     }
 
                 }else{
                 }
+
 
             } catch (JSONException var9) {
                 var9.printStackTrace();
@@ -340,35 +348,38 @@ public class Content extends Activity {
             //放入sop圖片們
             new DownloadImageTask((ImageView)findViewById(R.id.content_picture))
                     .execute(SOPGRAPH);
-            if(GRAPH1.equals("none")){
+            if(GRAPH1.equals("")){
                 graph1.setVisibility(8);
             }else{
             new DownloadImageTask((ImageView)findViewById(R.id.graph1))
                     .execute(GRAPH1);
                 horizontalScrollView.setVisibility(0);
-                horizontalScrollView.getLayoutParams().height=200;
-                graph1.getLayoutParams().width=200;
-                graph1.getLayoutParams().height=200;
+                horizontalScrollView.getLayoutParams().height=300;
+                graph1.setVisibility(0);
+                graph1.getLayoutParams().width=300;
+                graph1.getLayoutParams().height=300;
             }
-            if(GRAPH2.equals("none")&&GRAPH1.equals("none")){
+            if(GRAPH2.equals("")){
                 graph2.setVisibility(8);
             }else{
                 new DownloadImageTask((ImageView)findViewById(R.id.graph2))
                         .execute(GRAPH2);
                 horizontalScrollView.setVisibility(0);
-                horizontalScrollView.getLayoutParams().height=200;
-                graph1.getLayoutParams().width=200;
-                graph1.getLayoutParams().height=200;
+                horizontalScrollView.getLayoutParams().height=300;
+                graph2.setVisibility(0);
+                graph2.getLayoutParams().width=300;
+                graph2.getLayoutParams().height=300;
             }
-            if(GRAPH3.equals("none")&&GRAPH2.equals("none")&&GRAPH1.equals("none")){
+            if(GRAPH3.equals("")){
                 graph3.setVisibility(8);
             }else{
                 new DownloadImageTask((ImageView)findViewById(R.id.graph3))
                         .execute(GRAPH3);
                 horizontalScrollView.setVisibility(0);
-                horizontalScrollView.getLayoutParams().height=200;
-                graph1.getLayoutParams().width=200;
-                graph1.getLayoutParams().height=200;
+                horizontalScrollView.getLayoutParams().height=300;
+                graph3.setVisibility(0);
+                graph3.getLayoutParams().width=300;
+                graph3.getLayoutParams().height=300;
             }
 
 
@@ -483,6 +494,7 @@ public class Content extends Activity {
 
             params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
             params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params2.add(new BasicNameValuePair("Stepnumber", STEPNUMBER) );
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);
 

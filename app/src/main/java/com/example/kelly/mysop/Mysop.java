@@ -2,15 +2,19 @@ package com.example.kelly.mysop;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -48,7 +52,12 @@ public class Mysop extends Activity {
 
     JSONArray products = null;
 
+   //帳號先寫死
     String TAG_ACCOUNT = "test@gmail.com";
+
+
+    //存casenumber
+    private String[] list;
 
 
     @Override
@@ -80,6 +89,22 @@ public class Mysop extends Activity {
         getMenuInflater().inflate(R.menu.menu_mysop, menu);
         return true;
     }
+
+    private ListView.OnItemClickListener listener = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + list[position], Toast.LENGTH_SHORT).show();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_CASE_NUMBER", list[position]);
+            Intent it = new Intent(Mysop.this,StepActionControl.class);
+            it.putExtras(bundle);//將參數放入intent
+            startActivity(it);
+            finish();
+        }
+
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -153,7 +178,7 @@ public class Mysop extends Activity {
                         map.put(TAG_CASENUMBER, sopnumber);
                         map.put(TAG_STARTRULE, startrule);
 
-                        System.out.println("HELLO"+sopname+sopnumber);
+                        System.out.println("HELLO" + sopname + sopnumber);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -176,11 +201,16 @@ public class Mysop extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
+
+            list = new String[products.length()];
             // updating UI from Background Thread
             for (int i = 0; i < products.length(); i++) {
-                items.add(productsList.get(i).get(TAG_SOPNAME)+"\n"+productsList.get(i).get(TAG_CASENUMBER));
+                list[i] = productsList.get(i).get(TAG_CASENUMBER);
+                items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
                 listInput.setAdapter(adapter);
             }
+
+            listInput.setOnItemClickListener(listener);
         }
 
     }

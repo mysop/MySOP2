@@ -21,11 +21,18 @@ public class StepCutControl extends Activity {
     private static String url_create_product1 = "http://140.115.80.237/front/mysop_CC.jsp";
     private static final String TAG_SUCCESS = "success";
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
         new CheckFinishrule().execute();
     }
@@ -95,12 +102,18 @@ public class StepCutControl extends Activity {
         protected void onPostExecute(Integer finishrule) {
 
             pDialog.dismiss();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+            bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+
             switch (finishrule){
                 case 1:
                     // cagetory.setText("記錄完成");
                     //予帆會在steprecording做 所以直接跳下一頁
-                    Intent it = new Intent(StepCutControl.this,StepNextControl.class);
-                    startActivity(it);
+                    Intent it1 = new Intent(StepCutControl.this,StepNextControl.class);
+                    it1.putExtras(bundle);//將參數放入intent
+                    startActivity(it1);
                     finish();
                     break;
                 case 2:
@@ -110,33 +123,44 @@ public class StepCutControl extends Activity {
                 case 3:
                     //cagetory.setText("人工確認");
                     Intent it3 = new Intent(StepCutControl.this,StepcutcontrolArtificial.class);
+                    it3.putExtras(bundle);//將參數放入intent
                     startActivity(it3);
                     finish();
                     break;
                 case 4:
                     //cagetory.setText("Beacon");
                     Intent it4 = new Intent(StepCutControl.this,StepCutControlIbeacon.class);
+                    it4.putExtras(bundle);//將參數放入intent
                     startActivity(it4);
                     finish();
                     break;
                 case 5:
                     // cagetory.setText("QR Code");
                     Intent it5 = new Intent(StepCutControl.this,StepCutControlQRcode.class);
+                    it5.putExtras(bundle);//將參數放入intent
                     startActivity(it5);
                     finish();
-
                     break;
                 case 6:
                     // cagetory.setText("NFC");
-
+                    Intent it6 = new Intent(StepCutControl.this,StepCutControlNFC.class);
+                    it6.putExtras(bundle);//將參數放入intent
+                    startActivity(it6);
+                    finish();
                     break;
                 case 7:
                     //  cagetory.setText("自動完工");
                     Intent it7 = new Intent(StepCutControl.this,StepNextControl.class);
+                    it7.putExtras(bundle);//將參數放入intent
                     startActivity(it7);
+                    finish();
                     break;
                 case 8:
                     //  cagetory.setText("時間");
+                    Intent it8 = new Intent(StepCutControl.this,StepCutControlTime.class);
+                    it8.putExtras(bundle);//將參數放入intent
+                    startActivity(it8);
+                    finish();
                     break;
                 default:
                     System.out.println("WRONG");

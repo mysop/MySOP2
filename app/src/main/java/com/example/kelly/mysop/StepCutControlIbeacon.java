@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.*;
@@ -44,11 +45,21 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
 
     BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_ibeacon);
         Log.d("oncreateee", Integer.toString(connectfinish));
+
+        TextView ss = (TextView)findViewById(R.id.CC_ibeacon_textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
 /*        if (adapter == null){
             Toast.makeText(this, "藍芽藍芽?", Toast.LENGTH_LONG).show();
@@ -113,6 +124,10 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
                     beaconManager.startRangingBeaconsInRegion(region);
                     Intent intent = new Intent();
                     intent.setClass(StepCutControlIbeacon.this, StepNextControl.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
                     startActivity(intent);
                     // 设置切换动画，从右边进入，左边退出
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
@@ -194,7 +209,8 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
 
             int returnvalue = 0;
 
-            String StepNumber = "2";
+            String StepNumber = TAG_STEP_NUMBER;
+            //String StepNumber = "2";
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("StepNumber", StepNumber));

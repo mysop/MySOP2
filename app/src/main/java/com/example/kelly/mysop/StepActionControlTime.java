@@ -89,6 +89,10 @@ public class StepActionControlTime extends Activity {
     public void timeonclick(View v){
         if(check==2){
             Intent it5 = new Intent(StepActionControlTime.this,Stepdescription.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+            bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+            it5.putExtras(bundle);//將參數放入intent
             startActivity(it5);
             finish();
         }else if(check==0){

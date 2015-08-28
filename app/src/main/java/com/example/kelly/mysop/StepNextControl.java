@@ -107,27 +107,31 @@ public class StepNextControl extends Activity {
         protected void onPostExecute(Integer nextsteprule) {
 
             pDialog.dismiss();
+
+            //設定傳送參數
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
+
             switch (nextsteprule){
                 case 1:
                     // 依順序決定
-                    Intent it = new Intent(StepNextControl.this,StepActionControl.class);
-                    //設定傳送參數
-                    Bundle bundle = new Bundle();
-                    bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
-                    it.putExtras(bundle);//將參數放入intent
-                    startActivity(it);
+                    Intent it1 = new Intent(StepNextControl.this,StepActionControl.class);
+                    it1.putExtras(bundle);//將參數放入intent
+                    startActivity(it1);
                     finish();
                     break;
                 case 2:
                     // 依使用者決定
-                    Intent it1 = new Intent(StepNextControl.this,StepNextControlUser.class);
-                    startActivity(it1);
+                    Intent it2 = new Intent(StepNextControl.this,StepNextControlUser.class);
+                    it2.putExtras(bundle);//將參數放入intent
+                    startActivity(it2);
                     finish();
                     break;
                 case 3:
                     // 依資料決定
-                    Intent it2 = new Intent(StepNextControl.this,StepNextControl.class);
-                    startActivity(it2);
+                    Intent it3 = new Intent(StepNextControl.this,StepNextControl.class);
+                    it3.putExtras(bundle);//將參數放入intent
+                    startActivity(it3);
                     finish();
                     break;
 

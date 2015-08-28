@@ -28,11 +28,21 @@ public class StepCutControlQRcode extends Activity {
     private static final String TAG_SUCCESS = "success";
     TextView textView1;
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_qrcode);
         textView1 = (TextView) findViewById(R.id.qrcode1);
+
+        TextView ss = (TextView)findViewById(R.id.textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
     }
 
 
@@ -112,8 +122,9 @@ public class StepCutControlQRcode extends Activity {
         }
 
         protected Integer doInBackground(String... args) {
-            //寫死 Stepnumber
-            String Stepnumber="1";
+
+            //String Stepnumber="1";
+            String Stepnumber = TAG_STEP_NUMBER;
             String QRnumber=StepCutControlQRcode.this.textView1.getText().toString();
             int valoreOnPostExecute = 0;
 
@@ -130,6 +141,10 @@ public class StepCutControlQRcode extends Activity {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
                     Intent it = new Intent(StepCutControlQRcode.this,StepNextControl.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
 
                 }else if(e == 6){

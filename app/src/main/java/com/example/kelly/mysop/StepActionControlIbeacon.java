@@ -58,10 +58,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         TextView ss = (TextView)findViewById(R.id.AC_ibeacon_textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        //TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
-        //TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
-        TAG_STEP_NUMBER = "2";
-        TAG_STEP_ORDER = 2;
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        //TAG_STEP_NUMBER = "2";
+        //TAG_STEP_ORDER = 2;
         ss.setText(Integer.toString(TAG_STEP_ORDER));
 
     }

@@ -36,11 +36,20 @@ public class StepCutControlTime extends Activity {
     //檢查 是否有過期 0未過期 1過期
     private static int check=0;
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_time);
 
+        TextView ss = (TextView)findViewById(R.id.textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
@@ -79,6 +88,10 @@ public class StepCutControlTime extends Activity {
     public void timeonclick(View v){
         if(check!=1){
             Intent it5 = new Intent(StepCutControlTime.this,StepNextControl.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+            bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+            it5.putExtras(bundle);//將參數放入intent
             startActivity(it5);
             finish();
         }else {
@@ -101,8 +114,9 @@ public class StepCutControlTime extends Activity {
         }
 
         protected Integer doInBackground(String... args) {
-            //寫死 Stepnumber
-            String Stepnumber="5";
+
+            //String Stepnumber="5";
+            String Stepnumber = TAG_STEP_NUMBER;
             String Time= str;
             Integer CHECK=0;
 
@@ -117,6 +131,10 @@ public class StepCutControlTime extends Activity {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
                     Intent it = new Intent(StepCutControlTime.this,Stepdescription.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
                     CHECK=1;
 
@@ -196,6 +214,10 @@ public class StepCutControlTime extends Activity {
 //                        timedifference.setText("過期" + month + "月" + day + "天" + hour + "小时" + min + "分");
 //                    }
                     Intent it = new Intent(StepCutControlTime.this,StepNextControl.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
                 }
             }

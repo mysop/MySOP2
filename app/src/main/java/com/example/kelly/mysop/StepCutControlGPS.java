@@ -46,12 +46,20 @@ public class StepCutControlGPS extends Activity {
 
     public boolean getService = false;
 
-
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_gps);
+
+        TextView ss = (TextView)findViewById(R.id.textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         //LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -134,8 +142,12 @@ public class StepCutControlGPS extends Activity {
                     dialog.show();
 
                 }else{
-                    Intent it = new Intent(StepCutControlGPS.this,StepNextControl.class);
-                    startActivity(it);
+                    Intent intent = new Intent(StepCutControlGPS.this,StepNextControl.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
+                    startActivity(intent);
 
                 }
             }
@@ -269,8 +281,9 @@ public class StepCutControlGPS extends Activity {
         }
 
         protected Integer doInBackground(String... args) {
-            //寫死 Stepnumber
-            String Stepnumber="3";
+
+            //String Stepnumber="3";
+            String Stepnumber = TAG_STEP_NUMBER;
             int valoreOnPostExecute = 0;
 
             ArrayList params = new ArrayList();

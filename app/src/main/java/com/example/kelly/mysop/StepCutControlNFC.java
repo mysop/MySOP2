@@ -44,11 +44,20 @@ public class StepCutControlNFC extends Activity {
     private static String url_NFC = "http://140.115.80.237/front/mysop_CCnfc.jsp";
     private static final String TAG_SUCCESS = "success";
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_cut_control_nfc);
+
+        TextView ss = (TextView)findViewById(R.id.CC_NFC_textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         mTextView = (TextView)findViewById(R.id.CC_NFC_textView5);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -138,8 +147,8 @@ public class StepCutControlNFC extends Activity {
 
             int returnvalue = 0;
 
-            //寫死 Stepnumber
-            String Stepnumber="4";
+            //String Stepnumber="4";
+            String Stepnumber = TAG_STEP_NUMBER;
             String NFC_UUID = args[0];
 
             ArrayList params = new ArrayList();
@@ -168,6 +177,10 @@ public class StepCutControlNFC extends Activity {
             if (returnvalue == 1){
                 Intent intent = new Intent();
                 intent.setClass(StepCutControlNFC.this, StepNextControl.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                intent.putExtras(bundle);//將參數放入intent
                 startActivity(intent);
                 //切換畫面，右近左出
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

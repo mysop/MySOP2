@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,14 +27,16 @@ public class Mysop extends Activity {
 
 
     private ProgressDialog pDialog;
-    JSONParser jParser = new JSONParser();
+    JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
     //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
-    private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
+    // private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/mysop_mysop.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
-    private static final String TAG_PID = "pid";
-    private static final String TAG_NAME = "name";
+    private static final String TAG_CASENUMBER = "casenumber";
+    private static final String TAG_SOPNAME = "sopname";
+    private static final String TAG_STARTRULE = "startrule";
 
     private ListView listInput;
     private ArrayAdapter<String> adapter;
@@ -45,7 +48,7 @@ public class Mysop extends Activity {
 
     JSONArray products = null;
 
-
+    String TAG_ACCOUNT = "test@gmail.com";
 
 
     @Override
@@ -64,6 +67,8 @@ public class Mysop extends Activity {
         productsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
         new LoadAllProducts().execute();
+
+        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
 
 
     }
@@ -114,8 +119,10 @@ public class Mysop extends Activity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
+            JSONObject json = Mysop.this.jsonParser.makeHttpRequest(Mysop.url_all_products,"GET", params);
+
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -134,15 +141,19 @@ public class Mysop extends Activity {
                         JSONObject c = products.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String id = c.getString(TAG_PID);
-                        String name = c.getString(TAG_NAME);
+                        String sopname = c.getString(TAG_SOPNAME);
+                        String sopnumber = c.getString(TAG_CASENUMBER);
+                        String startrule = c.getString(TAG_STARTRULE);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
-                        map.put(TAG_PID, id);
-                        map.put(TAG_NAME, name);
+                        map.put(TAG_SOPNAME, sopname);
+                        map.put(TAG_CASENUMBER, sopnumber);
+                        map.put(TAG_STARTRULE, startrule);
+
+                        System.out.println("HELLO"+sopname+sopnumber);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -167,7 +178,7 @@ public class Mysop extends Activity {
             pDialog.dismiss();
             // updating UI from Background Thread
             for (int i = 0; i < products.length(); i++) {
-                items.add(productsList.get(i).get(TAG_PID)+"\n"+productsList.get(i).get(TAG_NAME));
+                items.add(productsList.get(i).get(TAG_SOPNAME)+"\n"+productsList.get(i).get(TAG_CASENUMBER));
                 listInput.setAdapter(adapter);
             }
         }

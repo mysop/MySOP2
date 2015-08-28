@@ -16,10 +16,18 @@ public class Stepdescription extends Activity {
 
     private GestureDetector detector;
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stepdescription);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
         WebView wv = (WebView)findViewById(R.id.webView);
         wv.loadUrl("https://www.google.com.tw");
@@ -64,6 +72,10 @@ public class Stepdescription extends Activity {
             if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
                 Intent intent = new Intent();
                 intent.setClass(Stepdescription.this, Steprecording.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                intent.putExtras(bundle);//將參數放入intent
                 startActivity(intent);
                 // 设置切换动画，从右边进入，左边退出
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

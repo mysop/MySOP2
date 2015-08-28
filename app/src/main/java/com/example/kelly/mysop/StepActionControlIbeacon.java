@@ -181,8 +181,8 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
 
             int returnvalue = 0;
 
-            //String StepNumber = TAG_STEP_NUMBER;
-            String StepNumber = "2";
+            String StepNumber = TAG_STEP_NUMBER;
+            //String StepNumber = "2";
 
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("StepNumber", StepNumber));

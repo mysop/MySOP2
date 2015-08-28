@@ -8,16 +8,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 //p304
 public class StepcutcontrolArtificial extends Activity implements GestureDetector.OnGestureListener {
 
     private GestureDetector detector;
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stepcutcontrol_artificial);
+
+        TextView ss = (TextView)findViewById(R.id.textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
+
         detector = new GestureDetector(this, this);
     }
 
@@ -87,7 +99,11 @@ public class StepcutcontrolArtificial extends Activity implements GestureDetecto
 
     public void checkok (View v){
 
-        Intent it = new Intent(this,StepNextControl.class);
-        startActivity(it);
+        Intent intent = new Intent(this,StepNextControl.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+        bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+        intent.putExtras(bundle);//將參數放入intent
+        startActivity(intent);
     }
 }

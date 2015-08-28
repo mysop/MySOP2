@@ -67,14 +67,23 @@ public class Steprecording extends Activity {
     EditText edtext = null;
 
     private int count=0;
-    private String step="";
+    //private String step="";
     String RecordText[] = new String[20];
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steprecording);
+
+        TextView ss = (TextView)findViewById(R.id.textView6);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -179,8 +188,11 @@ public class Steprecording extends Activity {
          * getting All products from url
          * */
         protected String doInBackground(String... args) {
+
+            String Stepnumber = TAG_STEP_NUMBER;
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
 
@@ -189,7 +201,7 @@ public class Steprecording extends Activity {
 
             try {
                 // Checking for SUCCESS TAG
-                step = json.getString("step");
+                //step = json.getString("step");
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
@@ -319,6 +331,10 @@ public class Steprecording extends Activity {
 
                     Intent intent = new Intent();
                     intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
                     startActivity(intent);
                     //切換畫面，右近左出
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

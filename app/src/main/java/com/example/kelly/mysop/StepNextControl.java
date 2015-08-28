@@ -21,12 +21,21 @@ public class StepNextControl extends Activity {
     JSONParser jsonParser = new JSONParser();
     private static String url_next_control = "http://140.115.80.237/front/mysop_StepNextControl.jsp";
     private static final String TAG_SUCCESS = "success";
+
     String TAG_NEXT_STEP_NUMBER = "";
+
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_next_control);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
         new CheckNextControlRule().execute();
 
@@ -68,9 +77,8 @@ public class StepNextControl extends Activity {
 
         protected Integer doInBackground(String... args) {
 
-            //先寫死stepnumber
-            String Stepnumber = "1";
-
+            //String Stepnumber = "1";
+            String Stepnumber = TAG_STEP_NUMBER;
             int nextsteprule = 0;
 
             //for get

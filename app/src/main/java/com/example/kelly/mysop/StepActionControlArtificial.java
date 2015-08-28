@@ -36,15 +36,15 @@ public class StepActionControlArtificial extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_artificial);
-/*        steporder = (TextView)findViewById(R.id.textView2);
 
+        TextView ss = (TextView)findViewById(R.id.textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
-        steporder.setText( Integer.toString(TAG_STEP_ORDER));
-*/
+
         //new CheckStep().execute();
     }
 

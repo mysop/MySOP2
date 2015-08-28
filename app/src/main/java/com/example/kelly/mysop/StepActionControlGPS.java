@@ -47,7 +47,6 @@ public class StepActionControlGPS extends Activity {
     private static double DLatitude=0 ;
     private  static double DLongitude=0;
 
-    private static TextView steporder;
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
@@ -57,12 +56,12 @@ public class StepActionControlGPS extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_gps);
 
+        TextView ss = (TextView)findViewById(R.id.textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
-        steporder = (TextView)findViewById(R.id.textView2);
-        steporder.setText( Integer.toString(TAG_STEP_ORDER));
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -280,8 +279,9 @@ public class StepActionControlGPS extends Activity {
         }
 
         protected Integer doInBackground(String... args) {
-            //寫死 Stepnumber
-            String Stepnumber="3";
+
+            //String Stepnumber="3";
+            String Stepnumber = TAG_STEP_NUMBER;
             int valoreOnPostExecute = 0;
 
             ArrayList params = new ArrayList();

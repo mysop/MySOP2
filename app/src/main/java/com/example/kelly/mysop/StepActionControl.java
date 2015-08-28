@@ -39,17 +39,16 @@ public class StepActionControl extends Activity {
         Bundle bundle = intent.getExtras();	//取得Bundle
 
         //從P305來的話
-//        if(bundle.getString("TAG_NEXT_STEP_NUMBER") != null){
-//            TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
-//            new Update().execute();
-//
- //       }else{
+        if(intent.hasExtra("TAG_NEXT_STEP_NUMBER")){
+            TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
+            new Update().execute();
 
+        }else{
             //沒從P305來的話
-            TAG_CASE_NUMBER = "1";
+            TAG_CASE_NUMBER = "3";//nfc
             //TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
             new Checkall().execute();
-//        }
+        }
 
 
 

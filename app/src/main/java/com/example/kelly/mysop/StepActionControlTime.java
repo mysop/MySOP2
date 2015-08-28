@@ -37,10 +37,20 @@ public class StepActionControlTime extends Activity {
     //檢查 是否有過期 0未過期 1過期 2剛好
     private static int check=0;
 
+    String TAG_STEP_NUMBER = "";
+    int TAG_STEP_ORDER = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_action_control_time);
+
+        TextView ss = (TextView)findViewById(R.id.textView2);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
@@ -107,8 +117,8 @@ public class StepActionControlTime extends Activity {
         }
 
         protected Integer doInBackground(String... args) {
-            //寫死 Stepnumber
-            String Stepnumber="5";
+            //String Stepnumber="5";
+            String Stepnumber = TAG_STEP_NUMBER;
             String Time= str;
             Integer CHECK=0;//CHECK 0代表過期或未到 1代表已到
 

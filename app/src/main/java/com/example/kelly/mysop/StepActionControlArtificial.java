@@ -72,8 +72,12 @@ public class StepActionControlArtificial extends Activity {
     }
 
     public void artfiOpen(View v){
-        Intent it = new Intent(StepActionControlArtificial.this,Stepdescription.class);
-        startActivity(it);
+        Intent intent = new Intent(StepActionControlArtificial.this,Stepdescription.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+        bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+        intent.putExtras(bundle);//將參數放入intent
+        startActivity(intent);
     }
 
     //讀取第幾步驟

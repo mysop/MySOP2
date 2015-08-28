@@ -132,8 +132,12 @@ public class StepActionControlTime extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-                    Intent it = new Intent(StepActionControlTime.this,Stepdescription.class);
-                    startActivity(it);
+                    Intent intent = new Intent(StepActionControlTime.this,Stepdescription.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
+                    startActivity(intent);
                     CHECK=1;
                     timebtn.setText("啟動");
 

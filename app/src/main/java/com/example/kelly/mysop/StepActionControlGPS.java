@@ -145,8 +145,12 @@ public class StepActionControlGPS extends Activity {
                     dialog.show();
 
                 }else{
-                    Intent it = new Intent(StepActionControlGPS.this,Stepdescription.class);
-                    startActivity(it);
+                    Intent intent = new Intent(StepActionControlGPS.this,Stepdescription.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
+                    startActivity(intent);
 
                 }
             }

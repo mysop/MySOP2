@@ -58,8 +58,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
         TextView ss = (TextView)findViewById(R.id.AC_ibeacon_textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
-        TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        //TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
+        //TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+        TAG_STEP_NUMBER = "2";
+        TAG_STEP_ORDER = 2;
         ss.setText(Integer.toString(TAG_STEP_ORDER));
 
     }
@@ -100,6 +102,10 @@ public class StepActionControlIbeacon extends Activity implements BeaconConsumer
                     beaconManager.startRangingBeaconsInRegion(region);
                     Intent intent = new Intent();
                     intent.setClass(StepActionControlIbeacon.this, Stepdescription.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
                     startActivity(intent);
                     // 设置切换动画，从右边进入，左边退出
                     overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);

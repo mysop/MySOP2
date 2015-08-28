@@ -140,6 +140,7 @@
             android:name=".StepActionControlIbeacon"
             android:label="@string/title_activity_step_action_control_ibeacon"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+
         </activity>
         <activity
             android:name=".StepCutControlQRcode"
@@ -155,6 +156,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".StepCutControl"

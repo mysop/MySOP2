@@ -45,6 +45,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
 
     BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();//獲得當前的藍芽
 
+    String TAG_CASE_NUMBER = "";
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
@@ -57,6 +58,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
         TextView ss = (TextView)findViewById(R.id.CC_ibeacon_textView2);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
         ss.setText(Integer.toString(TAG_STEP_ORDER));
@@ -125,6 +127,7 @@ public class StepCutControlIbeacon extends Activity implements BeaconConsumer{
                     Intent intent = new Intent();
                     intent.setClass(StepCutControlIbeacon.this, StepNextControl.class);
                     Bundle bundle = new Bundle();
+                    bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
                     bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
                     bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
                     intent.putExtras(bundle);//將參數放入intent

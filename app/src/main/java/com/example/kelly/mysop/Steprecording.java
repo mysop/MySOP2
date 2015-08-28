@@ -70,6 +70,7 @@ public class Steprecording extends Activity {
     //private String step="";
     String RecordText[] = new String[20];
 
+    String TAG_CASE_NUMBER = "";
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
@@ -81,6 +82,7 @@ public class Steprecording extends Activity {
         TextView ss = (TextView)findViewById(R.id.textView6);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
         ss.setText(Integer.toString(TAG_STEP_ORDER));
@@ -332,6 +334,7 @@ public class Steprecording extends Activity {
                     Intent intent = new Intent();
                     intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
                     Bundle bundle = new Bundle();
+                    bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
                     bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
                     bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
                     intent.putExtras(bundle);//將參數放入intent
@@ -373,10 +376,10 @@ public class Steprecording extends Activity {
             RecordText[a] = Steprecording.this.edit1[a].getText().toString();
             ArrayList params = new ArrayList();
 
-            //和使用者有關的-->按號，現在還要手動改
-            params.add(new BasicNameValuePair("CaseNumber", "j2037case"));
-            //同一step的每一次/個record-->step一樣，現在還要手動改
-            params.add(new BasicNameValuePair("StepOrder", "12"));
+            //和使用者有關的-->按號
+            params.add(new BasicNameValuePair("CaseNumber", TAG_CASE_NUMBER));
+            //同一step的每一次/個record
+            params.add(new BasicNameValuePair("StepOrder", String.valueOf(TAG_STEP_ORDER)));
             params.add(new BasicNameValuePair("RecordOrder", String.valueOf(a+1)));
             Log.d("RecordOrder", String.valueOf(a+1));
             params.add(new BasicNameValuePair("RecordText", RecordText[a]));

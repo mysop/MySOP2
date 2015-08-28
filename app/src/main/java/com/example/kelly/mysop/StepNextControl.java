@@ -24,6 +24,7 @@ public class StepNextControl extends Activity {
 
     String TAG_NEXT_STEP_NUMBER = "";
 
+    String TAG_CASE_NUMBER = "";
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
@@ -34,6 +35,7 @@ public class StepNextControl extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
@@ -111,6 +113,7 @@ public class StepNextControl extends Activity {
             //設定傳送參數
             Bundle bundle = new Bundle();
             bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
+            bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
 
             switch (nextsteprule){
                 case 1:

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -21,13 +22,13 @@ import java.util.ArrayList;
 public class StepActionControl extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-    private static String url_create_product1 = "http://140.115.80.237/front/mysop_AC.jsp";
+    private static String url_update = "http://140.115.80.237/front/mysop_AC1.jsp";
+    private static String url_checkStartrule = "http://140.115.80.237/front/mysop_AC.jsp";
     private static final String TAG_SUCCESS = "success";
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
-    private static String url_update = "http://140.115.80.237/front/mysop_AC1.jsp";
-    private static String url_start_ac = "http://140.115.80.237/front/mysop_AC2.jsp";
+    private static String url_checkall = "http://140.115.80.237/front/mysop_AC2.jsp";
     String TAG_CASE_NUMBER = "";
 
     @Override
@@ -41,6 +42,7 @@ public class StepActionControl extends Activity {
         //從P305來的話
         if(intent.hasExtra("TAG_NEXT_STEP_NUMBER")){
             TAG_STEP_NUMBER = bundle.getString("TAG_NEXT_STEP_NUMBER");
+            TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
             new Update().execute();
 
         }else{
@@ -95,7 +97,7 @@ public class StepActionControl extends Activity {
             //for get
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Casenumber", Casenumber));
-            JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_start_ac,"GET",params);
+            JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_checkall,"GET",params);
 
             try {
                 //加入清單
@@ -122,6 +124,7 @@ public class StepActionControl extends Activity {
             Bundle bundle = new Bundle();
             bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
             bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+            bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
 
             switch (startrule){
                 case 1:
@@ -195,10 +198,11 @@ public class StepActionControl extends Activity {
 
             int updatecheck=0;
             String Stepnumber = TAG_STEP_NUMBER;
-
+            String Casenumber = TAG_CASE_NUMBER;
             //for get
             ArrayList params = new ArrayList();
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
+            params.add(new BasicNameValuePair("Casenumber", Casenumber));
             JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_update,"POST",params);
 
             try {
@@ -221,6 +225,8 @@ public class StepActionControl extends Activity {
             pDialog.dismiss();
             if(updatecheck==1) {
                 new CheckStartrule().execute();
+            }else{
+                Toast.makeText(getApplicationContext(), "更新失敗!請重新啟動...", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -249,7 +255,7 @@ public class StepActionControl extends Activity {
 
             params.add(new BasicNameValuePair("Stepnumber", Stepnumber));
 
-            JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_create_product1,"GET",params);
+            JSONObject json = StepActionControl.this.jsonParser.makeHttpRequest(StepActionControl.url_checkStartrule,"GET",params);
 
             try {
                 //加入清單
@@ -274,6 +280,7 @@ public class StepActionControl extends Activity {
             Bundle bundle = new Bundle();
             bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
             bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+            bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
 
             switch (startrule){
                 case 1:

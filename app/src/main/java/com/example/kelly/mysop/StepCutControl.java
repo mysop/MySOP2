@@ -21,6 +21,7 @@ public class StepCutControl extends Activity {
     private static String url_create_product1 = "http://140.115.80.237/front/mysop_CC.jsp";
     private static final String TAG_SUCCESS = "success";
 
+    String TAG_CASE_NUMBER = "";
     String TAG_STEP_NUMBER = "";
     int TAG_STEP_ORDER = 0;
 
@@ -31,6 +32,7 @@ public class StepCutControl extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
@@ -104,6 +106,7 @@ public class StepCutControl extends Activity {
             pDialog.dismiss();
 
             Bundle bundle = new Bundle();
+            bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
             bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
             bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
 

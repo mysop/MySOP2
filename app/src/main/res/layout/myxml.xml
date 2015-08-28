@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#ffffffff"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="279dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.73">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="第一行文字"
+            android:textColor="#FF000000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtengname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="第二行文字"
+            android:textColor="#FF000000"
+            android:textSize="16dp" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/nfc"
+        android:layout_margin="10dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="3hr"
+        android:id="@+id/timetext"
+        android:textColor="#ff000000"
+        android:layout_gravity="center"
+        android:layout_weight="0.13"
+        android:layout_marginRight="5dp" />
+
+</LinearLayout>

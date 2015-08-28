@@ -2,15 +2,19 @@ package com.example.kelly.mysop;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,7 +47,8 @@ public class Mysop extends Activity {
     private static final String TAG_STARTRULE = "startrule";
 
     private ListView listInput;
-    private ArrayAdapter<String> adapter;
+    //private ArrayAdapter<String> adapter;
+    MyAdapter adapter = null;
     private ArrayList<String> items;
 
     private ImageView picture;
@@ -56,8 +61,13 @@ public class Mysop extends Activity {
     String TAG_ACCOUNT = "test@gmail.com";
 
 
-    //存casenumber
+    //存casenumber  sopname
     private String[] list;
+    private String[] name;
+    private int[] logos = new int[] { R.drawable.nfc, R.drawable.beacon,
+            R.drawable.gps,R.drawable.qrcode,R.drawable.white };
+    int[] key;
+    private String[] timesee;
 
 
     @Override
@@ -66,8 +76,8 @@ public class Mysop extends Activity {
         setContentView(R.layout.activity_mysop);
         listInput = (ListView)findViewById(R.id.list_sop);
         items = new ArrayList<String>();
-        adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
-        listInput.setAdapter(adapter);
+       // adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
+
 
         //Intent intent = this.getIntent();
         //Bundle bundle = intent.getExtras();
@@ -81,6 +91,9 @@ public class Mysop extends Activity {
 
 
     }
+
+
+
 
 
     @Override
@@ -203,14 +216,106 @@ public class Mysop extends Activity {
             pDialog.dismiss();
 
             list = new String[products.length()];
+            name = new String[products.length()];
+            key = new int[products.length()];
+            timesee = new String[products.length()];
             // updating UI from Background Thread
             for (int i = 0; i < products.length(); i++) {
                 list[i] = productsList.get(i).get(TAG_CASENUMBER);
-                items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
-                listInput.setAdapter(adapter);
+                name[i] = productsList.get(i).get(TAG_SOPNAME);
+               // items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
+                //listInput.setAdapter(adapter);
+                switch (productsList.get(i).get(TAG_STARTRULE)){
+                    case "1":
+                       // cagetory.setText("人工啟動");
+                        key[i]=4;
+                        break;
+                    case "2":
+                        //cagetory.setText("前一步驟\n完工");
+                        key[i]=4;
+                        break;
+                    case "3":
+                        //cagetory.setText("Beacon");
+                        key[i]=1;
+                        break;
+                    case "4":
+                        //cagetory.setText("QR code");
+                        key[i]=3;
+                        break;
+                    case "5":
+                        //cagetory.setText("NFC");
+                        key[i]=0;
+                        break;
+                    case "6":
+                        //cagetory.setText("定位");
+                        key[i]=2;
+                        break;
+                    case "7":
+                        //cagetory.setText("時間到期");
+                        key[i]=4;
+                        timesee[i]="3小時";
+                        break;
+                }
             }
 
+
+
+            adapter = new MyAdapter(Mysop.this);
+            listInput.setAdapter(adapter);
+
             listInput.setOnItemClickListener(listener);
+        }
+
+    }
+
+    public class MyAdapter extends BaseAdapter {
+        private LayoutInflater myInflater;
+
+
+        public MyAdapter(Context c) {
+            myInflater = LayoutInflater.from(c);
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return name.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return name[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            convertView = myInflater.inflate(R.layout.myxml, null);
+
+            ImageView Logo = (ImageView) convertView.findViewById(R.id.imglogo);
+            TextView Name = (TextView) convertView.findViewById(R.id.name);
+            TextView number = (TextView) convertView
+                    .findViewById(R.id.txtengname);
+            TextView time = (TextView)convertView.findViewById(R.id.timetext);
+
+            if(logos[key[position]]!=R.drawable.white){
+                Logo.setVisibility(0);
+                time.setVisibility(8);
+            }
+            Logo.setImageResource(logos[key[position]]);
+            Name.setText(name[position]);
+            number.setText(list[position]);
+            time.setText(timesee[position]);
+
+
+            return convertView;
         }
 
     }

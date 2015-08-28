@@ -2,19 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.example.kelly.mysop.Mysop" >
+    tools:context="com.example.kelly.mysop.Mysop"
+    android:background="#FFFFFFFF">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#FFFFFFFF">
 
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="350dp"
             android:id="@+id/list_sop"
-            >
+            android:background="#FFFFFFFF">
         </ListView>
     </LinearLayout>
 </ScrollView>

@@ -26,7 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,11 +42,14 @@ public class Mysop extends Activity {
     //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
     // private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static String url_all_products = "http://140.115.80.237/front/mysop_mysop.jsp";
+    //for 時間啟動的
+    private static String url_create_product = "http://140.115.80.237/front/mysop_ACtime.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_CASENUMBER = "casenumber";
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_STARTRULE = "startrule";
+    private static String str;
 
     private ListView listInput;
     //private ArrayAdapter<String> adapter;
@@ -88,6 +93,12 @@ public class Mysop extends Activity {
         new LoadAllProducts().execute();
 
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+
+        //時間
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
+        Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+        str = formatter.format(curDate);
+        System.out.println("HERE "+str);
 
 
     }

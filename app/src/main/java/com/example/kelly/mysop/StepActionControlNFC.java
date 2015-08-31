@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -13,8 +14,10 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +61,9 @@ public class StepActionControlNFC extends Activity {
         TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+//        TAG_CASE_NUMBER = "2014";
+//        TAG_STEP_NUMBER = "4";
+//        TAG_STEP_ORDER = 4;
         ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         mTextView = (TextView)findViewById(R.id.AC_NFC_textView5);
@@ -66,6 +72,33 @@ public class StepActionControlNFC extends Activity {
             mTextView.setText("支持讀取NFC!");
         } else {
             mTextView.setText("不支持NFC!");
+        }
+        if (!mNfcAdapter.isEnabled()) {
+
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setTitle("注意");
+            alertbox.setMessage("請開啟NFC!");
+            alertbox.setPositiveButton("開啟", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                        startActivity(intent);
+                    }
+                }
+            });
+            alertbox.setNegativeButton("關閉", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            alertbox.show();
+
         }
 
         mPendingIntent = PendingIntent.getActivity(this, 0,new Intent(this,getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);

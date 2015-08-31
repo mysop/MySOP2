@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,14 +44,14 @@ public class Mysop extends Activity {
     //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
     // private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static String url_all_products = "http://140.115.80.237/front/mysop_mysop.jsp";
-    //for 時間啟動的
-    private static String url_create_product = "http://140.115.80.237/front/mysop_ACtime.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_CASENUMBER = "casenumber";
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_STARTRULE = "startrule";
-    private static String str;
+    private static final String TAG_STARTVALUE = "startvalue";
+    private static String str,timedifference;
+    public int check;
 
     private ListView listInput;
     //private ArrayAdapter<String> adapter;
@@ -193,6 +195,7 @@ public class Mysop extends Activity {
                         String sopname = c.getString(TAG_SOPNAME);
                         String sopnumber = c.getString(TAG_CASENUMBER);
                         String startrule = c.getString(TAG_STARTRULE);
+                        String startvalue = c.getString(TAG_STARTVALUE);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -201,6 +204,7 @@ public class Mysop extends Activity {
                         map.put(TAG_SOPNAME, sopname);
                         map.put(TAG_CASENUMBER, sopnumber);
                         map.put(TAG_STARTRULE, startrule);
+                        map.put(TAG_STARTVALUE,startvalue);
 
                         System.out.println("HELLO" + sopname + sopnumber);
 
@@ -208,7 +212,6 @@ public class Mysop extends Activity {
                         productsList.add(map);
                     }
                 } else {
-
 
 
                 }
@@ -264,7 +267,66 @@ public class Mysop extends Activity {
                     case "7":
                         //cagetory.setText("時間到期");
                         key[i]=4;
-                        timesee[i]="3小時";
+                        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
+                        Date now = null;
+
+                        try {
+                            now = df.parse(productsList.get(i).get(TAG_STARTVALUE));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date date = null;
+                        try {
+                            date = df.parse(str);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        long l;
+
+                        //比較時間大小
+                        if(now.getTime()>date.getTime()) {
+                            //未過期
+                            l = now.getTime() - date.getTime();
+                            check=0;
+                        }else{
+                            //過期
+                            l = date.getTime() - now.getTime();
+                            check=1;
+                        }
+                        //計算時間差
+                        long month=l/(30 * 24 * 60 * 60 * 1000);
+                        long day = l / (24 * 60 * 60 * 1000- month * 30);
+                        long hour = (l / (60 * 60 * 1000) - month * 30 * 24 - day * 24);
+                        long min = ((l / (60 * 1000)) - month * 30 * 24 * 60- day * 24 * 60 - hour * 60);
+                        long s = (l / 1000 - month * 30 * 24 * 60 * 60- day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+                        System.out.println(month+"月" + day + "天" + hour + "小时" + min + "分" + s + "秒");
+
+                        if(check==0) {
+
+                            if (month == 0) {
+                                timedifference="還差" + day + "天" ;
+                            } else if (month == 0 && day == 0) {
+                                timedifference="還差" + hour + "小时" + min + "分";
+                            } else if (month == 0 && day == 0 && hour == 0) {
+                                timedifference="還差" + min + "分";
+                            } else {
+                                timedifference="還差" + month + "月" + day + "天";
+                            }
+                        }else{
+                            //過期
+                           // timedifference.setTextColor(Color.RED);
+                            if (month == 0) {
+                                timedifference="過期" + day + "天" ;
+                            } else if (month == 0 && day == 0) {
+                                timedifference="過期" + hour + "小时" + min + "分";
+                            } else if (month == 0 && day == 0 && hour == 0) {
+                                timedifference="過期" + min + "分";
+                            } else {
+                                timedifference="過期" + month + "月" + day + "天";
+                            }
+                        }
+                        timesee[i]=timedifference;
                         break;
                 }
             }

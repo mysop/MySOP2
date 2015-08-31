@@ -226,7 +226,8 @@
         </activity>
         <activity
             android:name=".Home"
-            android:label="@string/title_activity_home" >
+            android:label="home"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
         </activity>
     </application>
 

@@ -100,9 +100,6 @@ public class Mysop extends Activity {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
         str = formatter.format(curDate);
-        System.out.println("HERE "+str);
-
-
     }
 
 

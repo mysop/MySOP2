@@ -121,13 +121,13 @@ public class Login extends Activity {
         }
 
         protected String doInBackground(String... args) {
-            String Account = Login.this.et1.getText().toString();
+            TAG_ACCOUNT = Login.this.et1.getText().toString();
             String Password = Login.this.et2.getText().toString();
 
 
 
             ArrayList params = new ArrayList();
-            params.add(new BasicNameValuePair("Account", Account));
+            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
             params.add(new BasicNameValuePair("Password", Password));
 
             JSONObject json = Login.this.jsonParser.makeHttpRequest(Login.url_login, "POST", params);
@@ -136,8 +136,12 @@ public class Login extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_ACCOUNT",TAG_ACCOUNT);
                     Intent it = new Intent(Login.this,Mysop.class);
+                     it.putExtras(bundle);//將參數放入intent
                     startActivity(it);
+                    finish();
 
                 }else if(e == 6){
 

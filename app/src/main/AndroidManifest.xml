@@ -94,6 +94,7 @@
         <activity
             android:name=".Mysop"
             android:label="@string/title_activity_mysop" >
+
         </activity>
         <activity
             android:name=".Content"
@@ -149,11 +150,7 @@
             android:name=".StepActionControl"
             android:label="@string/title_activity_step_action_control"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StepCutControl"
@@ -228,6 +225,11 @@
             android:name=".Home"
             android:label="home"
             android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

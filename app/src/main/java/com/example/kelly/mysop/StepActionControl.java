@@ -47,8 +47,8 @@ public class StepActionControl extends Activity {
 
         }else{
             //沒從P305來的話
-            TAG_CASE_NUMBER = "3";//nfc
-            //TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
+            //TAG_CASE_NUMBER = "3";//nfc
+            TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
             new Checkall().execute();
         }
 

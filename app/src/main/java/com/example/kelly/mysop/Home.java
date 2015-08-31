@@ -3,6 +3,7 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -90,6 +91,17 @@ public class Home extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //登入
+    public void goToLogin (View v){
+        Intent it = new Intent(this,Login.class);
+        startActivity(it);
+    }
+    //註冊
+    public void goToRegister (View v){
+        Intent it = new Intent(this,Register.class);
+        startActivity(it);
+    }
+
     class LoadAll extends AsyncTask<String, String, String> {
 
         /**
@@ -169,13 +181,13 @@ public class Home extends Activity {
 
             list = new String[products.length()];
             name = new String[products.length()];
+            logos= new String[products.length()];
             // updating UI from Background Thread
             for (int i = 0; i < products.length(); i++) {
                 list[i] = productsList.get(i).get(TAG_USERNAME);
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
-                //logos[i] = productsList.get(i).get(TAG_PICTURE);
-                // items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
-                //listInput.setAdapter(adapter);
+                logos[i] = productsList.get(i).get(TAG_PICTURE);
+                System.out.println("HERE"+logos[i]);
             }
             adapter = new MyAdapter(Home.this);
             homelist.setAdapter(adapter);
@@ -220,8 +232,8 @@ public class Home extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
 
-           // new DownloadImageTask(Logo)
-           //         .execute(logos[position]);
+            new DownloadImageTask(Logo)
+                    .execute(logos[position]);
             Name.setText(name[position]);
             number.setText(list[position]);
 

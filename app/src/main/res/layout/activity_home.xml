@@ -54,7 +54,8 @@
             android:id="@+id/button8"
             android:background="@drawable/redball"
             android:textColor="#fffcfffd"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:onClick="goToLogin" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -64,7 +65,8 @@
             android:id="@+id/button9"
             android:background="@drawable/redball"
             android:textColor="#fffcfffd"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:onClick="goToRegister" />
     </LinearLayout>
 
     <ScrollView

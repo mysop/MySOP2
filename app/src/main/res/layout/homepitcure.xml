@@ -11,7 +11,7 @@
         android:id="@+id/imglogo"
         android:layout_width="81dp"
         android:layout_height="71dp"
-        android:src="@drawable/nfc"
+        android:src="@drawable/star2"
         android:layout_margin="10dp" />
 
     <LinearLayout

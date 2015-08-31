@@ -355,8 +355,7 @@ public class Steprecording extends Activity {
     }
 
     //回傳
-    class Recording extends AsyncTask<Integer, String, String> {
-        Recording() {}
+    class Recording extends AsyncTask<Integer, String, Integer> {
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -367,11 +366,11 @@ public class Steprecording extends Activity {
             //Steprecording.this.pDialog.show();
         }
 
-        protected String doInBackground(Integer... args) {
+        protected Integer doInBackground(Integer... args) {
 
             //EditText et1 = (EditText)edit1.findViewById(20);
             //String Account = Steprecording.this.et1.getText().toString();
-
+            int upload = 0;
             int a = args[0];
             RecordText[a] = Steprecording.this.edit1[a].getText().toString();
             ArrayList params = new ArrayList();
@@ -391,19 +390,23 @@ public class Steprecording extends Activity {
                 int e = json.getInt(TAG_SUCCESS);
                 if (e == 1) {
                     Log.d("YES","SSS");
+                    upload = 1;
                 } else if (e == 2) {
                     Log.d("WRONG","SSS");
+                    upload = 2;
                 }
             } catch (JSONException var9) {
                 var9.printStackTrace();
 
             }
-            //Steprecording.this.pDialog.dismiss();
-        return null;
+        return upload;
         }
 
-        protected void onPostExecute(String file_url) {
+        protected void onPostExecute(Integer upload) {
             //Steprecording.this.pDialog.dismiss();
+            if(upload == 2){
+                Toast.makeText(getApplicationContext(),"上傳未成功!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

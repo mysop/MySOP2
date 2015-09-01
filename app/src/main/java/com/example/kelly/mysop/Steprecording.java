@@ -332,7 +332,7 @@ public class Steprecording extends Activity {
 
 
                     Intent intent = new Intent();
-                    intent.setClass(Steprecording.this, StepcutcontrolArtificial.class);
+                    intent.setClass(Steprecording.this, StepCutControl.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
                     bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);

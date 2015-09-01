@@ -13,7 +13,7 @@
         android:background="#FFFFFFFF">
 
         <ListView
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="350dp"
             android:id="@+id/list_sop"
             android:background="#FFFFFFFF">

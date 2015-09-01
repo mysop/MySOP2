@@ -65,7 +65,7 @@ public class Mysop extends Activity {
     JSONArray products = null;
 
    //帳號先寫死
-    String TAG_ACCOUNT = "";
+    String TAG_ACCOUNT = "test@gmail.com";
 
 
     //存casenumber  sopname
@@ -86,9 +86,9 @@ public class Mysop extends Activity {
        // adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
 
 
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+//        Intent intent = this.getIntent();
+//        Bundle bundle = intent.getExtras();
+//        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
                 // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -234,6 +234,7 @@ public class Mysop extends Activity {
             // updating UI from Background Thread
             for (int i = 0; i < products.length(); i++) {
                 list[i] = productsList.get(i).get(TAG_CASENUMBER);
+                System.out.println("JJ"+list[i]);
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
                // items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
                 //listInput.setAdapter(adapter);

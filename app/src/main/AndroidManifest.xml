@@ -287,12 +287,9 @@
         </activity>
         <activity
             android:name=".Home"
-<<<<<<< HEAD
             android:label="home"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-=======
             android:label="home">
->>>>>>> origin/master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

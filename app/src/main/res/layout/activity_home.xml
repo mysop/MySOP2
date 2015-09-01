@@ -9,11 +9,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText4" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -88,4 +83,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</LinearLayout >

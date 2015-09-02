@@ -52,11 +52,14 @@ public class Mysop extends Activity {
     private static final String TAG_STARTVALUE = "startvalue";
     private static String str,timedifference;
     public int check;
+    //計算product 長度
+    public int x,y;
 
     private ListView listInput;
+    private ListView listInput1;
     //private ArrayAdapter<String> adapter;
     MyAdapter adapter = null;
-    private ArrayList<String> items;
+    MyAdapter1 adapter1 = null;
 
     private ImageView picture;
     private TextView title;
@@ -76,13 +79,18 @@ public class Mysop extends Activity {
     int[] key;
     private String[] timesee;
 
+    private String[] list1;
+    private String[] name1;
+    int[] key1;
+    private String[] timesee1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mysop);
         listInput = (ListView)findViewById(R.id.list_sop);
-        items = new ArrayList<String>();
+        listInput1 = (ListView)findViewById(R.id.list_sop2);
        // adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
 
 
@@ -204,8 +212,6 @@ public class Mysop extends Activity {
                         map.put(TAG_STARTRULE, startrule);
                         map.put(TAG_STARTVALUE,startvalue);
 
-                        System.out.println("HELLO" + sopname + sopnumber);
-
                         // adding HashList to ArrayList
                         productsList.add(map);
                     }
@@ -227,17 +233,25 @@ public class Mysop extends Activity {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
 
-            list = new String[products.length()];
-            name = new String[products.length()];
-            key = new int[products.length()];
-            timesee = new String[products.length()];
+            int k=0;
+            if(products.length()%2==0){
+                x=products.length()/2;
+            }else{
+                x=(products.length()+1)/2;
+            }
+
+            list = new String[x];
+            name = new String[x];
+            key = new int[x];
+            timesee = new String[x];
+            list1 = new String[products.length()/2];
+            name1 = new String[products.length()/2];
+            key1 = new int[products.length()/2];
+            timesee1 = new String[products.length()/2];
             // updating UI from Background Thread
-            for (int i = 0; i < products.length(); i++) {
+            for (int i = 0; i < x; i++) {
                 list[i] = productsList.get(i).get(TAG_CASENUMBER);
-                System.out.println("JJ"+list[i]);
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
-               // items.add(productsList.get(i).get(TAG_SOPNAME) + "\n" + productsList.get(i).get(TAG_CASENUMBER));
-                //listInput.setAdapter(adapter);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                        // cagetory.setText("人工啟動");
@@ -330,12 +344,114 @@ public class Mysop extends Activity {
                 }
             }
 
+            //另一邊
+            for (int i = products.length()-1; i >=x; i--) {
+
+
+                list1[k] = productsList.get(i).get(TAG_CASENUMBER);
+                name1[k] = productsList.get(i).get(TAG_SOPNAME);
+                System.out.println("HI"+list1[k]+name1[k]+">"+k);
+                switch (productsList.get(i).get(TAG_STARTRULE)){
+                    case "1":
+                        // cagetory.setText("人工啟動");
+                        key1[k]=4;
+                        break;
+                    case "2":
+                        //cagetory.setText("前一步驟\n完工");
+                        key1[k]=4;
+                        break;
+                    case "3":
+                        //cagetory.setText("Beacon");
+                        key1[k]=1;
+                        break;
+                    case "4":
+                        //cagetory.setText("QR code");
+                        key1[k]=3;
+                        break;
+                    case "5":
+                        //cagetory.setText("NFC");
+                        key1[k]=0;
+                        break;
+                    case "6":
+                        //cagetory.setText("定位");
+                        key1[k]=2;
+                        break;
+                    case "7":
+                        //cagetory.setText("時間到期");
+                        key1[k]=4;
+                        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
+                        Date now = null;
+
+                        try {
+                            now = df.parse(productsList.get(i).get(TAG_STARTVALUE));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date date = null;
+                        try {
+                            date = df.parse(str);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        long l;
+
+                        //比較時間大小
+                        if(now.getTime()>date.getTime()) {
+                            //未過期
+                            l = now.getTime() - date.getTime();
+                            check=0;
+                        }else{
+                            //過期
+                            l = date.getTime() - now.getTime();
+                            check=1;
+                        }
+                        //計算時間差
+                        long month=l/(30 * 24 * 60 * 60 * 1000);
+                        long day = l / (24 * 60 * 60 * 1000- month * 30);
+                        long hour = (l / (60 * 60 * 1000) - month * 30 * 24 - day * 24);
+                        long min = ((l / (60 * 1000)) - month * 30 * 24 * 60- day * 24 * 60 - hour * 60);
+                        long s = (l / 1000 - month * 30 * 24 * 60 * 60- day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+                        System.out.println(month+"月" + day + "天" + hour + "小时" + min + "分" + s + "秒");
+
+                        if(check==0) {
+
+                            if (month == 0) {
+                                timedifference="還差" + day + "天" ;
+                            } else if (month == 0 && day == 0) {
+                                timedifference="還差" + hour + "小时" + min + "分";
+                            } else if (month == 0 && day == 0 && hour == 0) {
+                                timedifference="還差" + min + "分";
+                            } else {
+                                timedifference="還差" + month + "月" + day + "天";
+                            }
+                        }else{
+                            //過期
+                            // timedifference.setTextColor(Color.RED);
+                            if (month == 0) {
+                                timedifference="過期" + day + "天" ;
+                            } else if (month == 0 && day == 0) {
+                                timedifference="過期" + hour + "小时" + min + "分";
+                            } else if (month == 0 && day == 0 && hour == 0) {
+                                timedifference="過期" + min + "分";
+                            } else {
+                                timedifference="過期" + month + "月" + day + "天";
+                            }
+                        }
+                        timesee1[k]=timedifference;
+                        break;
+                }
+                k++;
+            }
 
 
             adapter = new MyAdapter(Mysop.this);
+            adapter1= new MyAdapter1(Mysop.this);
             listInput.setAdapter(adapter);
+            listInput1.setAdapter(adapter1);
 
             listInput.setOnItemClickListener(listener);
+            listInput1.setOnItemClickListener(listener);
         }
 
     }
@@ -386,6 +502,56 @@ public class Mysop extends Activity {
             number.setText(list[position]);
             time.setText(timesee[position]);
 
+            return convertView;
+        }
+
+    }
+
+    public class MyAdapter1 extends BaseAdapter {
+        private LayoutInflater myInflater;
+
+
+        public MyAdapter1(Context c) {
+            myInflater = LayoutInflater.from(c);
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return name1.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return name1[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            convertView = myInflater.inflate(R.layout.myxml, null);
+
+            ImageView Logo1 = (ImageView) convertView.findViewById(R.id.imglogo);
+            TextView Name1 = (TextView) convertView.findViewById(R.id.name);
+            TextView number1 = (TextView) convertView
+                    .findViewById(R.id.txtengname);
+            TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
+
+            if(logos[key1[position]]!=R.drawable.white){
+                Logo1.setVisibility(0);
+                time1.setVisibility(8);
+            }
+            Logo1.setImageResource(logos[key1[position]]);
+            Name1.setText(name1[position]);
+            number1.setText(list1[position]);
+            time1.setText(timesee1[position]);
 
             return convertView;
         }

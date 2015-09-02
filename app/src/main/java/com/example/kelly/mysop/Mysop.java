@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +54,7 @@ public class Mysop extends Activity {
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_STARTRULE = "startrule";
     private static final String TAG_STARTVALUE = "startvalue";
+    private static final String TAG_PICTURE = "picture";
     private static String str,timedifference;
     public int check;
     //計算product 長度
@@ -78,11 +83,13 @@ public class Mysop extends Activity {
             R.drawable.gps,R.drawable.qrcode,R.drawable.white };
     int[] key;
     private String[] timesee;
+    private String[] photo;
 
     private String[] list1;
     private String[] name1;
     int[] key1;
     private String[] timesee1;
+    private String[] photo1;
 
 
     @Override
@@ -152,6 +159,32 @@ public class Mysop extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //圖片網址
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
     /**
      * Background Async Task to Load all product by making HTTP Request
      * */
@@ -202,6 +235,7 @@ public class Mysop extends Activity {
                         String sopnumber = c.getString(TAG_CASENUMBER);
                         String startrule = c.getString(TAG_STARTRULE);
                         String startvalue = c.getString(TAG_STARTVALUE);
+                        String picture = c.getString(TAG_PICTURE);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -211,6 +245,7 @@ public class Mysop extends Activity {
                         map.put(TAG_CASENUMBER, sopnumber);
                         map.put(TAG_STARTRULE, startrule);
                         map.put(TAG_STARTVALUE,startvalue);
+                        map.put(TAG_PICTURE,picture);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -244,14 +279,17 @@ public class Mysop extends Activity {
             name = new String[x];
             key = new int[x];
             timesee = new String[x];
+            photo = new String[x];
             list1 = new String[products.length()/2];
             name1 = new String[products.length()/2];
             key1 = new int[products.length()/2];
             timesee1 = new String[products.length()/2];
+            photo1 = new String[products.length()/2];
             // updating UI from Background Thread
             for (int i = 0; i < x; i++) {
                 list[i] = productsList.get(i).get(TAG_CASENUMBER);
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
+                photo[i]=productsList.get(i).get(TAG_PICTURE);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                        // cagetory.setText("人工啟動");
@@ -350,7 +388,7 @@ public class Mysop extends Activity {
 
                 list1[k] = productsList.get(i).get(TAG_CASENUMBER);
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
-                System.out.println("HI"+list1[k]+name1[k]+">"+k);
+                photo[k]=productsList.get(i).get(TAG_PICTURE);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -543,6 +581,7 @@ public class Mysop extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
+            LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
 
             if(logos[key1[position]]!=R.drawable.white){
                 Logo1.setVisibility(0);
@@ -552,6 +591,8 @@ public class Mysop extends Activity {
             Name1.setText(name1[position]);
             number1.setText(list1[position]);
             time1.setText(timesee1[position]);
+
+
 
             return convertView;
         }

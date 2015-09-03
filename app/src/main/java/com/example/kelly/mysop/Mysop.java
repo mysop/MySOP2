@@ -58,7 +58,7 @@ public class Mysop extends Activity {
     private static String str,timedifference;
     public int check;
     //計算product 長度
-    public int x,y;
+    public int x;
 
     private ListView listInput;
     private ListView listInput1;

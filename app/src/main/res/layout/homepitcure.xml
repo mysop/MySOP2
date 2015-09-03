@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="80dp"
-    android:orientation="horizontal"
+    android:layout_width="189dp"
+    android:layout_height="160dp"
+    android:orientation="vertical"
     android:background="#ffffffff"
     android:weightSum="1">
 
 
     <ImageView
         android:id="@+id/imglogo"
-        android:layout_width="81dp"
-        android:layout_height="71dp"
+        android:layout_width="139dp"
+        android:layout_height="98dp"
         android:src="@drawable/white"
         android:layout_margin="10dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="279dp"
-        android:layout_height="72dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="0.73">
+        android:background="#99642100">
 
         <TextView
             android:id="@+id/name"
@@ -28,8 +28,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:text="第一行文字"
-            android:textColor="#FF000000"
-            android:textSize="23dp" />
+            android:textColor="#ffffffff"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/txtengname"
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="第二行文字"
-            android:textColor="#FF000000"
-            android:textSize="16dp" />
+            android:textColor="#ffffffff"
+            android:textSize="10dp" />
     </LinearLayout>
 
 </LinearLayout>

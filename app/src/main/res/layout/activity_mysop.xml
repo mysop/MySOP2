@@ -15,7 +15,7 @@
             android:layout_height="749dp"
             android:id="@+id/list_sop"
             android:layout_gravity="right"
-            android:clickable="false">
+           >
         </ListView>
 
         <ListView

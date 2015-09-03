@@ -65,21 +65,25 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/scrollView3"
         android:layout_gravity="center_horizontal" >
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="409dp"
+                android:layout_width="175dp"
+                android:layout_height="460dp"
                 android:id="@+id/homelist"
                 android:footerDividersEnabled="false" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/homelist1" />
         </LinearLayout>
     </ScrollView>
 

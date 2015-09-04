@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,10 +58,6 @@ public class Home extends Activity {
     private String[] list;
     private String[] name;
     private String[] logos;
-
-    private String[] list2;
-    private String[] name2;
-    private String[] logos2;
 
     private String[] list1;
     private String[] name1;
@@ -207,57 +202,26 @@ public class Home extends Activity {
             list = new String[x];
             name = new String[x];
             logos= new String[x];
-//            list1 = new String[products.length()/2];
-//            name1 = new String[products.length()/2];
-//            logos1 = new String[products.length()/2];
-            list2 = new String[(products.length()+1)/2];
-            name2 = new String[(products.length()+1)/2];
-            logos2 = new String[(products.length()+1)/2];
-
-            if(products.length()%2==0){
-                for (int i = 0; i <products.length(); i=i+2) {
-                    list[k] = productsList.get(i).get(TAG_USERNAME);
-                    name[k] = productsList.get(i).get(TAG_SOPNAME);
-                    logos[k] = productsList.get(i).get(TAG_PICTURE);
-                    list2[k] = productsList.get(i+1).get(TAG_USERNAME);
-                    name2[k] = productsList.get(i+1).get(TAG_SOPNAME);
-                    logos2[k] = productsList.get(i+1).get(TAG_PICTURE);
-                    k++;
-                }
-            }else{
-                for (int i = 0; i <products.length()-1; i=i+2) {
-                    list[k] = productsList.get(i).get(TAG_USERNAME);
-                    name[k] = productsList.get(i).get(TAG_SOPNAME);
-                    logos[k] = productsList.get(i).get(TAG_PICTURE);
-                    list2[k] = productsList.get(i+1).get(TAG_USERNAME);
-                    name2[k] = productsList.get(i+1).get(TAG_SOPNAME);
-                    logos2[k] = productsList.get(i+1).get(TAG_PICTURE);
-                    k++;
-                }
-                list[k] = productsList.get(products.length()-1).get(TAG_USERNAME);
-                name[k] = productsList.get(products.length()-1).get(TAG_SOPNAME);
-                logos[k] = productsList.get(products.length()-1).get(TAG_PICTURE);
-                list2[k] = "aa";
-                name2[k] = "bb";
-                logos2[k] ="http://140.115.80.237/front/picture/white.jpg";
-            }
+            list1 = new String[products.length()/2];
+            name1 = new String[products.length()/2];
+            logos1 = new String[products.length()/2];
             // updating UI from Background Thread
-//            for (int i = 0; i <x; i++) {
-//                list[i] = productsList.get(i).get(TAG_USERNAME);
-//                name[i] = productsList.get(i).get(TAG_SOPNAME);
-//                logos[i] = productsList.get(i).get(TAG_PICTURE);
-//            }
-//
-//            for (int i = products.length()-1; i >=x; i--) {
-//                list1[k] = productsList.get(i).get(TAG_USERNAME);
-//                name1[k] = productsList.get(i).get(TAG_SOPNAME);
-//                logos1[k] = productsList.get(i).get(TAG_PICTURE);
-//                k++;
-//            }
+            for (int i = 0; i <x; i++) {
+                list[i] = productsList.get(i).get(TAG_USERNAME);
+                name[i] = productsList.get(i).get(TAG_SOPNAME);
+                logos[i] = productsList.get(i).get(TAG_PICTURE);
+            }
+
+            for (int i = products.length()-1; i >=x; i--) {
+                list1[k] = productsList.get(i).get(TAG_USERNAME);
+                name1[k] = productsList.get(i).get(TAG_SOPNAME);
+                logos1[k] = productsList.get(i).get(TAG_PICTURE);
+                k++;
+            }
             adapter = new MyAdapter(Home.this);
             homelist.setAdapter(adapter);
-           // adapter1 = new MyAdapter1(Home.this);
-            //homelist1.setAdapter(adapter1);
+            adapter1 = new MyAdapter1(Home.this);
+            homelist1.setAdapter(adapter1);
 
         }
 
@@ -298,25 +262,11 @@ public class Home extends Activity {
             TextView Name = (TextView) convertView.findViewById(R.id.name);
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
-            ImageView Logo2 = (ImageView) convertView.findViewById(R.id.imglogo2);
-            TextView Name2 = (TextView) convertView.findViewById(R.id.name2);
-            TextView number2 = (TextView) convertView
-                    .findViewById(R.id.txtengname2);
-            LinearLayout l2 = (LinearLayout)convertView.findViewById(R.id.secondlayout);
 
             new DownloadImageTask(Logo)
                     .execute(logos[position]);
             Name.setText(name[position]);
             number.setText(list[position]);
-
-
-            new DownloadImageTask(Logo2)
-                    .execute(logos2[position]);
-            Name2.setText(name2[position]);
-            number2.setText(list2[position]);
-            if(list2[position] != "aa"){
-                l2.setVisibility(0);
-            }
 
 
             return convertView;

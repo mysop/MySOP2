@@ -296,8 +296,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity
+            android:name=".TestSendGCM"
+            android:label="@string/title_activity_test_send_gcm" >
+        </activity>
     </application>
 
 </manifest>

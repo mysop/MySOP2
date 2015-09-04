@@ -79,6 +79,7 @@
     <string name="title_activity_step_next_control_user">StepNextControlUser</string>
     <string name="title_activity_step_next_control">StepNextControl</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_test_send_gcm">TestSendGCM</string>
 
 
 

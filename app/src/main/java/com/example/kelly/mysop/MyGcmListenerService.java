@@ -63,7 +63,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         //到底是啥...Mysop.class放這對嗎
 
-        Intent intent = new Intent(this, Mysop.class);
+        Intent intent = new Intent(this, TestSendGCM.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

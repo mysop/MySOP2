@@ -289,15 +289,17 @@
             android:name=".Home"
             android:label="home"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+
+        </activity>
+        <activity
+            android:name=".TestSendGCM"
+            android:label="@string/title_activity_test_send_gcm" >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".TestSendGCM"
-            android:label="@string/title_activity_test_send_gcm" >
         </activity>
     </application>
 

@@ -1,10 +1,16 @@
 package com.example.kelly.mysop;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,53 +22,34 @@ import java.net.URL;
 import java.net.URLConnection;
 
 
-public class TestSendGCM extends ActionBarActivity {
+public class TestSendGCM extends Activity {
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_send_gcm);
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
 
     }
 
-    public void sendNotification(String msg) {
-        new AsyncTask<String, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(String... params) {
-                try {
-                    URLConnection connection = new URL("https://android.googleapis.com/gcm/send").openConnection();
-                    connection.setDoOutput(true);
-                    connection.setRequestProperty("Accept-Charset", "UTF-8");
-                    connection.setRequestProperty("Authorization", "key=AIzaSyDwskyDkNLfMZwiw3lQue_yxsAOL1XrR7A");
-                    connection.setRequestProperty("Content-Type", "application/json");
-
-                    // encode output
-
-                    JSONObject custom_msg = new JSONObject();
-                    custom_msg.put("message", params[0]);
-                    JSONObject notification = new JSONObject();
-                    notification.put("title", "test title");
-                    notification.put("body", "test body");
-                    JSONObject data = new JSONObject();
-                    //data.put("to", client_token); // 這裏放receiver的token
-
-                    data.put("notification", notification);
-                    data.put("data", custom_msg);
-
-                    OutputStream outputStream = connection.getOutputStream();
-                    outputStream.write(data.toString().getBytes("UTF-8"));
-
-                    InputStream inputStream = connection.getInputStream();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return null;
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i("GCM", "This device is not supported.");
+                finish();
             }
-        }.execute(msg);
+            return false;
+        }
+        return true;
     }
 
 

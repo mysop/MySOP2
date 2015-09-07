@@ -302,6 +302,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Search"
+            android:label="@string/title_activity_search"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

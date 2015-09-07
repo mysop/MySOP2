@@ -294,7 +294,7 @@
         </activity>
         <activity
             android:name=".TestSendGCM"
-            android:label="@string/title_activity_test_send_gcm" >
+            android:label="@string/title_activity_test_send_gcm"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

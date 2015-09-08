@@ -61,7 +61,7 @@ public class MyGcmListenerService extends GcmListenerService {
      */
     private void sendNotification(String message) {
 
-        //到底是啥...Mysop.class放這對嗎
+        //點推播通知要開起的頁 Mysop.class
 
         Intent intent = new Intent(this, TestSendGCM.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

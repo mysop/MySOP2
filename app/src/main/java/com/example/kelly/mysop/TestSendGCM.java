@@ -25,6 +25,7 @@ import java.net.URLConnection;
 public class TestSendGCM extends Activity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    String TAG_ACCOUNT = "test@gmail.com";//先寫死
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,10 @@ public class TestSendGCM extends Activity {
         setContentView(R.layout.activity_test_send_gcm);
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
             Intent intent = new Intent(this, RegistrationIntentService.class);
+            intent.putExtras(bundle);
             startService(intent);
         }
 

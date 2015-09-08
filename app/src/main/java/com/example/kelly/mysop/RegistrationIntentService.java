@@ -1,8 +1,12 @@
 package com.example.kelly.mysop;
 
+import android.app.AlertDialog;
 import android.app.IntentService;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -11,7 +15,12 @@ import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
@@ -20,6 +29,12 @@ public class RegistrationIntentService extends IntentService {
     public RegistrationIntentService() {
         super(TAG);
     }
+
+
+    JSONParser jsonParser = new JSONParser();
+    private static String url_token = "http://140.115.80.237/front/mysop_gcm.jsp";
+    private static final String TAG_SUCCESS = "success";
+    String TAG_ACCOUNT="";
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -37,6 +52,10 @@ public class RegistrationIntentService extends IntentService {
             Log.i(TAG, "GCM Registration Token: " + token);
 
             // TODO: Implement this method to send any registration to your app's servers.
+
+            Bundle bundle = intent.getExtras();
+            TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");
+
             sendRegistrationToServer(token);
 
             // Subscribe to topic channels
@@ -64,12 +83,50 @@ public class RegistrationIntentService extends IntentService {
      * Modify this method to associate the user's GCM registration token with any server-side account
      * maintained by your application.
      *
-     * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
         // Add custom implementation, as needed.
+        new sendRegistrationToServer().execute(token);
     }
 
+    class sendRegistrationToServer extends AsyncTask<String, String, Integer> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected Integer doInBackground(String... args) {
+
+            int returnvalue = 0;
+
+            String TAG_TOKEN = args[0];
+
+            ArrayList params = new ArrayList();
+            params.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params.add(new BasicNameValuePair("Token", TAG_TOKEN));
+            JSONObject json = RegistrationIntentService.this.jsonParser.makeHttpRequest(RegistrationIntentService.url_token, "POST", params);
+
+            try {
+                int e = json.getInt(TAG_SUCCESS);
+                if(e == 1) {
+                    returnvalue = 1;
+                }else if(e == 6){
+                    returnvalue = 6;
+                }
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+            return returnvalue;
+        }
+
+        protected void onPostExecute(Integer returnvalue) {
+            if (returnvalue == 1){
+
+            }else{
+                Log.d("Fail to POST","沒有上傳成功");
+            }
+        }
+    }
     /**
      * Subscribe to any GCM topics of interest, as defined by the TOPICS constant.
      *

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Changepassword extends Activity {
 
-    //R檔
+    //R檔又不見了
 //帳號先寫死
     private ProgressDialog pDialog;
     private EditText et1;

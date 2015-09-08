@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center"
-    >
-    <ImageView android:id="@+id/image"
-        android:layout_width="35pt"
-        android:layout_height="35pt"
-        android:layout_marginTop="5pt"
-        >
-    </ImageView>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:id="@+id/text"
-        android:textSize="9pt"
-        android:gravity="center"
-        android:paddingTop = "15px"
-        android:paddingBottom = "15px">
-    </TextView>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/linearlayoutContactName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="#99000000"
+        android:layout_alignBottom="@+id/image">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="Lorem Ipsum" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="5dp"
+            android:focusable="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:textSize="10sp"
+            android:text="123456789" />
+
+    </LinearLayout>
+
+</RelativeLayout>

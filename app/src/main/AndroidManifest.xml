@@ -227,8 +227,7 @@
         <activity
             android:name=".StepCutControl"
             android:label="@string/title_activity_step_cut_control"
-            android:theme="@android:style/Theme.NoDisplay">
-
+            android:theme="@android:style/Theme.NoDisplay" >
         </activity>
         <activity
             android:name=".StepActionControlGPS"
@@ -302,12 +301,15 @@
             android:name=".TestSendGCM"
             android:label="@string/title_activity_test_send_gcm"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Search"
             android:label="@string/title_activity_search"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".p201"
+            android:label="@string/title_activity_p201" >
         </activity>
     </application>
 

@@ -85,6 +85,9 @@ public class Steprecording extends Activity {
         TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
+//        TAG_CASE_NUMBER = "15";
+//        TAG_STEP_NUMBER = "10";
+//        TAG_STEP_ORDER = 1;
         ss.setText(Integer.toString(TAG_STEP_ORDER));
 
         // Hashmap for ListView
@@ -312,7 +315,7 @@ public class Steprecording extends Activity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             // TODO Auto-generated method stub
             if ((e1.getX() - e2.getX()) > 50) {//说明是左滑
-                Log.d("ohitwork",edit1[1].getText().toString());
+                //Log.d("ohitwork",edit1[1].getText().toString());
 
                 boolean didinput = true;
 

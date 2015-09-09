@@ -76,8 +76,8 @@ public class StepCutControl extends Activity {
         protected Integer doInBackground(String... args) {
 
             //先寫死stepnumber
-            String Stepnumber = "1";
-
+            //String Stepnumber = "1";
+            String Stepnumber = TAG_STEP_NUMBER;
             int finishrule=0;
 
             //for get

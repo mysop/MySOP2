@@ -188,6 +188,11 @@
             android:name=".Steprecording"
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".StepcutcontrolArtificial"
@@ -217,12 +222,13 @@
         <activity
             android:name=".StepActionControl"
             android:label="@string/title_activity_step_action_control"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.NoDisplay" >
         </activity>
         <activity
             android:name=".StepCutControl"
             android:label="@string/title_activity_step_cut_control"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.NoDisplay">
+
         </activity>
         <activity
             android:name=".StepActionControlGPS"
@@ -286,7 +292,7 @@
         <activity
             android:name=".StepNextControl"
             android:label="@string/title_activity_step_next_control"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.NoDisplay" >
         </activity>
         <activity
             android:name=".Home"
@@ -296,11 +302,7 @@
             android:name=".TestSendGCM"
             android:label="@string/title_activity_test_send_gcm"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Search"

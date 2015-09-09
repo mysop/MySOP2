@@ -170,10 +170,6 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name=".DynamicAction"
-            android:label="@string/title_activity_dynamic_action" >
-        </activity>
-        <activity
             android:name=".Start"
             android:label="@string/title_activity_start"
             android:theme="@android:style/Theme.Light.NoTitleBar" >

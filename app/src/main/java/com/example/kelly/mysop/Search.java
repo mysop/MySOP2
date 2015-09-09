@@ -3,6 +3,8 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 //import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,10 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,14 +79,6 @@ public class Search extends Activity {
                 Toast.makeText(getApplicationContext(), "您選擇的是"+imgText[position], Toast.LENGTH_SHORT).show();
             }
         }) ;
-//        gridView.setOnItemClickListener(new GridView.OnItemClickListener(){
-//            @Override
-//            public void onItemClick(AdapterView adapterView,View view,int position,long id) {
-//                Toast.makeText(getApplicationContext(), "您選擇的是"+imgText[position], Toast.LENGTH_SHORT).show();
-//            System.out.println("WWW");
-//            }
-//        });
-
 
     }
 
@@ -203,7 +199,7 @@ public class Search extends Activity {
             for (int i = 0; i <products.length(); i++) {
                     imgText[i] = productsList.get(i).get(TAG_SOPNAME);
                     imgText2[i] = productsList.get(i).get(TAG_USERNAME);
-                //    image1[i] = productsList.get(i).get(TAG_PICTURE);
+                   image1[i] = productsList.get(i).get(TAG_PICTURE);
                 }
             for (int i = 0; i < imgText.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
@@ -215,18 +211,33 @@ public class Search extends Activity {
 
         }
 
-    }
-    private GridView.OnItemClickListener listener = new GridView.OnItemClickListener(){
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getApplicationContext(), "Your choice is " + imgText[position],
-                    Toast.LENGTH_SHORT).show();
-            Log.d("gri", "listener");
+    }
+    //圖片網址
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
         }
 
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
 
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 
-    };
 
 }

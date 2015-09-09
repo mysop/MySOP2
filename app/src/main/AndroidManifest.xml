@@ -307,10 +307,6 @@
             android:label="@string/title_activity_search"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity
-            android:name=".p201"
-            android:label="@string/title_activity_p201" >
-        </activity>
     </application>
 
 </manifest>

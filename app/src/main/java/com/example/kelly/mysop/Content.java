@@ -226,9 +226,6 @@ public class Content extends Activity {
 
         protected String doInBackground(String... args) {
 
-
-
-
             ArrayList params = new ArrayList();
             ArrayList params1 = new ArrayList();
             ArrayList params3 = new ArrayList();

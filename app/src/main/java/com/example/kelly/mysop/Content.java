@@ -71,7 +71,8 @@ public class Content extends Activity {
 
 
     TextView sopnumber;
-    String TAG_ACCOUNT = "abc@gmail.com";
+    String TAG_ACCOUNT = "";
+    String TAG_SOP_NUMBER = "";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
@@ -141,7 +142,8 @@ public class Content extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-       // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
 
 
         // Hashmap for ListView
@@ -224,7 +226,7 @@ public class Content extends Activity {
 
         protected String doInBackground(String... args) {
 
-            String Sopnumber = Content.this.sopnumber.getText().toString();
+
 
 
             ArrayList params = new ArrayList();
@@ -232,10 +234,10 @@ public class Content extends Activity {
             ArrayList params3 = new ArrayList();
             ArrayList params2 = new ArrayList();
 
-            params1.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
-            params.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
-            params3.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
-            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params1.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
+            params.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
+            params3.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
+            params2.add(new BasicNameValuePair("Sopnumber",TAG_SOP_NUMBER) );
 
             // json抓sop內容  json1抓評論  json3抓like數
             JSONObject json = Content.this.jsonParser.makeHttpRequest(Content.url_create_product, "GET", params);
@@ -434,14 +436,14 @@ public class Content extends Activity {
         protected String doInBackground(String... args) {
 
             String Inputtext = Content.this.inputText.getText().toString();
-            String Sopnumber = Content.this.sopnumber.getText().toString();
+
 
             //for get
             ArrayList params2 = new ArrayList();
 
             params2.add(new BasicNameValuePair("Inputtext", Inputtext) );
             params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
-            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params2.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product2,"POST",params2);
 
@@ -487,13 +489,11 @@ public class Content extends Activity {
         protected String doInBackground(String... args) {
 
 
-            String Sopnumber = Content.this.sopnumber.getText().toString();
-
             //for get
             ArrayList params2 = new ArrayList();
 
             params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
-            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            params2.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
             params2.add(new BasicNameValuePair("Stepnumber", STEPNUMBER) );
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);

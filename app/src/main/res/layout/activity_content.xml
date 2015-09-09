@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="20150803"
+                        android:text="sopnumber"
                         android:id="@+id/content_sopnumber"
                         android:layout_marginLeft="20dp"
                         android:textColor="#ff010105" />

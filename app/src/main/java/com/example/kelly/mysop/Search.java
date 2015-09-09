@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.widget.AdapterView.OnItemClickListener;
 
 import org.apache.http.NameValuePair;
@@ -36,55 +37,67 @@ public class Search extends Activity {
     private GridView gridView;
     private int[] image = {
             R.drawable.star1, R.drawable.star2, R.drawable.test,
-            R.drawable.test1, R.drawable.test2,R.drawable.test,
+            R.drawable.test1, R.drawable.test2, R.drawable.test,
             R.drawable.test1, R.drawable.test2
     };
-    private String[] image1 ;
-    private String[] imgText ;
+    private String[] image1;
+    private String[] imgText;
     private String[] imgText2;
+    private String[] sopnumberarray;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList = new ArrayList<HashMap<String, String>>();
-    private static String url_all_products = "http://140.115.80.237/front/mysop_home.jsp";
+    private static String url_all_products = "http://140.115.80.237/front/mysop_search.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_USERNAME = "username";
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_PICTURE = "picture";
+    private static final String TAG_SOPNUMBER = "sop_number";
     JSONArray products = null;
-    int jj=10;
 
-    List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
+
+    List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
     SimpleAdapter adapter;
+    //帳號先寫死
+    String TAG_ACCOUNT = "abc@gmail.com";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+
         new LoadSearch().execute();
 
         adapter = new SimpleAdapter(this,
-                items, R.layout.grid_item, new String[]{"image", "text","text2"},
-                new int[]{R.id.image, R.id.text,R.id.text2});
+                items, R.layout.grid_item, new String[]{"image", "text", "text2"},
+                new int[]{R.id.image, R.id.text, R.id.text2});
 
-        gridView = (GridView)findViewById(R.id.main_page_gridview);
+        gridView = (GridView) findViewById(R.id.main_page_gridview);
         gridView.setNumColumns(2);
 
         gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new OnItemClickListener () {
+        gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-                Toast.makeText(getApplicationContext(), "您選擇的是"+imgText[position], Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "您選擇的是" + imgText[position], Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+                bundle.putString("TAG_SOP_NUMBER", sopnumberarray[position]);
+                Intent it1 = new Intent(Search.this,Content.class);
+                it1.putExtras(bundle);//將參數放入intent
+                startActivity(it1);
             }
-        }) ;
+        });
 
     }
-
-
-
-
 
 
     @Override
@@ -113,11 +126,11 @@ public class Search extends Activity {
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("CY","onPreExcute");
+            Log.d("CY", "onPreExcute");
             pDialog = new ProgressDialog(Search.this);
             pDialog.setMessage("Loading products. Please wait...");
             pDialog.setIndeterminate(false);
@@ -127,14 +140,14 @@ public class Search extends Activity {
 
         /**
          * getting All products from url
-         * */
+         */
         protected String doInBackground(String... args) {
-            Log.d("CY","doBackground");
+            Log.d("CY", "doBackground");
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
             // getting JSON string from URL
-            JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products,"GET", params);
+            JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products, "GET", params);
 
 
             // Check your log cat for JSON reponse
@@ -145,7 +158,7 @@ public class Search extends Activity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    Log.d("CY","success");
+                    Log.d("CY", "success");
                     // products found
                     // Getting Array of Products
                     products = json.getJSONArray(TAG_PRODUCTS);
@@ -158,7 +171,8 @@ public class Search extends Activity {
                         String sopname = c.getString(TAG_SOPNAME);
                         String username = c.getString(TAG_USERNAME);
                         String picture = c.getString(TAG_PICTURE);
-                        Log.d("CY","sopname "+sopname+" username "+username+" picture "+picture);
+                        String sop_number = c.getString(TAG_SOPNUMBER);
+                        Log.d("CY", "sopname " + sopname + " username " + username + " picture " + picture);
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
@@ -166,7 +180,7 @@ public class Search extends Activity {
                         map.put(TAG_SOPNAME, sopname);
                         map.put(TAG_USERNAME, username);
                         map.put(TAG_PICTURE, picture);
-
+                        map.put(TAG_SOPNUMBER, sop_number);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -184,28 +198,28 @@ public class Search extends Activity {
 
         /**
          * After completing background task Dismiss the progress dialog
-         * **/
+         **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
-            Log.d("CY","onPostExecute");
+            Log.d("CY", "onPostExecute");
             pDialog.dismiss();
 
-            jj=products.length();
             imgText = new String[products.length()];
             imgText2 = new String[products.length()];
             image1 = new String[products.length()];
+            sopnumberarray = new String[products.length()];
 
-
-            for (int i = 0; i <products.length(); i++) {
-                    imgText[i] = productsList.get(i).get(TAG_SOPNAME);
-                    imgText2[i] = productsList.get(i).get(TAG_USERNAME);
-                   image1[i] = productsList.get(i).get(TAG_PICTURE);
-                }
+            for (int i = 0; i < products.length(); i++) {
+                imgText[i] = productsList.get(i).get(TAG_SOPNAME);
+                imgText2[i] = productsList.get(i).get(TAG_USERNAME);
+                image1[i] = productsList.get(i).get(TAG_PICTURE);
+                sopnumberarray[i] = productsList.get(i).get(TAG_SOPNUMBER);
+            }
             for (int i = 0; i < imgText.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
                 item.put("image", image[i]);
                 item.put("text", imgText[i]);
-                item.put("text2",imgText2[i]);
+                item.put("text2", imgText2[i]);
                 items.add(item);
             }
 
@@ -213,6 +227,7 @@ public class Search extends Activity {
 
 
     }
+
     //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;

@@ -52,7 +52,7 @@ public class Search extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList = new ArrayList<HashMap<String, String>>();
-    private static String url_all_products = "http://140.115.80.237/front/mysop_search.jsp";
+    private static String url_all_products1 = "http://140.115.80.237/front/mysop_search1.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_USERNAME = "username";
@@ -64,7 +64,7 @@ public class Search extends Activity {
 
     List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
     SimpleAdapter adapter;
-    //帳號先寫死 下一個是關鍵字
+    //帳號先寫死 下一個是關鍵字(要傳進來“” 不然會死掉)
     String TAG_ACCOUNT = "abc@gmail.com";
     String TAG_Key="";
 
@@ -81,6 +81,7 @@ public class Search extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_Key = bundle.getString("TAG_Key");
 
         new LoadSearch().execute();
 
@@ -179,11 +180,13 @@ public class Search extends Activity {
         if (searchObject == null) {
             //搜尋空值，不做事
         } else {
-//            Intent intent = new Intent(this, xxxx.class); //前進至xxxx頁面
-//            intent.putExtra("searchName", searchObject); //傳值
-//            startActivity(intent); //啟動出發
-            Toast.makeText(this, "search", Toast.LENGTH_LONG).show();
-            System.out.println("qwe"+searchObject);
+
+            Toast.makeText(this, "Searching", Toast.LENGTH_LONG).show();
+            Log.d("CY", "search");
+            TAG_Key=searchObject;
+            Intent intent = new Intent(this, Search.class); //前進至xxxx頁面
+            intent.putExtra("TAG_Key", TAG_Key); //傳值
+            startActivity(intent); //啟動出發
 
         }
     }
@@ -201,7 +204,7 @@ public class Search extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("CY", "onPreExcute");
+
             pDialog = new ProgressDialog(Search.this);
             pDialog.setMessage("Loading ... Please wait...");
             pDialog.setIndeterminate(false);
@@ -213,23 +216,21 @@ public class Search extends Activity {
          * getting All products from url
          */
         protected String doInBackground(String... args) {
-            Log.d("CY", "doBackground");
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("Key", TAG_Key) );
             // params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
             // getting JSON string from URL
-            JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products, "GET", params);
+            JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products1, "GET", params);
 
 
             // Check your log cat for JSON reponse
-            Log.d("All Products: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    Log.d("CY", "success");
                     // products found
                     // Getting Array of Products
                     products = json.getJSONArray(TAG_PRODUCTS);
@@ -243,7 +244,6 @@ public class Search extends Activity {
                         String username = c.getString(TAG_USERNAME);
                         String picture = c.getString(TAG_PICTURE);
                         String sop_number = c.getString(TAG_SOPNUMBER);
-                        Log.d("CY", "sopname " + sopname + " username " + username + " picture " + picture);
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
@@ -272,7 +272,6 @@ public class Search extends Activity {
          **/
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
-            Log.d("CY", "onPostExecute");
             pDialog.dismiss();
 
             imgText = new String[products.length()];
@@ -325,112 +324,7 @@ public class Search extends Activity {
         }
     }
 
-    //搜尋功能
-    class SearchKey extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d("CY", "onPreExcute");
-            pDialog = new ProgressDialog(Search.this);
-            pDialog.setMessage("Searching... Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        /**
-         * getting All products from url
-         */
-        protected String doInBackground(String... args) {
-            Log.d("CY", "doBackground");
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("Key", TAG_Key) );
-            // getting JSON string from URL
-            JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products, "GET", params);
-
-
-            // Check your log cat for JSON reponse
-            Log.d("All Products: ", json.toString());
-
-            try {
-                // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
-
-                if (success == 1) {
-                    Log.d("CY", "success");
-                    // products found
-                    // Getting Array of Products
-                    products = json.getJSONArray(TAG_PRODUCTS);
-
-                    // looping through All Products
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
-
-                        // Storing each json item in variable
-                        String sopname = c.getString(TAG_SOPNAME);
-                        String username = c.getString(TAG_USERNAME);
-                        String picture = c.getString(TAG_PICTURE);
-                        String sop_number = c.getString(TAG_SOPNUMBER);
-                        Log.d("CY", "sopname " + sopname + " username " + username + " picture " + picture);
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_SOPNAME, sopname);
-                        map.put(TAG_USERNAME, username);
-                        map.put(TAG_PICTURE, picture);
-                        map.put(TAG_SOPNUMBER, sop_number);
-
-                        // adding HashList to ArrayList
-                        productsList.add(map);
-                    }
-                } else {
-
-
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         **/
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
-            Log.d("CY", "onPostExecute");
-            pDialog.dismiss();
-
-            imgText = new String[products.length()];
-            imgText2 = new String[products.length()];
-            image1 = new String[products.length()];
-            sopnumberarray = new String[products.length()];
-
-            for (int i = 0; i < products.length(); i++) {
-                imgText[i] = productsList.get(i).get(TAG_SOPNAME);
-                imgText2[i] = productsList.get(i).get(TAG_USERNAME);
-                image1[i] = productsList.get(i).get(TAG_PICTURE);
-                sopnumberarray[i] = productsList.get(i).get(TAG_SOPNUMBER);
-            }
-            for (int i = 0; i < imgText.length; i++) {
-                Map<String, Object> item = new HashMap<String, Object>();
-                item.put("image", image[i]);
-                item.put("text", imgText[i]);
-                item.put("text2", imgText2[i]);
-                items.add(item);
-            }
-
-        }
-
-
-    }
 
 
 

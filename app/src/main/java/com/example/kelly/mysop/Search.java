@@ -143,7 +143,7 @@ public class Search extends Activity {
             super.onPreExecute();
             Log.d("CY", "onPreExcute");
             pDialog = new ProgressDialog(Search.this);
-            pDialog.setMessage("Loading products. Please wait...");
+            pDialog.setMessage("Loading ... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -276,7 +276,7 @@ public class Search extends Activity {
             super.onPreExecute();
             Log.d("CY", "onPreExcute");
             pDialog = new ProgressDialog(Search.this);
-            pDialog.setMessage("Loading products. Please wait...");
+            pDialog.setMessage("Searching... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();

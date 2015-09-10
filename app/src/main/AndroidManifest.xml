@@ -314,6 +314,10 @@
             android:name=".Dynamic_action"
             android:label="@string/title_activity_dynamic_action" >
         </activity>
+        <activity
+            android:name=".DynamicAction"
+            android:label="@string/title_activity_dynamic_action" >
+        </activity>
     </application>
 
 </manifest>

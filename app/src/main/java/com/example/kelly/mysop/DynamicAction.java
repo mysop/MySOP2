@@ -1,11 +1,11 @@
 package com.example.kelly.mysop;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DynamicAction extends AppCompatActivity {
+public class DynamicAction extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

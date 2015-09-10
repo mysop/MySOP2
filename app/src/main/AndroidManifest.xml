@@ -303,16 +303,8 @@
             android:label="@string/title_activity_search" >
         </activity>
         <activity
-            android:name=".p201"
-            android:label="@string/title_activity_p201" >
-        </activity>
-        <activity
             android:name=".Mysop1"
             android:label="@string/title_activity_mysop1" >
-        </activity>
-        <activity
-            android:name=".Dynamic_action"
-            android:label="@string/title_activity_dynamic_action" >
         </activity>
         <activity
             android:name=".DynamicAction"

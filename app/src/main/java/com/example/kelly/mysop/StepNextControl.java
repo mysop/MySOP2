@@ -112,38 +112,48 @@ public class StepNextControl extends Activity {
 
             //設定傳送參數
             Bundle bundle = new Bundle();
-            bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
             bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
 
-            switch (nextsteprule){
-                case 1:
-                    // 依順序決定
-                    Intent it1 = new Intent(StepNextControl.this,StepActionControl.class);
-                    it1.putExtras(bundle);//將參數放入intent
-                    startActivity(it1);
-                    finish();
-                    break;
-                case 2:
-                    // 依使用者決定
-                    Intent it2 = new Intent(StepNextControl.this,StepNextControlUser.class);
-                    it2.putExtras(bundle);//將參數放入intent
-                    startActivity(it2);
-                    finish();
-                    break;
-                case 3:
-                    // 依資料決定
-                    Intent it3 = new Intent(StepNextControl.this,StepNextControl.class);
-                    it3.putExtras(bundle);//將參數放入intent
-                    startActivity(it3);
-                    finish();
-                    break;
+            //依順序決定but又是最後一步
+            if(nextsteprule == null){
+                Intent it = new Intent(StepNextControl.this, StepCaseEnding.class);
+                it.putExtras(bundle);
+                startActivity(it);
+                finish();
 
-                default:
-                    System.out.println("WRONG");
-                    break;
+            }else {
 
+                bundle.putString("TAG_NEXT_STEP_NUMBER", TAG_NEXT_STEP_NUMBER);
+
+                switch (nextsteprule) {
+                    case 1:
+                        // 依順序決定
+                        Intent it1 = new Intent(StepNextControl.this, StepActionControl.class);
+                        it1.putExtras(bundle);//將參數放入intent
+                        startActivity(it1);
+                        finish();
+                        break;
+                    case 2:
+                        // 依使用者決定
+                        Intent it2 = new Intent(StepNextControl.this, StepNextControlUser.class);
+                        it2.putExtras(bundle);//將參數放入intent
+                        startActivity(it2);
+                        finish();
+                        break;
+                    case 3:
+                        // 依資料決定
+                        Intent it3 = new Intent(StepNextControl.this, StepNextControl.class);
+                        it3.putExtras(bundle);//將參數放入intent
+                        startActivity(it3);
+                        finish();
+                        break;
+
+                    default:
+                        System.out.println("WRONG");
+                        break;
+
+                }
             }
-
 
         }
 

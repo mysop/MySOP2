@@ -3,14 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.example.kelly.mysop.Search">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <!--<item-->
+        <!--android:actionLayout="@layout/search_layout"-->
+        <!--android:id="@+id/searching"-->
+        <!--android:title="搜尋"-->
+        <!--android:actionViewClass="android.widget.SearchView"-->
+        <!--android:showAsAction="collapseActionView|ifRoom"-->
+        <!--android:icon="@drawable/search"-->
+
+        <!--/>-->
     <item
         android:actionLayout="@layout/search_layout"
-        android:id="@+id/searching"
+        android:id="@+id/action_search"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom|collapseActionView"
         android:title="搜尋"
-        android:actionViewClass="android.widget.SearchView"
-        android:showAsAction="collapseActionView|ifRoom"
-        android:icon="@drawable/search"
-
         />
 
 </menu>

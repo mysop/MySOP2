@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#e2ffd722">
     <EditText android:hint="搜尋團購商品..."
         android:id="@+id/search"
         android:layout_width="wrap_content"

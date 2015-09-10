@@ -8,11 +8,15 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 //import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,9 +64,13 @@ public class Search extends Activity {
 
     List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
     SimpleAdapter adapter;
-    //帳號先寫死
+    //帳號先寫死 下一個是關鍵字
     String TAG_ACCOUNT = "abc@gmail.com";
     String TAG_Key="";
+
+    private EditText searchName;
+    private String searchObject;
+    private Button searchButton;
 
 
     @Override
@@ -92,7 +100,7 @@ public class Search extends Activity {
                 Bundle bundle = new Bundle();
                 bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
                 bundle.putString("TAG_SOP_NUMBER", sopnumberarray[position]);
-                Intent it1 = new Intent(Search.this,Content.class);
+                Intent it1 = new Intent(Search.this, Content.class);
                 it1.putExtras(bundle);//將參數放入intent
                 startActivity(it1);
             }
@@ -105,6 +113,45 @@ public class Search extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        View v = (View) menu.findItem(R.id.action_search).getActionView();
+        //文字編輯部分
+        searchName = (EditText) v.findViewById(R.id.search);
+        searchName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                // TODO Auto-generated method stub
+                try {
+                    searchObject = searchName.getText().toString(); // 取得輸入文字
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
+
+        //送出部分
+        searchButton = (Button) v.findViewById(R.id.searchGo);
+        searchButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                goSearch(); //要做甚麼
+            }
+        });
+
         return true;
     }
 
@@ -119,14 +166,27 @@ public class Search extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.searching) {
+        if (id == R.id.action_search) {
             openSearch();
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
+    void goSearch() {
+        if (searchObject == null) {
+            //搜尋空值，不做事
+        } else {
+//            Intent intent = new Intent(this, xxxx.class); //前進至xxxx頁面
+//            intent.putExtra("searchName", searchObject); //傳值
+//            startActivity(intent); //啟動出發
+            Toast.makeText(this, "search", Toast.LENGTH_LONG).show();
+            System.out.println("qwe"+searchObject);
+
+        }
+    }
     public void openSearch()
     {
         Toast.makeText(this, "按了 尋找 鈕", Toast.LENGTH_LONG).show();

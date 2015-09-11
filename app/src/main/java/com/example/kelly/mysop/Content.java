@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -32,7 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 //134行 帳號暫時註解
@@ -52,7 +55,7 @@ public class Content extends Activity {
     private TextView cagetory;
     private TextView subtitle;
     private TextView Ctext;
-    private ImageView graph1,graph2,graph3;
+    private ImageView graph1,graph2,graph3,likepitcure;
     private HorizontalScrollView horizontalScrollView;
 
     JSONParser jsonParser = new JSONParser();
@@ -68,11 +71,12 @@ public class Content extends Activity {
     private static String url_create_product5 = "http://140.115.80.237/front/mysop_content6.jsp";
     //讀取 sop的 步驟一的stepnumber for 加入清單用
     private static String url_create_product6 = "http://140.115.80.237/front/mysop_content2.jsp";
-
+    //按讚
+    private static String url_create_product7 = "http://140.115.80.237/front/mysop_content7.jsp";
 
     TextView sopnumber;
-    String TAG_ACCOUNT = "";
-    String TAG_SOP_NUMBER = "";
+    String TAG_ACCOUNT = "test@gmail.com";
+    String TAG_SOP_NUMBER = "20150812";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
@@ -112,6 +116,9 @@ public class Content extends Activity {
     JSONArray products = null;
     JSONArray likeproducts = null;
 
+    //紀錄like時間
+    String str;
+
 
 
     @Override
@@ -138,12 +145,14 @@ public class Content extends Activity {
         graph2=(ImageView)findViewById(R.id.graph2);
         graph3=(ImageView)findViewById(R.id.graph3);
 
+        likepitcure=(ImageView)findViewById(R.id.like);
+
         horizontalScrollView=( HorizontalScrollView)findViewById(R.id.horizontalScrollView);
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
-        TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
+       // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+       // TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
 
 
         // Hashmap for ListView
@@ -151,6 +160,7 @@ public class Content extends Activity {
         likeproductsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
          new SOPContent().execute();
+
 
     }
 
@@ -185,6 +195,17 @@ public class Content extends Activity {
         new SOPContent2().execute();
         Intent it = new Intent(this,Mysop.class);
         startActivity(it);
+    }
+
+    //新增按讚
+    public void onlike (View v){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+        str = formatter.format(curDate);
+        Toast.makeText(this, "Like"+str, Toast.LENGTH_LONG).show();
+        new ContentLike().execute();
+
     }
    //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -490,7 +511,7 @@ public class Content extends Activity {
             ArrayList params2 = new ArrayList();
 
             params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
-            params2.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER) );
+            params2.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER));
             params2.add(new BasicNameValuePair("Stepnumber", STEPNUMBER) );
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);
@@ -508,6 +529,52 @@ public class Content extends Activity {
             return null;
         }
 
+    }
+
+    //加入按讚
+    class ContentLike extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Content.this);
+            pDialog.setMessage("Like... Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            String Liketime=str;
+            ArrayList params7 = new ArrayList();
+
+            params7.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params7.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER));
+            params7.add(new BasicNameValuePair("Liketime", Liketime));
+            System.out.println("account " + TAG_ACCOUNT + "sopnumber " + TAG_SOP_NUMBER + "Like " + str);
+
+            JSONObject json7 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product7,"POST",params7);
+
+            try {
+                //按攥
+                int e3 = json7.getInt(TAG_SUCCESS);
+                if(e3 == 1) {
+                    Log.d("like","sucess");
+                }else {
+                    Log.d("like","nonsucess");
+                    System.out.println("sucess=" + e3);
+                }
+
+            } catch (JSONException var9) {
+                var9.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            pDialog.dismiss();
+            likepitcure.setImageResource(R.drawable.like);
+
+        }
     }
 
 }

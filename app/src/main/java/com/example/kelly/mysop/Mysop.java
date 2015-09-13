@@ -73,7 +73,7 @@ public class Mysop extends Activity {
     JSONArray products = null;
 
    //帳號先寫死
-    String TAG_ACCOUNT = "test@gmail.com";
+    String TAG_ACCOUNT = "";
 
 
     //存casenumber  sopname
@@ -101,9 +101,9 @@ public class Mysop extends Activity {
        // adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
 
 
-//        Intent intent = this.getIntent();
-//        Bundle bundle = intent.getExtras();
-//        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
                 // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();

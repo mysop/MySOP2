@@ -163,6 +163,11 @@
         <activity
             android:name=".Mysop"
             android:label="@string/title_activity_mysop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Content"
@@ -184,11 +189,7 @@
             android:name=".Steprecording"
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StepcutcontrolArtificial"

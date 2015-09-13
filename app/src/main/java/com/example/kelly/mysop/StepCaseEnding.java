@@ -43,7 +43,7 @@ public class StepCaseEnding extends Activity {
 
     //先寫死帳號和 SOPnumber
     String TAG_ACCOUNT = "q@gmail.com";
-    String Sopnumber = "20150814";
+    String Sopnumber = "";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> valueList;
     JSONArray products = null;
@@ -65,6 +65,7 @@ public class StepCaseEnding extends Activity {
     JSONParser jParser = new JSONParser();
     EditText[] edit = new EditText[20];
     String RecordText[] = new String[20];
+    String TAG_CASE_NUMBER="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,9 @@ public class StepCaseEnding extends Activity {
 
         change=(Button)findViewById(R.id.change);
 
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");	//輸出Bundle內容
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -118,7 +122,7 @@ public class StepCaseEnding extends Activity {
     }
 
     public void close (View v){
-        new SOPContent2().execute();
+        //new SOPContent2().execute();
         Intent it = new Intent(this,Mysop.class);
         startActivity(it);
     }
@@ -237,13 +241,7 @@ public class StepCaseEnding extends Activity {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-            //先寫死stepnumber casenumber
-            String Stepnumber ="1" ;
-            String Casenumber="4";
-
-
-            params.add(new BasicNameValuePair("Stepnumber", Stepnumber) );
-            params.add(new BasicNameValuePair("Casenumber", Casenumber) );
+            params.add(new BasicNameValuePair("Casenumber", TAG_CASE_NUMBER) );
 
             JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
 

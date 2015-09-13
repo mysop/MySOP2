@@ -147,6 +147,13 @@ public class StepNextControl extends Activity {
                         startActivity(it3);
                         finish();
                         break;
+                    case 0:
+                        // 依資料決定
+                        Intent it4 = new Intent(StepNextControl.this, StepCaseEnding.class);
+                        it4.putExtras(bundle);//將參數放入intent
+                        startActivity(it4);
+                        finish();
+                        break;
 
                     default:
                         System.out.println("WRONG");

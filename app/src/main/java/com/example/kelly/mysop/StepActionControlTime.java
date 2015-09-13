@@ -215,18 +215,14 @@ public class StepActionControlTime extends Activity {
                     }
                 }else{
                     //過期
-                    timedifference.setTextColor(Color.RED);
+                    Intent intent = new Intent(StepActionControlTime.this,Stepdescription.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_CASE_NUMBER",TAG_CASE_NUMBER);
+                    bundle.putString("TAG_STEP_NUMBER", TAG_STEP_NUMBER);
+                    bundle.putInt("TAG_STEP_ORDER", TAG_STEP_ORDER);
+                    intent.putExtras(bundle);//將參數放入intent
+                    startActivity(intent);
                     timebtn.setText("啟動");
-                    if (month == 0) {
-                        timedifference.setText("過期" + day + "天" + hour + "小时" + min + "分");
-                    } else if (month == 0 && day == 0) {
-                        timedifference.setText("過期" + hour + "小时" + min + "分");
-                    } else if (month == 0 && day == 0 && hour == 0) {
-                        timedifference.setText("過期" + min + "分");
-                        timedifference.setTextColor(Color.RED);
-                    } else {
-                        timedifference.setText("過期" + month + "月" + day + "天" + hour + "小时" + min + "分");
-                    }
                 }
             }
 

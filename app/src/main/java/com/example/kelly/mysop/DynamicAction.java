@@ -140,13 +140,17 @@ public class DynamicAction extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.title_section1: break;
+            case R.id.title_section2: break;
+            case R.id.title_section3: break;
+            case R.id.title_section4: break;
+            case R.id.title_section5: break;
+            case R.id.title_section6: break;
+            case R.id.title_section7: break;
+            default: return false;
         }
-
-        return super.onOptionsItemSelected(item);
+            return true;
     }
     //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

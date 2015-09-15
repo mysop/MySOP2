@@ -91,8 +91,8 @@ public class DynamicAction extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_action);
-        listInput = (ListView)findViewById(R.id.list_sop);
-        listInput1 = (ListView)findViewById(R.id.list_sop2);
+        listInput = (ListView)findViewById(R.id.list_dynamic);
+        listInput1 = (ListView)findViewById(R.id.list_dynamic2);
         // adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,items);
 
 

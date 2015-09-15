@@ -13,7 +13,7 @@
         <ListView
             android:layout_width="189dp"
             android:layout_height="749dp"
-            android:id="@+id/list_sop"
+            android:id="@+id/list_dynamic"
             android:layout_gravity="right"
             >
         </ListView>
@@ -21,7 +21,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list_sop2" />
+            android:id="@+id/list_dynamic2" />
 
     </LinearLayout>
 </ScrollView>

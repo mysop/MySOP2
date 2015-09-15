@@ -98,7 +98,7 @@ public class Emailverify extends Activity {
             try {
                 int e = json.getInt(TAG_SUCCESS);
                 if(e == 1) {
-/*                    Intent i = new Intent(Emailverify.this.getApplicationContext(), Emailverify.class);
+/*                    Intent i = new Intent(Emailverify.this.getApplicationContext(), Home.class);
                     Emailverify.this.startActivity(i);
                     Emailverify.this.finish();
                     AlertDialog.Builder dialog = new AlertDialog.Builder(Emailverify.this);

@@ -73,7 +73,7 @@ public class Mysop extends Activity {
     JSONArray products = null;
 
    //帳號先寫死
-    String TAG_ACCOUNT = "";
+    String TAG_ACCOUNT = "test@gmail.com";
 
 
     //存casenumber  sopname
@@ -103,7 +103,7 @@ public class Mysop extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+       // TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
                 // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -270,8 +270,10 @@ public class Mysop extends Activity {
 
             int k=0;
             if(products.length()%2==0){
+                int test2 =products.length();
                 x=products.length()/2;
             }else{
+                int test1 =products.length()+1;
                 x=(products.length()+1)/2;
             }
 

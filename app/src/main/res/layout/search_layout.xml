@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#e2ffd722">
-    <EditText android:hint="搜尋團購商品..."
+    android:background="#000000">
+    <EditText android:hint="請輸入關鍵字..."
         android:id="@+id/search"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:background="#000000"
+        android:textColor="#b9b9b9">
 
     </EditText>
 

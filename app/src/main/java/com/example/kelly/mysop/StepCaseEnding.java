@@ -42,8 +42,8 @@ public class StepCaseEnding extends Activity {
     public int Step=1;
 
     //先寫死帳號和 SOPnumber
-    String TAG_ACCOUNT = "q@gmail.com";
-    String Sopnumber = "";
+    String TAG_ACCOUNT = "test@gmail.com";
+    String Sopnumber = "5";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> valueList;
     JSONArray products = null;
@@ -65,7 +65,7 @@ public class StepCaseEnding extends Activity {
     JSONParser jParser = new JSONParser();
     EditText[] edit = new EditText[20];
     String RecordText[] = new String[20];
-    String TAG_CASE_NUMBER="";
+    String TAG_CASE_NUMBER="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class StepCaseEnding extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");	//輸出Bundle內容
+        //TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");	//輸出Bundle內容
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -122,9 +122,8 @@ public class StepCaseEnding extends Activity {
     }
 
     public void close (View v){
-        //new SOPContent2().execute();
-        Intent it = new Intent(this,Mysop.class);
-        startActivity(it);
+        new SOPContent2().execute();
+
     }
 
     //更改紀錄
@@ -143,7 +142,7 @@ public class StepCaseEnding extends Activity {
         protected String doInBackground(Integer... args) {
 
             //先寫死stepnumber
-            String Casenumber ="4" ;
+            //String Casenumber ="" ;
 
             int a=args[0];
             String RecordOrder=Integer.toString(a+1);
@@ -153,7 +152,7 @@ public class StepCaseEnding extends Activity {
             System.out.println("jj"+RecordText[a]);
 
             params.add(new BasicNameValuePair("Newtext", RecordText[a]) );
-            params.add(new BasicNameValuePair("Casenumber", Casenumber) );
+            params.add(new BasicNameValuePair("Casenumber", TAG_CASE_NUMBER) );
             params.add(new BasicNameValuePair("Recordorder", RecordOrder) );
 
             // 上傳更改的紀錄
@@ -163,6 +162,8 @@ public class StepCaseEnding extends Activity {
                 //更改紀錄
                 int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
+
+                }else{
 
                 }
 
@@ -206,6 +207,10 @@ public class StepCaseEnding extends Activity {
 
                 int e3 = json2.getInt(TAG_SUCCESS);
                 if(e3 == 1) {
+                    Intent it = new Intent(StepCaseEnding.this,Mysop.class);
+                    startActivity(it);
+                }else {
+
                 }
 
             } catch (JSONException var9) {

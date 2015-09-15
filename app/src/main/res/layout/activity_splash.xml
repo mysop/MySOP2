@@ -28,18 +28,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView6"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ncu"
-        android:layout_marginTop="475dp"
-        android:layout_marginRight="80dp"
-        android:layout_toEndOf="@+id/progressBar" />
+        android:layout_alignEnd="@+id/imageView5"
+        android:src="@drawable/ncu" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView7"
-        android:layout_alignParentEnd="false"
-        android:src="@drawable/ftc3x"
-        android:layout_toEndOf="@+id/progressBar"
-        android:layout_marginTop="475dp"
-        android:layout_marginLeft="70dp" />
+        android:layout_alignTop="@+id/imageView6"
+        android:layout_toStartOf="@+id/imageView6"
+        android:src="@drawable/ftc3x" />
+
 </RelativeLayout>

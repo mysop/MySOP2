@@ -41,8 +41,8 @@ public class DynamicAction extends Activity {
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
     //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
-    // private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static String url_all_products = "http://140.115.80.237/front/mysop_mysop.jsp";
+    //private static String url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_CASENUMBER = "casenumber";
@@ -51,6 +51,7 @@ public class DynamicAction extends Activity {
     private static final String TAG_STARTVALUE = "startvalue";
     private static final String TAG_PICTURE = "picture";
     private static String str,timedifference;
+    public String TAG_RULE = "3";
     public int check;
     //計算product 長度
     public int x;
@@ -98,7 +99,7 @@ public class DynamicAction extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+        //TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -141,13 +142,51 @@ public class DynamicAction extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch(id){
-            case R.id.title_section1: break;
-            case R.id.title_section2: break;
-            case R.id.title_section3: break;
-            case R.id.title_section4: break;
-            case R.id.title_section5: break;
-            case R.id.title_section6: break;
-            case R.id.title_section7: break;
+            case R.id.title_section1:
+              TAG_RULE = "1";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                break;
+            case R.id.title_section2:
+                TAG_RULE = "2";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                break;
+            case R.id.title_section3:
+                TAG_RULE = "3";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                break;
+            case R.id.title_section4:
+                TAG_RULE = "4";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+
+                break;
+            case R.id.title_section5:
+                TAG_RULE = "5";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                setContentView(R.layout.activity_dynamic_action);
+                listInput = (ListView)findViewById(R.id.list_dynamic);
+                listInput1 = (ListView)findViewById(R.id.list_dynamic2);
+                break;
+            case R.id.title_section6:
+                TAG_RULE = "6";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                setContentView(R.layout.activity_dynamic_action);
+                listInput = (ListView)findViewById(R.id.list_dynamic);
+                listInput1 = (ListView)findViewById(R.id.list_dynamic2);
+                break;
+            case R.id.title_section7:
+                TAG_RULE = "7";
+                url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
+                new LoadAllProducts().execute();
+                setContentView(R.layout.activity_dynamic_action);
+                listInput = (ListView)findViewById(R.id.list_dynamic);
+                listInput1 = (ListView)findViewById(R.id.list_dynamic2);
+                break;
             default: return false;
         }
             return true;
@@ -202,6 +241,7 @@ public class DynamicAction extends Activity {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
+            params.add(new BasicNameValuePair("Rule", TAG_RULE) );
             // getting JSON string from URL
             JSONObject json = DynamicAction.this.jsonParser.makeHttpRequest(DynamicAction.url_all_products,"GET", params);
 

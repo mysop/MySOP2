@@ -187,6 +187,11 @@
             android:name=".Stepdescription"
             android:label="@string/title_activity_stepdescription"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Steprecording"
@@ -314,6 +319,7 @@
         <activity
             android:name=".DynamicAction"
             android:label="@string/title_activity_dynamic_action" >
+
         </activity>
     </application>
 

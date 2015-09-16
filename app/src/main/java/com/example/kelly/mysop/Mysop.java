@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -390,7 +392,7 @@ public class Mysop extends Activity {
 
                 list1[k] = productsList.get(i).get(TAG_CASENUMBER);
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
-                photo[k]=productsList.get(i).get(TAG_PICTURE);
+                photo1[k]=productsList.get(i).get(TAG_PICTURE);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -532,11 +534,13 @@ public class Mysop extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time = (TextView)convertView.findViewById(R.id.timetext);
+            LinearLayout soplayout = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
 
             if(logos[key[position]]!=R.drawable.white){
                 Logo.setVisibility(0);
                 time.setVisibility(8);
             }
+            soplayout.setBackground(Drawable.createFromPath(new File(photo[position]).getAbsolutePath()));
             Logo.setImageResource(logos[key[position]]);
             Name.setText(name[position]);
             number.setText(list[position]);
@@ -589,6 +593,9 @@ public class Mysop extends Activity {
                 Logo1.setVisibility(0);
                 time1.setVisibility(8);
             }
+
+            soplayout1.setBackground(Drawable.createFromPath(new File(photo1[position]).getAbsolutePath()));
+
             Logo1.setImageResource(logos[key1[position]]);
             Name1.setText(name1[position]);
             number1.setText(list1[position]);

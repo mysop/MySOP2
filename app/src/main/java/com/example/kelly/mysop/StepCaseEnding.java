@@ -42,8 +42,7 @@ public class StepCaseEnding extends Activity {
     public int Step=1;
 
     //先寫死帳號和 SOPnumber
-    String TAG_ACCOUNT = "test@gmail.com";
-    String Sopnumber = "5";
+   // String TAG_ACCOUNT = "test@gmail.com";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> valueList;
     JSONArray products = null;
@@ -66,6 +65,10 @@ public class StepCaseEnding extends Activity {
     EditText[] edit = new EditText[20];
     String RecordText[] = new String[20];
     String TAG_CASE_NUMBER="1";
+    //紀錄step_order record_order
+    String steporder[];
+    String recordorder[];
+    int ok=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,10 +118,12 @@ public class StepCaseEnding extends Activity {
           SO[Step]=new SOPContent1();
           SO[Step].execute(Step);
       }
-        AlertDialog.Builder dialog = new AlertDialog.Builder(StepCaseEnding.this);
-        dialog.setTitle("");
-        dialog.setMessage("更改成功");
-        dialog.show();
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(StepCaseEnding.this);
+            dialog.setTitle("");
+            dialog.setMessage("更改成功");
+            dialog.show();
+
     }
 
     public void close (View v){
@@ -151,9 +156,10 @@ public class StepCaseEnding extends Activity {
             ArrayList params = new ArrayList();
             System.out.println("jj"+RecordText[a]);
 
-            params.add(new BasicNameValuePair("Newtext", RecordText[a]) );
+            params.add(new BasicNameValuePair("Newtext", RecordText[a]));
             params.add(new BasicNameValuePair("Casenumber", TAG_CASE_NUMBER) );
-            params.add(new BasicNameValuePair("Recordorder", RecordOrder) );
+            params.add(new BasicNameValuePair("Recordorder", recordorder[a]) );
+            params.add(new BasicNameValuePair("Steporder", steporder[a]) );
 
             // 上傳更改的紀錄
             JSONObject json1 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products1, "POST", params);
@@ -162,9 +168,9 @@ public class StepCaseEnding extends Activity {
                 //更改紀錄
                 int e = json1.getInt(TAG_SUCCESS);
                 if(e == 1) {
-
+                ok=1;
                 }else{
-
+                ok=0;
                 }
 
             } catch (JSONException var9) {
@@ -199,8 +205,8 @@ public class StepCaseEnding extends Activity {
 
             ArrayList params2 = new ArrayList();
 
-            params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
-            params2.add(new BasicNameValuePair("Sopnumber", Sopnumber) );
+            //params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
+            params2.add(new BasicNameValuePair("Casenumber", TAG_CASE_NUMBER) );
 
             JSONObject json2 = StepCaseEnding.this.jsonParser.makeHttpRequest(StepCaseEnding.url_all_products2,"POST",params2);
             try {
@@ -288,8 +294,12 @@ public class StepCaseEnding extends Activity {
                     for(int i=0 ;i<products1.length();i++){
                         JSONObject c =products1.getJSONObject(i);
                         String value=c.getString(TAG_VALUE);
+                        String step = c.getString("step");
+                        String order = c.getString("order");
                         HashMap<String,String> vmap = new HashMap<String, String>();
                         vmap.put(TAG_VALUE,value);
+                        vmap.put("step",step);
+                        vmap.put("order",order);
 
                         valueList.add(vmap);
                     }
@@ -317,6 +327,16 @@ public class StepCaseEnding extends Activity {
 
                 }
             }); */
+
+            recordorder=new String[products1.length()];
+            steporder=new  String[products1.length()];
+
+            for(int i =0;i<products1.length();i++){
+                recordorder[i]=valueList.get(i).get("order");
+                steporder[i]=valueList.get(i).get("step");
+                System.out.println("order:"+recordorder[i]+"  step:"+steporder[i]);
+            }
+
 
             LinearLayout ly = (LinearLayout)findViewById(R.id.endlayout);
 

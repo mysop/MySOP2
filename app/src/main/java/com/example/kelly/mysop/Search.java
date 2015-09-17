@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -287,7 +288,7 @@ public class Search extends Activity {
             }
             for (int i = 0; i < imgText.length; i++) {
                 Map<String, Object> item = new HashMap<String, Object>();
-                item.put("image", image[i]);
+                item.put("image", new File(image1[i]).getAbsolutePath());
                 item.put("text", imgText[i]);
                 item.put("text2", imgText2[i]);
                 items.add(item);

@@ -245,7 +245,7 @@ public class DynamicAction extends Activity {
             // getting JSON string from URL
             JSONObject json = DynamicAction.this.jsonParser.makeHttpRequest(DynamicAction.url_all_products,"GET", params);
 
-
+            productsList.clear();
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
 

@@ -51,7 +51,7 @@ public class DynamicAction extends Activity {
     private static final String TAG_STARTVALUE = "startvalue";
     private static final String TAG_PICTURE = "picture";
     private static String str,timedifference;
-    public String TAG_RULE = "3";
+    public String TAG_RULE;
     public int check;
     //計算product 長度
     public int x;
@@ -153,18 +153,18 @@ public class DynamicAction extends Activity {
                 new LoadAllProducts().execute();
                 break;
             case R.id.title_section3:
-                TAG_RULE = "3";
+                TAG_RULE = "4";
                 url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
                 new LoadAllProducts().execute();
                 break;
             case R.id.title_section4:
-                TAG_RULE = "4";
+                TAG_RULE = "5";
                 url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
                 new LoadAllProducts().execute();
 
                 break;
             case R.id.title_section5:
-                TAG_RULE = "5";
+                TAG_RULE = "3";
                 url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
                 new LoadAllProducts().execute();
                 setContentView(R.layout.activity_dynamic_action);
@@ -175,17 +175,11 @@ public class DynamicAction extends Activity {
                 TAG_RULE = "6";
                 url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
                 new LoadAllProducts().execute();
-                setContentView(R.layout.activity_dynamic_action);
-                listInput = (ListView)findViewById(R.id.list_dynamic);
-                listInput1 = (ListView)findViewById(R.id.list_dynamic2);
                 break;
             case R.id.title_section7:
                 TAG_RULE = "7";
                 url_all_products = "http://140.115.80.237/front/mysop_dynamicAction.jsp";
                 new LoadAllProducts().execute();
-                setContentView(R.layout.activity_dynamic_action);
-                listInput = (ListView)findViewById(R.id.list_dynamic);
-                listInput1 = (ListView)findViewById(R.id.list_dynamic2);
                 break;
             default: return false;
         }

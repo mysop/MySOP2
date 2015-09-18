@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="189dp"
     android:layout_height="160dp"
-    android:background="#ffffffff">
+    android:background="#060606">
 
 
     <ImageView
@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:background="#99642100"
         android:layout_below="@+id/mysoplogo"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:gravity="left">
 
         <TextView
             android:id="@+id/name"

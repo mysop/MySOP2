@@ -613,7 +613,7 @@ public class DynamicAction extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
-            LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
+           // LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
 
             if(logos[key1[position]]!=R.drawable.white){
                 Logo1.setVisibility(0);

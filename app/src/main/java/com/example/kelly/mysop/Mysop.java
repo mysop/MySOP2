@@ -388,7 +388,7 @@ public class Mysop extends Activity {
 
                 list1[k] = productsList.get(i).get(TAG_CASENUMBER);
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
-                photo[k]=productsList.get(i).get(TAG_PICTURE);
+                photo1[k]=productsList.get(i).get(TAG_PICTURE);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -530,7 +530,11 @@ public class Mysop extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time = (TextView)convertView.findViewById(R.id.timetext);
+            ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
+            new DownloadImageTask(MysopLogo)
+                    .execute(photo[position]);
+            System.out.println(" PI" + photo[position]);
             if(logos[key[position]]!=R.drawable.white){
                 Logo.setVisibility(0);
                 time.setVisibility(8);
@@ -581,7 +585,12 @@ public class Mysop extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
-            LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
+           // LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
+            ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
+
+            new DownloadImageTask(MysopLogo1)
+                    .execute(photo1[position]);
+            System.out.println(" PI1" + photo1[position]);
 
             if(logos[key1[position]]!=R.drawable.white){
                 Logo1.setVisibility(0);

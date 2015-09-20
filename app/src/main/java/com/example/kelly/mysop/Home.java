@@ -103,6 +103,9 @@ public class Home extends Activity {
         setContentView(R.layout.activity_home);
 
         productsList = new ArrayList<HashMap<String, String>>();
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        TAG_Key = bundle.getString("TAG_Key");
 
 //        homelist = (ListView)findViewById(R.id.homelist);
 //        homelist1 = (ListView)findViewById(R.id.homelist1);
@@ -243,7 +246,7 @@ public class Home extends Activity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-           // params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
+            params.add(new BasicNameValuePair("Key", TAG_Key) );
             // getting JSON string from URL
             JSONObject json = Home.this.jsonParser.makeHttpRequest(Home.url_all_products,"GET", params);
 

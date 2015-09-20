@@ -113,9 +113,15 @@ public class Home extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-            Toast.makeText(getApplicationContext(), "你選擇的是" + sopname[position]+"/n你必須登入後才能閱覽詳細內容", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "你選擇的是" + sopname[position]+"\n你必須登入後才能閱覽詳細內容", Toast.LENGTH_SHORT).show();
+        }
 
+    };
+    private ListView.OnItemClickListener listener1 = new ListView.OnItemClickListener(){
 
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + sopname1[position]+"\n你必須登入後才能閱覽詳細內容", Toast.LENGTH_SHORT).show();
         }
 
     };
@@ -322,7 +328,7 @@ public class Home extends Activity {
             listInput1.setAdapter(adapter1);
 
             listInput.setOnItemClickListener(listener);
-            listInput1.setOnItemClickListener(listener);
+            listInput1.setOnItemClickListener(listener1);
 
         }
 

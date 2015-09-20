@@ -198,6 +198,22 @@ public class Search extends Activity {
         }
 
     };
+    private ListView.OnItemClickListener listener1 = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + sopname1[position], Toast.LENGTH_SHORT).show();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+            bundle.putString("TAG_SOP_NUMBER", sopnumber[position]);
+            Intent it1 = new Intent(Search.this, Content.class);
+            it1.putExtras(bundle);//將參數放入intent
+            startActivity(it1);
+
+        }
+
+    };
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -373,7 +389,7 @@ public class Search extends Activity {
             listInput1.setAdapter(adapter1);
 
             listInput.setOnItemClickListener(listener);
-            listInput1.setOnItemClickListener(listener);
+            listInput1.setOnItemClickListener(listener1);
         }
 
 

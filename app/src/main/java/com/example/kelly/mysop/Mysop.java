@@ -127,6 +127,21 @@ public class Mysop extends Activity {
         return true;
     }
 
+    private ListView.OnItemClickListener listener1 = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + list1[position], Toast.LENGTH_SHORT).show();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("TAG_CASE_NUMBER", list1[position]);
+            Intent it = new Intent(Mysop.this,StepActionControl.class);
+            it.putExtras(bundle);//將參數放入intent
+            startActivity(it);
+
+        }
+
+    };
     private ListView.OnItemClickListener listener = new ListView.OnItemClickListener(){
 
         @Override
@@ -489,7 +504,7 @@ public class Mysop extends Activity {
             listInput1.setAdapter(adapter1);
 
             listInput.setOnItemClickListener(listener);
-            listInput1.setOnItemClickListener(listener);
+            listInput1.setOnItemClickListener(listener1);
         }
 
     }

@@ -502,6 +502,4 @@ public class Search extends Activity {
     }
 
 
-
-
 }

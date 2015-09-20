@@ -434,20 +434,15 @@ public class Search extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            convertView = myInflater.inflate(R.layout.myxml, null);
-
-            ImageView Logo = (ImageView) convertView.findViewById(R.id.imglogo);
+            convertView = myInflater.inflate(R.layout.searchmyxml, null);
             TextView Name = (TextView) convertView.findViewById(R.id.name);
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
-            TextView time = (TextView)convertView.findViewById(R.id.timetext);
             ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
             new DownloadImageTask(MysopLogo)
                     .execute(photo[position]);
             System.out.println(" PI" + photo[position]);
-            Logo.setVisibility(4);
-            time.setVisibility(8);
 
             Name.setText(sopname[position]);
             number.setText(master[position]);
@@ -486,26 +481,20 @@ public class Search extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            convertView = myInflater.inflate(R.layout.myxml, null);
+            convertView = myInflater.inflate(R.layout.searchmyxml, null);
 
-            ImageView Logo1 = (ImageView) convertView.findViewById(R.id.imglogo);
             TextView Name1 = (TextView) convertView.findViewById(R.id.name);
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
-            TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
-            // LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
+
             ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
             new DownloadImageTask(MysopLogo1)
                     .execute(photo1[position]);
             System.out.println(" PI1" + photo1[position]);
 
-            Logo1.setVisibility(4);
-            time1.setVisibility(8);
             Name1.setText(sopname1[position]);
             number1.setText(master1[position]);
-
-
 
             return convertView;
         }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="189dp"
     android:layout_height="160dp"
-    android:background="#060606">
+    android:background="#ffffff">
 
 
     <ImageView
@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_width="186dp"
         android:layout_height="wrap_content"
-        android:background="#99642100"
+        android:background="#80ff0000"
         android:gravity="left"
         android:layout_below="@+id/mysoplogo"
         android:layout_centerHorizontal="true">
@@ -36,7 +36,7 @@
             android:layout_width="fill_parent"
             android:layout_height="20dp"
             android:weightSum="1"
-            android:background="#99953100">
+            android:background="#80ff0000">
 
             <TextView
                 android:id="@+id/txtengname"
@@ -48,26 +48,6 @@
                 android:textSize="10dp"
                 android:layout_weight="0.63" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="還差3月3天"
-                android:id="@+id/timetext"
-                android:textColor="#f0e3d841"
-                android:layout_gravity="center|right"
-                android:layout_marginRight="5dp"
-                android:textSize="10dp" />
-
-            <ImageView
-                android:id="@+id/imglogo"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:src="@drawable/nfc"
-                android:layout_gravity="bottom|right"
-                android:adjustViewBounds="false"
-                android:layout_marginBottom="5dp"
-                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

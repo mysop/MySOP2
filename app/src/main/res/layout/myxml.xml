@@ -1,75 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="189dp"
     android:layout_height="160dp"
-    android:background="#060606">
+    android:orientation="vertical"
+    android:background="#ffffffff"
+    android:weightSum="1">
 
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:id="@+id/mysoplogo"
-        android:src="@drawable/test2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView16"
+        android:textSize="5dp" />
 
     <LinearLayout
+        android:id="@+id/soplinearlayout"
+        android:layout_width="178dp"
+        android:layout_height="130dp"
         android:orientation="vertical"
-        android:layout_width="186dp"
-        android:layout_height="wrap_content"
-        android:background="#99642100"
-        android:gravity="left"
-        android:layout_below="@+id/mysoplogo"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="第一行文字"
-            android:textColor="#ffffffff"
-            android:textSize="18dp"
-            android:layout_gravity="center_horizontal"
-            android:singleLine="true"
-            android:layout_marginLeft="5dp" />
+        android:background="@drawable/test2"
+        android:focusableInTouchMode="false"
+        android:layout_gravity="center">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:weightSum="1"
-            android:background="#99953100">
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:background="#99642100">
 
             <TextView
-                android:id="@+id/txtengname"
-                android:layout_width="88dp"
+                android:id="@+id/name"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="第二行文字"
+                android:text="第一行文字"
                 android:textColor="#ffffffff"
-                android:textSize="10dp"
-                android:layout_weight="0.63" />
+                android:textSize="18dp"
+                android:layout_gravity="center_horizontal"
+                android:singleLine="true"
+                android:layout_marginLeft="5dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="還差3月3天"
-                android:id="@+id/timetext"
-                android:textColor="#f0e3d841"
-                android:layout_gravity="center|right"
-                android:layout_marginRight="5dp"
-                android:textSize="10dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:background="#99953100">
 
-            <ImageView
-                android:id="@+id/imglogo"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:src="@drawable/nfc"
-                android:layout_gravity="bottom|right"
-                android:adjustViewBounds="false"
-                android:layout_marginBottom="5dp"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/txtengname"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="第二行文字"
+                    android:textColor="#ffffffff"
+                    android:textSize="10dp"
+                    android:layout_weight="0.63" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="還差3月3天"
+                    android:id="@+id/timetext"
+                    android:textColor="#f0e3d841"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="5dp"
+                    android:textSize="10dp" />
+
+                <ImageView
+                    android:id="@+id/imglogo"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/nfc"
+                    android:layout_gravity="bottom|right"
+                    android:adjustViewBounds="false"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView17"
+        android:textSize="5dp" />
+
+</LinearLayout>

@@ -40,14 +40,7 @@ public class EmailVertifyError extends Activity {
     }
 
     public void backToEmailVerify(View v){
-//        Intent it = new Intent(this,Emailverify.class);
-//        startActivity(it);
-
-       // Intent i = new Intent(this, Search.class);
-        Intent i = new Intent(this, Home.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("TAG_Key", "");
-        i.putExtras(bundle);	//將參數放入intent
-        startActivity(i);
+        Intent it = new Intent(this,Emailverify.class);
+        startActivity(it);
     }
 }

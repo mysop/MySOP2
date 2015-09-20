@@ -127,21 +127,6 @@ public class Mysop extends Activity {
         return true;
     }
 
-    private ListView.OnItemClickListener listener1 = new ListView.OnItemClickListener(){
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-            Toast.makeText(getApplicationContext(), "你選擇的是" + list1[position], Toast.LENGTH_SHORT).show();
-
-            Bundle bundle = new Bundle();
-            bundle.putString("TAG_CASE_NUMBER", list1[position]);
-            Intent it = new Intent(Mysop.this,StepActionControl.class);
-            it.putExtras(bundle);//將參數放入intent
-            startActivity(it);
-
-        }
-
-    };
     private ListView.OnItemClickListener listener = new ListView.OnItemClickListener(){
 
         @Override
@@ -403,7 +388,7 @@ public class Mysop extends Activity {
 
                 list1[k] = productsList.get(i).get(TAG_CASENUMBER);
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
-                photo1[k]=productsList.get(i).get(TAG_PICTURE);
+                photo[k]=productsList.get(i).get(TAG_PICTURE);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -504,7 +489,7 @@ public class Mysop extends Activity {
             listInput1.setAdapter(adapter1);
 
             listInput.setOnItemClickListener(listener);
-            listInput1.setOnItemClickListener(listener1);
+            listInput1.setOnItemClickListener(listener);
         }
 
     }
@@ -545,11 +530,7 @@ public class Mysop extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time = (TextView)convertView.findViewById(R.id.timetext);
-            ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
-            new DownloadImageTask(MysopLogo)
-                    .execute(photo[position]);
-            System.out.println(" PI" + photo[position]);
             if(logos[key[position]]!=R.drawable.white){
                 Logo.setVisibility(0);
                 time.setVisibility(8);
@@ -600,12 +581,7 @@ public class Mysop extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
-           // LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
-            ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
-
-            new DownloadImageTask(MysopLogo1)
-                    .execute(photo1[position]);
-            System.out.println(" PI1" + photo1[position]);
+            LinearLayout soplayout1 = (LinearLayout)convertView.findViewById(R.id.soplinearlayout);
 
             if(logos[key1[position]]!=R.drawable.white){
                 Logo1.setVisibility(0);

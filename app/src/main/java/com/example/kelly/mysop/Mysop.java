@@ -283,10 +283,8 @@ public class Mysop extends Activity {
 
             int k=0;
             if(products.length()%2==0){
-                int test2 =products.length();
                 x=products.length()/2;
             }else{
-                int test1 =products.length()+1;
                 x=(products.length()+1)/2;
             }
 
@@ -612,8 +610,6 @@ public class Mysop extends Activity {
             Name1.setText(name1[position]);
             number1.setText(list1[position]);
             time1.setText(timesee1[position]);
-
-
 
             return convertView;
         }

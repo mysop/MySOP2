@@ -16,16 +16,11 @@
         android:weightSum="1">
 
         <LinearLayout
-<<<<<<< HEAD
+
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-=======
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.97">
->>>>>>> origin/master
+
 
             <TextView
                 android:layout_width="wrap_content"

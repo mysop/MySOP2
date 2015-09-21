@@ -45,32 +45,17 @@ public class Home extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
+    ArrayList<HashMap<String, String>> productsList1;
     private static String url_all_products = "http://140.115.80.237/front/mysop_home.jsp";
+    private static String url_all_products1 = "http://140.115.80.237/front/mysop_home1.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_USERNAME = "username";
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_PICTURE = "picture";
-
+    private static final String TAG_LIKE = "like";
     JSONArray products = null;
-
-//    private ListView homelist;
-//    MyAdapter adapter = null;
-//
-//    private ListView homelist1;
-//    MyAdapter1 adapter1 = null;
-//
-//    private String[] list;
-//    private String[] name;
-//    private String[] logos;
-//
-//    private String[] list2;
-//    private String[] name2;
-//    private String[] logos2;
-//
-//    private String[] list1;
-//    private String[] name1;
-//    private String[] logos1;
+    JSONArray products1 = null;
 
     //搜尋相關
     private EditText searchName;
@@ -102,14 +87,12 @@ public class Home extends Activity {
         listInput1 = (ListView)findViewById(R.id.list_sop2);
 
         productsList = new ArrayList<HashMap<String, String>>();
+        productsList1 = new ArrayList<HashMap<String, String>>();
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
         // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         TAG_Key = bundle.getString("TAG_Key");
-
-//        homelist = (ListView)findViewById(R.id.homelist);
-//        homelist1 = (ListView)findViewById(R.id.homelist1);
 
         new LoadAll().execute();
     }
@@ -252,7 +235,7 @@ public class Home extends Activity {
             params.add(new BasicNameValuePair("Key", TAG_Key) );
             // getting JSON string from URL
             JSONObject json = Home.this.jsonParser.makeHttpRequest(Home.url_all_products,"GET", params);
-
+            JSONObject json1 = Home.this.jsonParser.makeHttpRequest(Home.url_all_products1,"GET", params);
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -287,13 +270,47 @@ public class Home extends Activity {
                         // adding HashList to ArrayList
                         productsList.add(map);
                     }
+
+
                 } else {
 
+                }
+
+                // Checking for SUCCESS TAG
+                int success1 = json1.getInt(TAG_SUCCESS);
+
+                if (success1 == 1) {
+                    // products found
+                    // Getting Array of Products
+                    products1 = json.getJSONArray(TAG_PRODUCTS);
+
+                    // looping through All Products
+                    for (int i = 0; i < products1.length(); i++) {
+                        JSONObject c = products1.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String sopname = c.getString(TAG_SOPNAME);
+                        String like = c.getString(TAG_LIKE);
+
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_SOPNAME, sopname);
+                        map.put(TAG_USERNAME, like);
+                        
+                        // adding HashList to ArrayList
+                        productsList1.add(map);
+                    }
+
+
+                } else {
 
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
 
             return null;
         }
@@ -377,6 +394,7 @@ public class Home extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
+            TextView Like = (TextView) convertView.findViewById(R.id.likeu);
 
             new DownloadImageTask(MysopLogo)
                     .execute(photo[position]);
@@ -423,6 +441,7 @@ public class Home extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
+            TextView Like1 = (TextView) convertView.findViewById(R.id.likeu);
 
             new DownloadImageTask(MysopLogo1)
                     .execute(photo1[position]);

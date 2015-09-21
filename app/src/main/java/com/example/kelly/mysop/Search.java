@@ -451,6 +451,7 @@ public class Search extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
+            TextView Like1 = (TextView) convertView.findViewById(R.id.likeu);
 
             new DownloadImageTask(MysopLogo)
                     .execute(photo[position]);
@@ -497,6 +498,7 @@ public class Search extends Activity {
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
             ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
+            TextView Like1 = (TextView) convertView.findViewById(R.id.likeu);
 
             new DownloadImageTask(MysopLogo1)
                     .execute(photo1[position]);

@@ -249,7 +249,7 @@ public class Search extends Activity {
     }
     public void openSearch()
     {
-        Toast.makeText(this, "按了 尋找 鈕", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "準備搜尋", Toast.LENGTH_LONG).show();
 
     }
 
@@ -276,7 +276,6 @@ public class Search extends Activity {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("Key", TAG_Key) );
-            // params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
             // getting JSON string from URL
             JSONObject json = Search.this.jsonParser.makeHttpRequest(Search.url_all_products1, "GET", params);
 
@@ -508,8 +507,6 @@ public class Search extends Activity {
         }
 
     }
-
-
 
 
 }

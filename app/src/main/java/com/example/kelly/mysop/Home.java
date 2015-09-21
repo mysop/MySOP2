@@ -8,17 +8,23 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -48,23 +54,42 @@ public class Home extends Activity {
 
     JSONArray products = null;
 
-    private ListView homelist;
+//    private ListView homelist;
+//    MyAdapter adapter = null;
+//
+//    private ListView homelist1;
+//    MyAdapter1 adapter1 = null;
+//
+//    private String[] list;
+//    private String[] name;
+//    private String[] logos;
+//
+//    private String[] list2;
+//    private String[] name2;
+//    private String[] logos2;
+//
+//    private String[] list1;
+//    private String[] name1;
+//    private String[] logos1;
+
+    //搜尋相關
+    private EditText searchName;
+    private String searchObject;
+    private Button searchButton;
+    String TAG_Key="";
+
+    private ListView listInput;
+    private ListView listInput1;
+    //private ArrayAdapter<String> adapter;
     MyAdapter adapter = null;
-
-    private ListView homelist1;
     MyAdapter1 adapter1 = null;
-
-    private String[] list;
     private String[] name;
-    private String[] logos;
+    private String[] master;
+    private String[] photo;
 
-    private String[] list2;
-    private String[] name2;
-    private String[] logos2;
-
-    private String[] list1;
     private String[] name1;
-    private String[] logos1;
+    private String[] master1;
+    private String[] photo1;
 
     //計算product 長度
     public int x;
@@ -73,11 +98,18 @@ public class Home extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        listInput = (ListView)findViewById(R.id.list_sop);
+        listInput1 = (ListView)findViewById(R.id.list_sop2);
 
         productsList = new ArrayList<HashMap<String, String>>();
 
-        homelist = (ListView)findViewById(R.id.homelist);
-        homelist1 = (ListView)findViewById(R.id.homelist1);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();	//取得Bundle
+        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_Key = bundle.getString("TAG_Key");
+
+//        homelist = (ListView)findViewById(R.id.homelist);
+//        homelist1 = (ListView)findViewById(R.id.homelist1);
 
         new LoadAll().execute();
     }
@@ -87,8 +119,65 @@ public class Home extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+        View v = (View) menu.findItem(R.id.action_search).getActionView();
+        //文字編輯部分
+        searchName = (EditText) v.findViewById(R.id.search);
+        searchName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                // TODO Auto-generated method stub
+                try {
+                    searchObject = searchName.getText().toString(); // 取得輸入文字
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
+
+        //送出部分
+        searchButton = (Button) v.findViewById(R.id.searchGo);
+        searchButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                goSearch(); //要做甚麼
+            }
+        });
+
         return true;
     }
+    private ListView.OnItemClickListener listener = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + name[position]+"\n必須登入後才能瀏覽內容", Toast.LENGTH_SHORT).show();
+
+        }
+
+    };
+    private ListView.OnItemClickListener listener1 = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            Toast.makeText(getApplicationContext(), "你選擇的是" + name1[position]+"\n必須登入後才能瀏覽內容", Toast.LENGTH_SHORT).show();
+
+        }
+
+    };
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -101,8 +190,31 @@ public class Home extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_search) {
+            openSearch();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+    void goSearch() {
+        if (searchObject == null) {
+            //搜尋空值，不做事
+        } else {
+
+            Toast.makeText(this, "Searching", Toast.LENGTH_LONG).show();
+            Log.d("CY", "search");
+            TAG_Key=searchObject;
+            Intent intent = new Intent(this, Search.class); //前進至xxxx頁面
+            intent.putExtra("TAG_Key", TAG_Key); //傳值
+            startActivity(intent); //啟動出發
+
+        }
+    }
+    public void openSearch()
+    {
+        Toast.makeText(this, "準備搜尋", Toast.LENGTH_LONG).show();
+
     }
 
     //登入
@@ -137,7 +249,7 @@ public class Home extends Activity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-           // params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
+            params.add(new BasicNameValuePair("Key", TAG_Key) );
             // getting JSON string from URL
             JSONObject json = Home.this.jsonParser.makeHttpRequest(Home.url_all_products,"GET", params);
 
@@ -199,63 +311,32 @@ public class Home extends Activity {
             }else{
                 x=(products.length()+1)/2;
             }
-            System.out.println("MM"+products.length()+"x"+x);
 
-
-            list = new String[x];
             name = new String[x];
-            logos= new String[x];
-//            list1 = new String[products.length()/2];
-//            name1 = new String[products.length()/2];
-//            logos1 = new String[products.length()/2];
-            list2 = new String[(products.length()+1)/2];
-            name2 = new String[(products.length()+1)/2];
-            logos2 = new String[(products.length()+1)/2];
-
-            if(products.length()%2==0){
-                for (int i = 0; i <products.length(); i=i+2) {
-                    list[k] = productsList.get(i).get(TAG_USERNAME);
-                    name[k] = productsList.get(i).get(TAG_SOPNAME);
-                    logos[k] = productsList.get(i).get(TAG_PICTURE);
-                    list2[k] = productsList.get(i+1).get(TAG_USERNAME);
-                    name2[k] = productsList.get(i+1).get(TAG_SOPNAME);
-                    logos2[k] = productsList.get(i+1).get(TAG_PICTURE);
-                    k++;
-                }
-            }else{
-                for (int i = 0; i <products.length()-1; i=i+2) {
-                    list[k] = productsList.get(i).get(TAG_USERNAME);
-                    name[k] = productsList.get(i).get(TAG_SOPNAME);
-                    logos[k] = productsList.get(i).get(TAG_PICTURE);
-                    list2[k] = productsList.get(i+1).get(TAG_USERNAME);
-                    name2[k] = productsList.get(i+1).get(TAG_SOPNAME);
-                    logos2[k] = productsList.get(i+1).get(TAG_PICTURE);
-                    k++;
-                }
-                list[k] = productsList.get(products.length()-1).get(TAG_USERNAME);
-                name[k] = productsList.get(products.length()-1).get(TAG_SOPNAME);
-                logos[k] = productsList.get(products.length()-1).get(TAG_PICTURE);
-                list2[k] = "aa";
-                name2[k] = "bb";
-                logos2[k] ="http://140.115.80.237/front/picture/white.jpg";
+            master = new String[x];
+            photo = new String[x];
+            name1 = new String[products.length()/2];
+            master1 = new String[products.length()/2];
+            photo1 = new String[products.length()/2];
+            for (int i = 0; i < x; i++) {
+                name[i]=productsList.get(i).get(TAG_SOPNAME);
+                master[i]=productsList.get(i).get(TAG_USERNAME);
+                photo[i]=productsList.get(i).get(TAG_PICTURE);
             }
-            // updating UI from Background Thread
-//            for (int i = 0; i <x; i++) {
-//                list[i] = productsList.get(i).get(TAG_USERNAME);
-//                name[i] = productsList.get(i).get(TAG_SOPNAME);
-//                logos[i] = productsList.get(i).get(TAG_PICTURE);
-//            }
-//
-//            for (int i = products.length()-1; i >=x; i--) {
-//                list1[k] = productsList.get(i).get(TAG_USERNAME);
-//                name1[k] = productsList.get(i).get(TAG_SOPNAME);
-//                logos1[k] = productsList.get(i).get(TAG_PICTURE);
-//                k++;
-//            }
+            for (int i = products.length()-1; i >=x; i--) {
+                name1[k]=productsList.get(i).get(TAG_SOPNAME);
+                master1[k]=productsList.get(i).get(TAG_USERNAME);
+                photo1[k]=productsList.get(i).get(TAG_PICTURE);
+                k++;
+            }
+
             adapter = new MyAdapter(Home.this);
-            homelist.setAdapter(adapter);
-           // adapter1 = new MyAdapter1(Home.this);
-            //homelist1.setAdapter(adapter1);
+            adapter1= new MyAdapter1(Home.this);
+            listInput.setAdapter(adapter);
+            listInput1.setAdapter(adapter1);
+
+            listInput.setOnItemClickListener(listener);
+            listInput1.setOnItemClickListener(listener1);
 
         }
 
@@ -290,39 +371,23 @@ public class Home extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            convertView = myInflater.inflate(R.layout.homepitcure, null);
+            convertView = myInflater.inflate(R.layout.searchmyxml, null);
 
-            ImageView Logo = (ImageView) convertView.findViewById(R.id.imglogo);
             TextView Name = (TextView) convertView.findViewById(R.id.name);
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
-            ImageView Logo2 = (ImageView) convertView.findViewById(R.id.imglogo2);
-            TextView Name2 = (TextView) convertView.findViewById(R.id.name2);
-            TextView number2 = (TextView) convertView
-                    .findViewById(R.id.txtengname2);
-            LinearLayout l2 = (LinearLayout)convertView.findViewById(R.id.secondlayout);
+            ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
-            new DownloadImageTask(Logo)
-                    .execute(logos[position]);
+            new DownloadImageTask(MysopLogo)
+                    .execute(photo[position]);
+
             Name.setText(name[position]);
-            number.setText(list[position]);
-
-
-            new DownloadImageTask(Logo2)
-                    .execute(logos2[position]);
-            Name2.setText(name2[position]);
-            number2.setText(list2[position]);
-            if(list2[position] != "aa"){
-                l2.setVisibility(0);
-            }
-
-
+            number.setText(master[position]);
             return convertView;
         }
 
     }
 
-    //另一邊
     public class MyAdapter1 extends BaseAdapter {
         private LayoutInflater myInflater;
 
@@ -352,18 +417,18 @@ public class Home extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            convertView = myInflater.inflate(R.layout.homepitcure, null);
+            convertView = myInflater.inflate(R.layout.searchmyxml, null);
 
-            ImageView Logo1 = (ImageView) convertView.findViewById(R.id.imglogo);
             TextView Name1 = (TextView) convertView.findViewById(R.id.name);
             TextView number1 = (TextView) convertView
                     .findViewById(R.id.txtengname);
+            ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
 
-            new DownloadImageTask(Logo1)
-                   .execute(logos1[position]);
+            new DownloadImageTask(MysopLogo1)
+                    .execute(photo1[position]);
+
             Name1.setText(name1[position]);
-            number1.setText(list1[position]);
-
+            number1.setText(master1[position]);
             return convertView;
         }
 

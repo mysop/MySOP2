@@ -8,8 +8,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:id="@+id/mysoplogo"
-        android:src="@drawable/test2" />
+        android:id="@+id/mysoplogo" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -65,7 +64,8 @@
                 android:textSize="10dp"
                 android:textColor="#ffffff"
                 android:singleLine="true"
-                android:layout_gravity="center_vertical|right" />
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="7dp" />
 
         </LinearLayout>
 

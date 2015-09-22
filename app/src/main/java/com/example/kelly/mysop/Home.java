@@ -45,9 +45,7 @@ public class Home extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
-    ArrayList<HashMap<String, String>> productsList1;
     private static String url_all_products = "http://140.115.80.237/front/mysop_home.jsp";
-    private static String url_all_products1 = "http://140.115.80.237/front/mysop_home1.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_USERNAME = "username";
@@ -55,7 +53,6 @@ public class Home extends Activity {
     private static final String TAG_PICTURE = "picture";
     private static final String TAG_LIKE = "like";
     JSONArray products = null;
-    JSONArray products1 = null;
 
     //搜尋相關
     private EditText searchName;
@@ -71,10 +68,12 @@ public class Home extends Activity {
     private String[] name;
     private String[] master;
     private String[] photo;
+    private String[] likeu;
 
     private String[] name1;
     private String[] master1;
     private String[] photo1;
+    private String[] likeu1;
 
     //計算product 長度
     public int x;
@@ -87,7 +86,6 @@ public class Home extends Activity {
         listInput1 = (ListView)findViewById(R.id.list_sop2);
 
         productsList = new ArrayList<HashMap<String, String>>();
-        productsList1 = new ArrayList<HashMap<String, String>>();
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
@@ -188,7 +186,7 @@ public class Home extends Activity {
             Toast.makeText(this, "Searching", Toast.LENGTH_LONG).show();
             Log.d("CY", "search");
             TAG_Key=searchObject;
-            Intent intent = new Intent(this, Search.class); //前進至xxxx頁面
+            Intent intent = new Intent(this, Home.class); //前進至xxxx頁面
             intent.putExtra("TAG_Key", TAG_Key); //傳值
             startActivity(intent); //啟動出發
 
@@ -235,7 +233,6 @@ public class Home extends Activity {
             params.add(new BasicNameValuePair("Key", TAG_Key) );
             // getting JSON string from URL
             JSONObject json = Home.this.jsonParser.makeHttpRequest(Home.url_all_products,"GET", params);
-            JSONObject json1 = Home.this.jsonParser.makeHttpRequest(Home.url_all_products1,"GET", params);
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -257,6 +254,7 @@ public class Home extends Activity {
                         String sopname = c.getString(TAG_SOPNAME);
                         String username = c.getString(TAG_USERNAME);
                         String picture = c.getString(TAG_PICTURE);
+                        String like = c.getString(TAG_LIKE);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -265,7 +263,7 @@ public class Home extends Activity {
                         map.put(TAG_SOPNAME, sopname);
                         map.put(TAG_USERNAME, username);
                         map.put(TAG_PICTURE, picture);
-
+                        map.put(TAG_LIKE,like);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -276,37 +274,7 @@ public class Home extends Activity {
 
                 }
 
-                // Checking for SUCCESS TAG
-                int success1 = json1.getInt(TAG_SUCCESS);
 
-                if (success1 == 1) {
-                    // products found
-                    // Getting Array of Products
-                    products1 = json.getJSONArray(TAG_PRODUCTS);
-
-                    // looping through All Products
-                    for (int i = 0; i < products1.length(); i++) {
-                        JSONObject c = products1.getJSONObject(i);
-
-                        // Storing each json item in variable
-                        String sopname = c.getString(TAG_SOPNAME);
-                        String like = c.getString(TAG_LIKE);
-
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_SOPNAME, sopname);
-                        map.put(TAG_USERNAME, like);
-                        
-                        // adding HashList to ArrayList
-                        productsList1.add(map);
-                    }
-
-
-                } else {
-
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -332,18 +300,22 @@ public class Home extends Activity {
             name = new String[x];
             master = new String[x];
             photo = new String[x];
+            likeu = new String[x];
             name1 = new String[products.length()/2];
             master1 = new String[products.length()/2];
             photo1 = new String[products.length()/2];
+            likeu1 = new String[products.length()/2];
             for (int i = 0; i < x; i++) {
                 name[i]=productsList.get(i).get(TAG_SOPNAME);
                 master[i]=productsList.get(i).get(TAG_USERNAME);
                 photo[i]=productsList.get(i).get(TAG_PICTURE);
+                likeu[i]=productsList.get(i).get(TAG_LIKE);
             }
             for (int i = products.length()-1; i >=x; i--) {
                 name1[k]=productsList.get(i).get(TAG_SOPNAME);
                 master1[k]=productsList.get(i).get(TAG_USERNAME);
                 photo1[k]=productsList.get(i).get(TAG_PICTURE);
+                likeu1[k]=productsList.get(i).get(TAG_LIKE);
                 k++;
             }
 
@@ -401,6 +373,7 @@ public class Home extends Activity {
 
             Name.setText(name[position]);
             number.setText(master[position]);
+            Like.setText(likeu[position]);
             return convertView;
         }
 
@@ -448,6 +421,7 @@ public class Home extends Activity {
 
             Name1.setText(name1[position]);
             number1.setText(master1[position]);
+            Like1.setText(likeu1[position]);
             return convertView;
         }
 

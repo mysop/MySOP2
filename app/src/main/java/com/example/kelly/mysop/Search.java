@@ -46,15 +46,7 @@ import org.json.JSONObject;
 
 public class Search extends Activity {
     private GridView gridView;
-//    private int[] image = {
-//            R.drawable.star1, R.drawable.star2, R.drawable.test,
-//            R.drawable.test1, R.drawable.test2, R.drawable.test,
-//            R.drawable.test1, R.drawable.test2
-//    };
-//    private String[] image1;
-//    private String[] imgText;
-//    private String[] imgText2;
-//    private String[] sopnumberarray;
+
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList = new ArrayList<HashMap<String, String>>();
@@ -65,6 +57,7 @@ public class Search extends Activity {
     private static final String TAG_SOPNAME = "sopname";
     private static final String TAG_PICTURE = "picture";
     private static final String TAG_SOPNUMBER = "sop_number";
+    private static final String TAG_LIKE = "like";
     JSONArray products = null;
 
 
@@ -88,11 +81,13 @@ public class Search extends Activity {
     private String[] master;
     private String[] photo;
     private String[] sopnumber;
+    private String[] likeu;
 
     private String[] name1;
     private String[] master1;
     private String[] photo1;
     private String[] sopnumber1;
+    private String[] likeu1;
 
     int x;
 
@@ -300,6 +295,7 @@ public class Search extends Activity {
                         String username = c.getString(TAG_USERNAME);
                         String picture = c.getString(TAG_PICTURE);
                         String sop_number = c.getString(TAG_SOPNUMBER);
+                        String like = c.getString(TAG_LIKE);
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
@@ -308,6 +304,7 @@ public class Search extends Activity {
                         map.put(TAG_USERNAME, username);
                         map.put(TAG_PICTURE, picture);
                         map.put(TAG_SOPNUMBER, sop_number);
+                        map.put(TAG_LIKE,like);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
@@ -341,21 +338,25 @@ public class Search extends Activity {
             master = new String[x];
             photo = new String[x];
             sopnumber = new String[x];
+            likeu = new String[x];
             name1 = new String[products.length()/2];
             master1 = new String[products.length()/2];
             photo1 = new String[products.length()/2];
             sopnumber1 = new String[products.length()/2];
+            likeu1 = new String[products.length()/2];
             for (int i = 0; i < x; i++) {
                 name[i]=productsList.get(i).get(TAG_SOPNAME);
                 master[i]=productsList.get(i).get(TAG_USERNAME);
                 photo[i]=productsList.get(i).get(TAG_PICTURE);
                 sopnumber[i]=productsList.get(i).get(TAG_SOPNUMBER);
+                likeu[i]=productsList.get(i).get(TAG_LIKE);
             }
             for (int i = products.length()-1; i >=x; i--) {
                 name1[k]=productsList.get(i).get(TAG_SOPNAME);
                 master1[k]=productsList.get(i).get(TAG_USERNAME);
                 photo1[k]=productsList.get(i).get(TAG_PICTURE);
                 sopnumber1[k]=productsList.get(i).get(TAG_SOPNUMBER);
+                likeu1[k]=productsList.get(i).get(TAG_LIKE);
                 k++;
             }
 
@@ -451,13 +452,14 @@ public class Search extends Activity {
             TextView number = (TextView) convertView
                     .findViewById(R.id.txtengname);
             ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
-            TextView Like1 = (TextView) convertView.findViewById(R.id.likeu);
+            TextView Like = (TextView) convertView.findViewById(R.id.likeu);
 
             new DownloadImageTask(MysopLogo)
                     .execute(photo[position]);
 
             Name.setText(name[position]);
             number.setText(master[position]);
+            Like.setText(likeu[position]);
             return convertView;
         }
 
@@ -505,6 +507,7 @@ public class Search extends Activity {
 
             Name1.setText(name1[position]);
             number1.setText(master1[position]);
+            Like1.setText(likeu1[position]);
             return convertView;
         }
 

@@ -109,7 +109,6 @@
             android:name=".Register"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Emailverify"
@@ -135,7 +134,6 @@
             android:name=".Login"
             android:label="@string/title_activity_main"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Changepassword"
@@ -165,12 +163,6 @@
         <activity
             android:name=".Mysop"
             android:label="@string/title_activity_mysop" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".Content"
@@ -187,13 +179,11 @@
             android:name=".Stepdescription"
             android:label="@string/title_activity_stepdescription"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".Steprecording"
             android:label="@string/title_activity_steprecording"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         </activity>
         <activity
             android:name=".StepcutcontrolArtificial"
@@ -297,7 +287,6 @@
         <activity
             android:name=".Home"
             android:label="home" >
-
         </activity>
         <activity
             android:name=".TestSendGCM"
@@ -307,10 +296,6 @@
         <activity
             android:name=".Search"
             android:label="@string/title_activity_search" >
-        </activity>
-        <activity
-            android:name=".Mysop1"
-            android:label="@string/title_activity_mysop1" >
         </activity>
         <activity
             android:name=".DynamicAction"

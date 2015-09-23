@@ -242,8 +242,7 @@
                     android:id="@+id/content_text"
                     android:textSize="20dp"
                     android:background="@drawable/context_linear"
-                    android:paddingLeft="3dp"
-                    android:visibility="gone" />
+                    android:paddingLeft="3dp" />
 
 
             </LinearLayout>
@@ -300,15 +299,6 @@
 
 
     </ScrollView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A one-of-a-kind destination where our rarest coffees are small-batch roasted, packaged and enjoyed. It may be a labor of love, but it’s mostly love.\nOur coffee masters have distilled their years of tasting knowledge down to three simple questions to help you find a coffee you’re sure to love."
-        android:id="@+id/content_text"
-        android:textSize="20dp"
-        android:background="@drawable/context_linear"
-        android:paddingLeft="3dp" />
 
 
 </LinearLayout >

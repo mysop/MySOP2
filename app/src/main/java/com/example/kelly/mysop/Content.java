@@ -75,8 +75,8 @@ public class Content extends Activity {
     private static String url_create_product7 = "http://140.115.80.237/front/mysop_content7.jsp";
 
     TextView sopnumber;
-    String TAG_ACCOUNT = "";
-    String TAG_SOP_NUMBER = "";
+    String TAG_ACCOUNT = "tesr@gmail.com";
+    String TAG_SOP_NUMBER = "20150803";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
@@ -151,8 +151,8 @@ public class Content extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
-        TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
+       // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+       // TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
 
 
         // Hashmap for ListView

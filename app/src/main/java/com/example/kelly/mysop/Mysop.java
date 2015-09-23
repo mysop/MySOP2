@@ -19,7 +19,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +43,9 @@ public class Mysop extends Activity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
-    ArrayList<HashMap<String, String>> productsList1;
     //private static String url_all_products = "http://localhost:8080/kelly/test_getall.jsp";
     // private static String url_all_products = "http://140.115.80.237/front/test_getall.jsp";
     private static String url_all_products = "http://140.115.80.237/front/mysop_mysop.jsp";
-    private static String url_all_products1 = "http://140.115.80.237/front/mysop_mysop1.jsp";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "products";
     private static final String TAG_CASENUMBER = "casenumber";
@@ -56,9 +53,6 @@ public class Mysop extends Activity {
     private static final String TAG_STARTRULE = "startrule";
     private static final String TAG_STARTVALUE = "startvalue";
     private static final String TAG_PICTURE = "picture";
-    private static final String TAG_ORDER = "order";
-    private static final String TAG_TATOL = "total";
-    private static final String TAG_SOPNUMBER = "sopnumber";
     private static String str,timedifference;
     public int check;
     //計算product 長度
@@ -75,7 +69,6 @@ public class Mysop extends Activity {
     private TextView master;
 
     JSONArray products = null;
-    JSONArray products1 = null;
 
    //帳號先寫死
     String TAG_ACCOUNT = "test@gmail.com";
@@ -89,16 +82,13 @@ public class Mysop extends Activity {
     int[] key;
     private String[] timesee;
     private String[] photo;
-    private String[] steporder;
-    private String[] steptotal;
 
     private String[] list1;
     private String[] name1;
     int[] key1;
     private String[] timesee1;
     private String[] photo1;
-    private String[] steporder1;
-    private String[] steptotal1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +105,6 @@ public class Mysop extends Activity {
 
                 // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
-        productsList1 = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
         new LoadAllProducts().execute();
 
@@ -236,7 +225,6 @@ public class Mysop extends Activity {
             params.add(new BasicNameValuePair("Account", TAG_ACCOUNT) );
             // getting JSON string from URL
             JSONObject json = Mysop.this.jsonParser.makeHttpRequest(Mysop.url_all_products,"GET", params);
-            JSONObject json1 = Mysop.this.jsonParser.makeHttpRequest(Mysop.url_all_products1,"GET", params);
 
 
             // Check your log cat for JSON reponse
@@ -261,7 +249,6 @@ public class Mysop extends Activity {
                         String startrule = c.getString(TAG_STARTRULE);
                         String startvalue = c.getString(TAG_STARTVALUE);
                         String picture = c.getString(TAG_PICTURE);
-                        String order = c.getString(TAG_ORDER);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -272,41 +259,9 @@ public class Mysop extends Activity {
                         map.put(TAG_STARTRULE, startrule);
                         map.put(TAG_STARTVALUE,startvalue);
                         map.put(TAG_PICTURE,picture);
-                        map.put(TAG_ORDER,order);
 
                         // adding HashList to ArrayList
                         productsList.add(map);
-                    }
-                } else {
-
-
-                }
-
-                // Checking for SUCCESS TAG
-                int success1 = json1.getInt(TAG_SUCCESS);
-
-                if (success1 == 1) {
-                    // products found
-                    // Getting Array of Products
-                    products1 = json1.getJSONArray(TAG_PRODUCTS);
-
-                    // looping through All Products
-                    for (int i = 0; i < products1.length(); i++) {
-                        JSONObject c = products1.getJSONObject(i);
-
-                        // Storing each json item in variable
-                        String total = c.getString(TAG_TATOL);
-                        String number = c.getString(TAG_SOPNUMBER);
-
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_TATOL, total);
-                        map.put(TAG_SOPNUMBER, number);
-
-                        // adding HashList to ArrayList
-                        productsList1.add(map);
                     }
                 } else {
 
@@ -338,22 +293,16 @@ public class Mysop extends Activity {
             key = new int[x];
             timesee = new String[x];
             photo = new String[x];
-            steporder = new String[x];
-            steptotal = new String[x];
             list1 = new String[products.length()/2];
             name1 = new String[products.length()/2];
             key1 = new int[products.length()/2];
             timesee1 = new String[products.length()/2];
             photo1 = new String[products.length()/2];
-            steporder1 = new String[products.length()/2];
-            steptotal1 = new String[products.length()/2];
             // updating UI from Background Thread
             for (int i = 0; i < x; i++) {
                 list[i] = productsList.get(i).get(TAG_CASENUMBER);
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
                 photo[i]=productsList.get(i).get(TAG_PICTURE);
-                steporder[i]=productsList.get(i).get(TAG_ORDER);
-                steptotal[i]=productsList1.get(i).get(TAG_TATOL);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                        // cagetory.setText("人工啟動");
@@ -453,8 +402,6 @@ public class Mysop extends Activity {
                 list1[k] = productsList.get(i).get(TAG_CASENUMBER);
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
                 photo1[k]=productsList.get(i).get(TAG_PICTURE);
-                steporder1[k]=productsList.get(i).get(TAG_ORDER);
-                steptotal1[k]=productsList1.get(i).get(TAG_TATOL);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -597,7 +544,6 @@ public class Mysop extends Activity {
                     .findViewById(R.id.txtengname);
             TextView time = (TextView)convertView.findViewById(R.id.timetext);
             ImageView MysopLogo = (ImageView) convertView.findViewById(R.id.mysoplogo);
-            ProgressBar progressBar = (ProgressBar)convertView.findViewById(R.id.progresssop);
 
             new DownloadImageTask(MysopLogo)
                     .execute(photo[position]);
@@ -609,8 +555,7 @@ public class Mysop extends Activity {
             Name.setText(name[position]);
             number.setText(list[position]);
             time.setText(timesee[position]);
-            progressBar.setMax(Integer.valueOf(steptotal[position]));
-            progressBar.setProgress(Integer.valueOf(steporder[position])-1);
+
             return convertView;
         }
 
@@ -653,7 +598,6 @@ public class Mysop extends Activity {
                     .findViewById(R.id.txtengname);
             TextView time1 = (TextView)convertView.findViewById(R.id.timetext);
             ImageView MysopLogo1 = (ImageView) convertView.findViewById(R.id.mysoplogo);
-            ProgressBar progressBar1 = (ProgressBar)convertView.findViewById(R.id.progresssop);
 
             new DownloadImageTask(MysopLogo1)
                     .execute(photo1[position]);
@@ -666,8 +610,6 @@ public class Mysop extends Activity {
             Name1.setText(name1[position]);
             number1.setText(list1[position]);
             time1.setText(timesee1[position]);
-            progressBar1.setMax(Integer.valueOf(steptotal1[position]));
-            progressBar1.setProgress(Integer.valueOf(steporder1[position])-1);
 
             return convertView;
         }

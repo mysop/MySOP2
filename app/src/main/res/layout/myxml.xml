@@ -40,19 +40,19 @@
 
             <TextView
                 android:id="@+id/txtengname"
-                android:layout_width="88dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="第二行文字"
+                android:text="案號"
                 android:textColor="#ffffffff"
                 android:textSize="10dp"
                 android:layout_weight="0.63" />
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="10dp"
                 android:id="@+id/progresssop"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="20dp"
                 android:max="100"
                 android:indeterminate="false"
                 android:progress="50"

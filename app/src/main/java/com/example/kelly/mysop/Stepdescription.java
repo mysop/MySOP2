@@ -73,6 +73,7 @@ public class Stepdescription extends Activity {
         new CheckNextActivity().execute();
 
         RelativeLayout des_rl = (RelativeLayout)findViewById(R.id.des_relative);
+        detector = new GestureDetector(new MySimpleOnGestureListener());
         des_rl.setOnTouchListener(new MyOnTouchListener());
 
     /*    WebView wv = (WebView)findViewById(R.id.webView);
@@ -235,7 +236,7 @@ public class Stepdescription extends Activity {
                 startActivity(intent);
                 // 设置切换动画，从右边进入，左边退出
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-                finish();
+                //finish();
                 return true;
             } else
                 return false;

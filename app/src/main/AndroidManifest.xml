@@ -163,6 +163,11 @@
         <activity
             android:name=".Mysop"
             android:label="@string/title_activity_mysop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Content"
@@ -300,11 +305,7 @@
         <activity
             android:name=".DynamicAction"
             android:label="@string/title_activity_dynamic_action" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -60,10 +63,17 @@ public class Stepdescription extends Activity {
         TAG_STEP_NUMBER = bundle.getString("TAG_STEP_NUMBER");
         TAG_STEP_ORDER = bundle.getInt("TAG_STEP_ORDER");
 
+        TextView des_tw2 = (TextView)findViewById(R.id.des_textView2);
+        des_tw2.setText(Integer.toString(TAG_STEP_ORDER));
+
         //TAG_CASE_NUMBER = "J1234";
         //TAG_STEP_NUMBER = "10";
         //TAG_STEP_ORDER = 1;
+        new LoadDes().execute();
         new CheckNextActivity().execute();
+
+        RelativeLayout des_rl = (RelativeLayout)findViewById(R.id.des_relative);
+        des_rl.setOnTouchListener(new MyOnTouchListener());
 
     /*    WebView wv = (WebView)findViewById(R.id.webView);
         wv.loadUrl("https://www.google.com.tw");
@@ -72,15 +82,19 @@ public class Stepdescription extends Activity {
         ww.setOnTouchListener(new MyOnTouchListener());*/
     }
 
+    String StepName="";
+    String StepPurpose="";
+    String StepIntro="";
+
     class LoadDes extends AsyncTask<String, String, Integer> {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            //pDialog = new ProgressDialog(StepActionControl.this);
-            //pDialog.setMessage("Loading..... Please wait...");
-            //pDialog.setIndeterminate(false);
-            //pDialog.setCancelable(false);
-            //pDialog.show();
+            pDialog1 = new ProgressDialog(Stepdescription.this);
+            pDialog1.setMessage("Loading..... Please wait...");
+            pDialog1.setIndeterminate(false);
+            pDialog1.setCancelable(false);
+            pDialog1.show();
         }
         protected Integer doInBackground(String... args) {
 
@@ -99,7 +113,9 @@ public class Stepdescription extends Activity {
                 int success = json1.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     loadsuccess=1;
-
+                    StepName = json1.getString("stepname");
+                    StepPurpose = json1.getString("steppurpose");
+                    StepIntro = json1.getString("stepintro");
                 } else{
 
                 }
@@ -111,8 +127,14 @@ public class Stepdescription extends Activity {
         }
         protected void onPostExecute(Integer loadsuccess) {
 
+            pDialog1.dismiss();
             if(loadsuccess==1){
-
+                TextView des_tw4 = (TextView)findViewById(R.id.des_textView4);
+                des_tw4.setText(StepName);
+                TextView des_tw6 = (TextView)findViewById(R.id.des_textView6);
+                des_tw6.setText(StepPurpose);
+                TextView des_tw8 = (TextView)findViewById(R.id.des_textView8);
+                des_tw8.setText(StepIntro);
             }
 
         }

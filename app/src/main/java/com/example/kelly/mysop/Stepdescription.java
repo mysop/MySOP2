@@ -34,6 +34,12 @@ public class Stepdescription extends Activity {
     int TAG_STEP_ORDER = 0;
 
 
+    private static String url_des = "http://140.115.80.237/front/mysop_stepdescription1.jsp";
+    private ProgressDialog pDialog1;
+    JSONParser jParser1 = new JSONParser();
+    ArrayList<HashMap<String, String>> productsList1;
+    JSONArray products1 = null;
+
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
@@ -59,11 +65,58 @@ public class Stepdescription extends Activity {
         //TAG_STEP_ORDER = 1;
         new CheckNextActivity().execute();
 
-        WebView wv = (WebView)findViewById(R.id.webView);
+    /*    WebView wv = (WebView)findViewById(R.id.webView);
         wv.loadUrl("https://www.google.com.tw");
         detector = new GestureDetector(new MySimpleOnGestureListener());
         WebView ww = (WebView)findViewById(R.id.webView);
-        ww.setOnTouchListener(new MyOnTouchListener());
+        ww.setOnTouchListener(new MyOnTouchListener());*/
+    }
+
+    class LoadDes extends AsyncTask<String, String, Integer> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //pDialog = new ProgressDialog(StepActionControl.this);
+            //pDialog.setMessage("Loading..... Please wait...");
+            //pDialog.setIndeterminate(false);
+            //pDialog.setCancelable(false);
+            //pDialog.show();
+        }
+        protected Integer doInBackground(String... args) {
+
+            int loadsuccess=0;
+            String Stepnumber = TAG_STEP_NUMBER;
+
+            List<NameValuePair> params1 = new ArrayList<NameValuePair>();
+            params1.add(new BasicNameValuePair("Stepnumber", Stepnumber));
+
+            JSONObject json1 = jParser1.makeHttpRequest(url_des, "GET", params1);
+
+            Log.d("All Products: ", json1.toString());
+
+            try {
+
+                int success = json1.getInt(TAG_SUCCESS);
+                if (success == 1) {
+                    loadsuccess=1;
+
+                } else{
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return loadsuccess;
+        }
+        protected void onPostExecute(Integer loadsuccess) {
+
+            if(loadsuccess==1){
+
+            }
+
+        }
+
     }
 
     class CheckNextActivity extends AsyncTask<String, String, Integer> {

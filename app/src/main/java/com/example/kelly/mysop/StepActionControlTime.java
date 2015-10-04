@@ -193,9 +193,11 @@ public class StepActionControlTime extends Activity {
                     l = date.getTime() - now.getTime();
                     check=1;
                 }
+                long l2 = l/(30*24*60*60);
+
                 //計算時間差
-                long month=l/(30 * 24 * 60 * 60 * 1000);
-                long day = l / (24 * 60 * 60 * 1000- month * 30);
+                long month=l2/1000;
+                long day = l / (24 * 60 * 60 * 1000)- month * 30;
                 long hour = (l / (60 * 60 * 1000) - month * 30 * 24 - day * 24);
                 long min = ((l / (60 * 1000)) - month * 30 * 24 * 60- day * 24 * 60 - hour * 60);
                 long s = (l / 1000 - month * 30 * 24 * 60 * 60- day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);

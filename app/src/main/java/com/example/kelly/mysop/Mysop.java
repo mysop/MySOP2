@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -386,6 +387,8 @@ public class Mysop extends Activity {
                         key[i]=4;
                         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
                         Date now = null;
+                        System.out.println("TIME is "+productsList.get(i).get(TAG_STARTVALUE));
+                        System.out.println("NOW is "+str);
 
                         try {
                             now = df.parse(productsList.get(i).get(TAG_STARTVALUE));
@@ -411,9 +414,11 @@ public class Mysop extends Activity {
                             l = date.getTime() - now.getTime();
                             check=1;
                         }
+                        long l2 = l/(30*24*60*60);
+
                         //計算時間差
-                        long month=l/(30 * 24 * 60 * 60 * 1000);
-                        long day = l / (24 * 60 * 60 * 1000- month * 30);
+                        long month=l2/1000;
+                        long day = l / (24 * 60 * 60 * 1000)- month * 30;
                         long hour = (l / (60 * 60 * 1000) - month * 30 * 24 - day * 24);
                         long min = ((l / (60 * 1000)) - month * 30 * 24 * 60- day * 24 * 60 - hour * 60);
                         long s = (l / 1000 - month * 30 * 24 * 60 * 60- day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
@@ -421,11 +426,11 @@ public class Mysop extends Activity {
 
                         if(check==0) {
 
-                            if (month == 0) {
+                            if (month <= 0) {
                                 timedifference="還差" + day + "天" ;
-                            } else if (month == 0 && day == 0) {
+                            } else if (month <= 0 && day == 0) {
                                 timedifference="還差" + hour + "小时" + min + "分";
-                            } else if (month == 0 && day == 0 && hour == 0) {
+                            } else if (month <= 0 && day == 0 && hour == 0) {
                                 timedifference="還差" + min + "分";
                             } else {
                                 timedifference="還差" + month + "月" + day + "天";
@@ -512,14 +517,15 @@ public class Mysop extends Activity {
                             l = date.getTime() - now.getTime();
                             check=1;
                         }
+                        long l2 = l/(30*24*60*60);
+
                         //計算時間差
-                        long month=l/(30 * 24 * 60 * 60 * 1000);
-                        long day = l / (24 * 60 * 60 * 1000- month * 30);
+                        long month=l2/1000;
+                        long day = l / (24 * 60 * 60 * 1000)- month * 30;
                         long hour = (l / (60 * 60 * 1000) - month * 30 * 24 - day * 24);
                         long min = ((l / (60 * 1000)) - month * 30 * 24 * 60- day * 24 * 60 - hour * 60);
                         long s = (l / 1000 - month * 30 * 24 * 60 * 60- day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
                         System.out.println(month+"月" + day + "天" + hour + "小时" + min + "分" + s + "秒");
-
                         if(check==0) {
 
                             if (month == 0) {

@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:id="@+id/mysoplogo"
-        android:src="@drawable/test2" />
+        android:src="@drawable/test2"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#99642100"
-        android:layout_alignParentBottom="true"
+        android:layout_height="120dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/mysoplogo">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/name"
@@ -29,14 +29,16 @@
             android:textSize="18dp"
             android:layout_gravity="center_horizontal"
             android:singleLine="true"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginTop="77dp"
+            android:background="#99acacac"
+            android:autoText="false" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
             android:weightSum="1"
-            android:background="#99953100">
+            android:background="#99acacac">
 
             <TextView
                 android:id="@+id/txtengname"
@@ -64,7 +66,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="還差3月3天"
                 android:id="@+id/timetext"
-                android:textColor="#f0e3d841"
+                android:textColor="#ffff3f2f"
                 android:layout_gravity="center|right"
                 android:layout_marginRight="5dp"
                 android:textSize="10dp" />

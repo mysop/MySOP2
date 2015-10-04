@@ -162,7 +162,8 @@
         </activity>
         <activity
             android:name=".Mysop"
-            android:label="@string/title_activity_mysop" >
+            android:label="@string/title_activity_mysop"
+            android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -304,7 +305,8 @@
         </activity>
         <activity
             android:name=".DynamicAction"
-            android:label="@string/title_activity_dynamic_action" >
+            android:label="@string/title_activity_dynamic_action"
+            android:theme="@style/MyTheme">
 
         </activity>
     </application>

@@ -614,7 +614,7 @@ public class Mysop extends Activity {
                 time.setVisibility(8);
             }
             Logo.setImageResource(logos[key[position]]);
-            Name.setText(name[position]);
+            Name.setText(" "+name[position]);
             number.setText(list[position]);
             time.setText(timesee[position]);
             progressBar.setMax(Integer.valueOf(steptotal[position]));
@@ -673,7 +673,7 @@ public class Mysop extends Activity {
                 time1.setVisibility(8);
             }
             Logo1.setImageResource(logos[key1[position]]);
-            Name1.setText(name1[position]);
+            Name1.setText(" " + name1[position]);
             number1.setText(list1[position]);
             time1.setText(timesee1[position]);
             progressBar1.setMax(Integer.valueOf(steptotal1[position]));

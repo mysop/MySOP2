@@ -30,7 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:singleLine="true"
             android:layout_marginTop="77dp"
-            android:background="#99acacac"
+            android:background="#789f291f"
             android:autoText="false" />
 
         <LinearLayout
@@ -38,7 +38,7 @@
             android:layout_width="fill_parent"
             android:layout_height="20dp"
             android:weightSum="1"
-            android:background="#99acacac">
+            android:background="#789f291f">
 
             <TextView
                 android:id="@+id/txtengname"

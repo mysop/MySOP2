@@ -8,15 +8,14 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:id="@+id/mysoplogo" />
+        android:id="@+id/mysoplogo"
+        android:scaleType="fitXY" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="186dp"
-        android:layout_height="wrap_content"
-        android:background="#80ff0000"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
         android:gravity="left"
-        android:layout_below="@+id/mysoplogo"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -28,7 +27,8 @@
             android:textSize="18dp"
             android:layout_gravity="center_horizontal"
             android:singleLine="true"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginTop="77dp"
+            android:background="#80ff0000" />
 
         <LinearLayout
             android:orientation="horizontal"

@@ -98,7 +98,7 @@ public class StepActionControlGPS extends Activity {
             //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
             // 最後則帶入定位更新Listener。
             mLocationManager.requestLocationUpdates
-                    (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
+                    (LocationManager.GPS_PROVIDER,0,10000.0f,LocationChange);
 
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(this);
             dialog1.setMessage("GPS...Please... wait");

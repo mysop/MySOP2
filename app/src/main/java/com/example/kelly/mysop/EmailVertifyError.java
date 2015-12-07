@@ -43,8 +43,8 @@ public class EmailVertifyError extends Activity {
 //        Intent it = new Intent(this,Emailverify.class);
 //        startActivity(it);
 
-         Intent i = new Intent(this, Search.class);
-       // Intent i = new Intent(this, Home.class);
+        // Intent i = new Intent(this, Search.class);
+        Intent i = new Intent(this, Home.class);
         Bundle bundle = new Bundle();
         bundle.putString("TAG_Key", "");
         i.putExtras(bundle);	//將參數放入intent

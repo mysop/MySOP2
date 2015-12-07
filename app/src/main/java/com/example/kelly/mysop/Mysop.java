@@ -181,13 +181,20 @@ public class Mysop extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.title_activity_changepassword:
+                startActivity(new Intent().setClass(Mysop.this, Changepassword.class));
+                break;
+            case R.id.title_activity_searching:
+                startActivity(new Intent().setClass(Mysop.this, Search.class));
+                break;
+            case R.id.title_activity_dynamic_action:
+                startActivity(new Intent().setClass(Mysop.this, DynamicAction.class));
+
+
+            return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
     //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;

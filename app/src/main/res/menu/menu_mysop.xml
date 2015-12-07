@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.example.kelly.mysop.Mysop">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/title_activity_changepassword" android:title="@string/title_activity_changepassword"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/title_activity_searching" android:title="@string/title_activity_searching"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/title_activity_dynamic_action" android:title="@string/title_activity_dynamic_action"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>

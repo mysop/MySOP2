@@ -105,7 +105,7 @@ public class Mysop extends Activity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mysop);
         listInput = (ListView)findViewById(R.id.list_sop);
@@ -192,8 +192,10 @@ public class Mysop extends Activity {
                 startActivity(new Intent().setClass(Mysop.this, DynamicAction.class));
 
 
-            return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
+        //少下面的return
+        return false;
     }
     //圖片網址
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

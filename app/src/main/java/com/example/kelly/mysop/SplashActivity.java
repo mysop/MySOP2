@@ -20,7 +20,13 @@ public class SplashActivity extends Activity {
                 // TODO Auto-generated method stub
                 try {
                     Thread.sleep(3000);
-                    startActivity(new Intent().setClass(SplashActivity.this, Login.class));
+                    //Intent i = new Intent(this, Search.class);
+                     Intent i = new Intent(SplashActivity.this, Home.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_Key", "");
+                    i.putExtras(bundle);	//將參數放入intent
+                    startActivity(i);
+                   // startActivity(new Intent().setClass(SplashActivity.this, Login.class));
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

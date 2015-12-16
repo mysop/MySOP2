@@ -149,11 +149,17 @@
             android:name=".EmailVertifyError"
             android:label="@string/title_activity_email_vertify_error"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+
         </activity>
         <activity
             android:name=".RegisterError"
@@ -164,11 +170,7 @@
             android:name=".Mysop"
             android:label="@string/title_activity_mysop"
             android:theme="@style/MyTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Content"
@@ -303,6 +305,7 @@
             android:name=".Search"
             android:label="@string/title_activity_search" >
         </activity>
+
         <activity
             android:name=".DynamicAction"
             android:label="@string/title_activity_dynamic_action"

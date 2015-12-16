@@ -3,19 +3,16 @@ package com.example.kelly.mysop;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +22,6 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 
 public class StepActionControlGPS extends Activity {
@@ -98,7 +93,7 @@ public class StepActionControlGPS extends Activity {
             //(若欲以GPS為定位抓取方式則更改成LocationManager.GPS_PROVIDER)
             // 最後則帶入定位更新Listener。
             mLocationManager.requestLocationUpdates
-                    (LocationManager.GPS_PROVIDER,0,10000.0f,LocationChange);
+                    (LocationManager.NETWORK_PROVIDER,0,10000.0f,LocationChange);
 
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(this);
             dialog1.setMessage("GPS...Please... wait");

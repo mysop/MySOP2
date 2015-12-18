@@ -7,17 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
@@ -42,7 +38,7 @@ public class StepCaseEnding extends Activity {
     public int Step=1;
 
     //先寫死帳號和 SOPnumber
-   // String TAG_ACCOUNT = "test@gmail.com";
+    String TAG_ACCOUNT = "";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> valueList;
     JSONArray products = null;
@@ -64,7 +60,7 @@ public class StepCaseEnding extends Activity {
     JSONParser jParser = new JSONParser();
     EditText[] edit = new EditText[20];
     String RecordText[] = new String[20];
-    String TAG_CASE_NUMBER="1";
+    String TAG_CASE_NUMBER="";
     //紀錄step_order record_order
     String steporder[];
     String recordorder[];
@@ -79,8 +75,8 @@ public class StepCaseEnding extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        //TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");	//輸出Bundle內容
-        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_CASE_NUMBER = bundle.getString("TAG_CASE_NUMBER");	//輸出Bundle內容
+         TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
         valueList = new ArrayList<HashMap<String, String>>();

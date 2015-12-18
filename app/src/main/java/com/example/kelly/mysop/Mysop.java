@@ -77,7 +77,7 @@ public class Mysop extends Activity {
     JSONArray products1 = null;
 
    //帳號先寫死
-    String TAG_ACCOUNT = "test@gmail.com";
+    String TAG_ACCOUNT = "";
 
 
     //存casenumber  sopname
@@ -113,7 +113,7 @@ public class Mysop extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-       // TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
                 // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -184,7 +184,11 @@ public class Mysop extends Activity {
                 startActivity(new Intent().setClass(Mysop.this, Changepassword.class));
                 break;
             case R.id.title_activity_searching:
-                startActivity(new Intent().setClass(Mysop.this, Search.class));
+                Intent i = new Intent(this, Search.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG_Key", "");
+                i.putExtras(bundle);	//將參數放入intent
+                startActivity(i);
                 break;
             case R.id.title_activity_dynamic_action:
                 startActivity(new Intent().setClass(Mysop.this, DynamicAction.class));

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-//import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,24 +23,22 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import android.widget.AdapterView.OnItemClickListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//import android.support.v7.app.ActionBarActivity;
 
 
 public class Search extends Activity {
@@ -64,7 +61,7 @@ public class Search extends Activity {
     List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
    // SimpleAdapter adapter;
     //帳號先寫死 下一個是關鍵字(要傳進來“” 不然會死掉)
-    String TAG_ACCOUNT = "abc@gmail.com";
+    String TAG_ACCOUNT = "";
     String TAG_Key="";
 
     //搜尋相關
@@ -100,7 +97,7 @@ public class Search extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-        // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+         TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
         TAG_Key = bundle.getString("TAG_Key");
 
         new LoadSearch().execute();

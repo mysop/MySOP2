@@ -35,13 +35,17 @@ public class Changepassword extends Activity {
     JSONParser jsonParser = new JSONParser();
     private static String url_changepassword = "http://140.115.80.237/front/mysop_changePassword.jsp";
     private static final String TAG_SUCCESS = "success";
-    static String TAG_ACCOUNT = "q@gmail.com";
+    static String TAG_ACCOUNT = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changepassword);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
 
         et1 = (EditText) findViewById(R.id.Originalpassword);

@@ -9,20 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Register extends Activity {
@@ -171,19 +167,15 @@ public class Register extends Activity {
 
             try {
                 int e = json.getInt(TAG_SUCCESS);
+                Log.d("register",String.valueOf(e));
                 if(e == 1) {
                     Register.this.TAG_ACCOUNT = Register.this.et1.getText().toString();
-                    //Intent i = new Intent(Register.this.getApplicationContext(), Emailverify.class);
-                   Intent i = new Intent(Register.this.getApplicationContext(), Search.class);
 
-                    //設定傳送參數
-                    Bundle bundle = new Bundle();
-                    //bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
-                    bundle.putString("TAG_Key", "");
+                  Intent i = new Intent(Register.this, Emailverify.class);
+                  Bundle bundle = new Bundle();
+                   bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
                     i.putExtras(bundle);	//將參數放入intent
-
-                    Register.this.startActivity(i);
-                    Register.this.finish();
+                  startActivity(i);
                 }else if(e == 2){
                     //帳號有人使用了
                     Intent ii = new Intent(Register.this.getApplicationContext(),RegisterError.class);

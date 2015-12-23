@@ -1,24 +1,21 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,8 +67,8 @@ public class Content extends Activity {
     private static String url_create_product7 = "http://140.115.80.237/front/mysop_content7.jsp";
 
     TextView sopnumber;
-    String TAG_ACCOUNT = "tesr@gmail.com";
-    String TAG_SOP_NUMBER = "20150803";
+    String TAG_ACCOUNT = "";
+    String TAG_SOP_NUMBER = "";
     ArrayList<HashMap<String, String>> productsList;
     ArrayList<HashMap<String, String>> likeproductsList;
     private ProgressDialog pDialog;
@@ -118,6 +110,7 @@ public class Content extends Activity {
 
     //紀錄like時間
     String str;
+    String time;
 
 
 
@@ -151,8 +144,8 @@ public class Content extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();	//取得Bundle
-       // TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
-       // TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
+        TAG_ACCOUNT = bundle.getString("TAG_ACCOUNT");	//輸出Bundle內容
+        TAG_SOP_NUMBER = bundle.getString("TAG_SOP_NUMBER");
 
 
         // Hashmap for ListView
@@ -160,6 +153,8 @@ public class Content extends Activity {
         likeproductsList = new ArrayList<HashMap<String, String>>();
         // Loading products in Background Thread
          new SOPContent().execute();
+
+
 
 
     }
@@ -192,9 +187,13 @@ public class Content extends Activity {
 
     //加入清單 和到Mysop頁面
     public void addtolist (View v){
+        //時間
+        SimpleDateFormat formatter = new SimpleDateFormat("mmss");
+        Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+        time = formatter.format(curDate);
         new SOPContent2().execute();
-        Intent it = new Intent(this,Mysop.class);
-        startActivity(it);
+
+
     }
 
     //新增按讚
@@ -513,13 +512,20 @@ public class Content extends Activity {
             params2.add(new BasicNameValuePair("Account", TAG_ACCOUNT));
             params2.add(new BasicNameValuePair("Sopnumber", TAG_SOP_NUMBER));
             params2.add(new BasicNameValuePair("Stepnumber", STEPNUMBER) );
+            params2.add(new BasicNameValuePair("Casenumber", time) );
 
             JSONObject json2 = Content.this.jsonParser.makeHttpRequest(Content.url_create_product5,"POST",params2);
 
             try {
                 //加入清單
                 int e3 = json2.getInt(TAG_SUCCESS);
+                System.out.print("HERE"+e3);
                 if(e3 == 1) {
+                    Intent i = new Intent(Content.this, Mysop.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+                    i.putExtras(bundle);	//將參數放入intent
+                    startActivity(i);
                 }
 
             } catch (JSONException var9) {

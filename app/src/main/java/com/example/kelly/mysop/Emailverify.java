@@ -1,7 +1,6 @@
 package com.example.kelly.mysop;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,14 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class Emailverify extends Activity {
@@ -69,7 +65,12 @@ public class Emailverify extends Activity {
 
     public void emailverify_check(View view) {
 
-        (Emailverify.this.new CreateAccount()).execute(new String[0]);
+
+        Intent i = new Intent(this, Search.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+        i.putExtras(bundle);	//將參數放入intent
+        startActivity(i);
     }
 
     class CreateAccount extends AsyncTask<String, String, String> {

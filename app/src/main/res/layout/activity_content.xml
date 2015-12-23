@@ -28,7 +28,7 @@
                 android:layout_weight="0.62">
 
                 <ImageView
-                    android:layout_width="140dp"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:id="@+id/content_picture"
                     android:src="@drawable/test"
@@ -45,11 +45,12 @@
                         android:layout_width="204dp"
                         android:layout_height="wrap_content"
                         android:text="星巴克收藏好市多"
-                        android:textSize = "30dp"
+                        android:textSize = "25dp"
                         android:id="@+id/content_title"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="35dp"
-                        android:textColor="#f80d0410" />
+                        android:textColor="#f80d0410"
+                        android:layout_weight="0.29" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="122dp"
+                    android:layout_width="110dp"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="160"
@@ -113,7 +114,7 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    android:layout_width="122dp"
+                    android:layout_width="110dp"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="20"
@@ -124,7 +125,7 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    android:layout_width="122dp"
+                    android:layout_width="110dp"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="無"
@@ -153,8 +154,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="收藏量"
                     android:id="@+id/downloadtext"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#7B7B7B" />
+                    android:textColor="#7B7B7B"
+                    android:layout_marginLeft="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
@@ -162,7 +163,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="下載量"
                     android:id="@+id/textView18"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="15dp"
                     android:textColor="#7B7B7B" />
 
                 <TextView
@@ -172,7 +173,7 @@
                     android:text="啟動規則"
                     android:id="@+id/categorytext"
                     android:textColor="#7B7B7B"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginRight="3dp" />
             </LinearLayout>
 
             <HorizontalScrollView
@@ -250,7 +251,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/commentlayout">
 
                 <TextView

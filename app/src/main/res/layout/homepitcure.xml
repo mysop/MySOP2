@@ -15,7 +15,7 @@
             android:id="@+id/imglogo"
             android:layout_width="160dp"
             android:layout_height="98dp"
-            android:src="@drawable/white"
+            android:src="@drawable/mysop"
             android:layout_margin="10dp" />
 
         <LinearLayout

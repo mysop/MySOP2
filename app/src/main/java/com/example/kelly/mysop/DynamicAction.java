@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +68,7 @@ public class DynamicAction extends Activity {
     JSONArray products = null;
 
     //帳號先寫死
-    String TAG_ACCOUNT = "test@gmail.com";
+    String TAG_ACCOUNT = "";
 
 
     //存casenumber  sopname
@@ -99,7 +98,7 @@ public class DynamicAction extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        //TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
+        TAG_ACCOUNT=bundle.getString("TAG_ACCOUNT");
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();

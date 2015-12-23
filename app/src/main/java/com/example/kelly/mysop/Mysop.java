@@ -181,19 +181,30 @@ public class Mysop extends Activity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.title_activity_changepassword:
-                startActivity(new Intent().setClass(Mysop.this, Changepassword.class));
-                break;
-            case R.id.title_activity_searching:
-                Intent i = new Intent(this, Search.class);
+                Intent i = new Intent(this, Changepassword.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("TAG_Key", "");
+                bundle.putString("TAG_ACCOUNT", TAG_ACCOUNT);
                 i.putExtras(bundle);	//將參數放入intent
                 startActivity(i);
                 break;
+            case R.id.title_activity_searching:
+                Intent i2 = new Intent(this, Search.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("TAG_Key", "");
+                Bundle bundle3 = new Bundle();
+                bundle3.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+                i2.putExtras(bundle2);	//將參數放入intent
+                i2.putExtras(bundle3);
+                startActivity(i2);
+                break;
             case R.id.title_activity_dynamic_action:
-                startActivity(new Intent().setClass(Mysop.this, DynamicAction.class));
+               // startActivity(new Intent().setClass(Mysop.this, DynamicAction.class));
 
-
+                Intent i4 = new Intent(this, DynamicAction.class);
+                Bundle bundle4 = new Bundle();
+                bundle4.putString("TAG_ACCOUNT", TAG_ACCOUNT);
+                i4.putExtras(bundle4);	//將參數放入intent
+                startActivity(i4);
                 return super.onOptionsItemSelected(item);
         }
         //少下面的return
@@ -368,7 +379,7 @@ public class Mysop extends Activity {
                 name[i] = productsList.get(i).get(TAG_SOPNAME);
                 photo[i]=productsList.get(i).get(TAG_PICTURE);
                 steporder[i]=productsList.get(i).get(TAG_ORDER);
-                steptotal[i]=productsList1.get(i).get(TAG_TATOL);
+             //   steptotal[i]=productsList1.get(i).get(TAG_TATOL);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                        // cagetory.setText("人工啟動");
@@ -473,7 +484,7 @@ public class Mysop extends Activity {
                 name1[k] = productsList.get(i).get(TAG_SOPNAME);
                 photo1[k]=productsList.get(i).get(TAG_PICTURE);
                 steporder1[k]=productsList.get(i).get(TAG_ORDER);
-                steptotal1[k]=productsList1.get(i).get(TAG_TATOL);
+              //  steptotal1[k]=productsList1.get(i).get(TAG_TATOL);
                 switch (productsList.get(i).get(TAG_STARTRULE)){
                     case "1":
                         // cagetory.setText("人工啟動");
@@ -629,8 +640,8 @@ public class Mysop extends Activity {
             Name.setText(" "+name[position]);
             number.setText(list[position]);
             time.setText(timesee[position]);
-            progressBar.setMax(Integer.valueOf(steptotal[position]));
-            progressBar.setProgress(Integer.valueOf(steporder[position]) - 1);
+         //   progressBar.setMax(Integer.valueOf(steptotal[position]));
+         //   progressBar.setProgress(Integer.valueOf(steporder[position]) - 1);
 
             return convertView;
         }
@@ -688,8 +699,8 @@ public class Mysop extends Activity {
             Name1.setText(" " + name1[position]);
             number1.setText(list1[position]);
             time1.setText(timesee1[position]);
-            progressBar1.setMax(Integer.valueOf(steptotal1[position]));
-            progressBar1.setProgress(Integer.valueOf(steporder1[position])-1);
+          //  progressBar1.setMax(Integer.valueOf(steptotal1[position]));
+          //  progressBar1.setProgress(Integer.valueOf(steporder1[position])-1);
 
             return convertView;
         }
